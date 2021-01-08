@@ -8,7 +8,9 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Tabel Kegiatan SMK Muhammadiyah Karangmojo</h6>
-                <small>Klik <b>ABSEN</b> untuk megikuti kegiatan</small>
+                <small>Klik tombol <br />
+                    <i class="fa fa-edit"></i> untuk megikuti kegiatan<br />
+                    <i class="fa fa-eye"></i> untuk melihat daftar peserta</small>
             </div>
             <div class="card-body">
                 <?= $this->session->flashdata('message'); ?>
