@@ -341,8 +341,8 @@ class Home extends CI_Controller
         $message =
             'Nama : ' . $this->input->post('name') . '<br/>' .
             'Phone : ' . $this->input->post('phone') . '<br/>' .
-            'Email : ' . $this->input->post('email') . '<br/>' .
-            'Kritik dan Saran' . '<br/>' .
+            'Email : ' . $this->input->post('email') . '<br/>' . '<br/>' .
+            'Kritik dan Saran :' . '<br/>' .
             $this->input->post('message');
 
         // Konfigurasi email
@@ -372,16 +372,15 @@ class Home extends CI_Controller
         // $this->email->attach('https://masrud.com/content/images/20181215150137-codeigniter-smtp-gmail.png');
 
         // Subject email
-        $this->email->subject($name);
+        $this->email->subject('Aplikasi Absensi');
 
         // Isi email
         $this->email->message($message);
 
         // Tampilkan pesan sukses atau error
-        if ($this->email->send()) {
-            echo 'Sukses! email berhasil dikirim.';
-        } else {
-            echo 'Error! email tidak dapat dikirim.';
-        }
+        $this->email->send();
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kritik dan saran anda berhasil dikirm ke email developer!!!</div>');
+        redirect('home');
     }
 }

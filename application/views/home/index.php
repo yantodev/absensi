@@ -1,6 +1,7 @@
    <!-- Masthead-->
    <header class="masthead">
        <div class="container">
+           <?= $this->session->flashdata('message'); ?>
            <div class="masthead-subheading">Selamat datang di Aplikasi Absensi Online SMK Muh Karangmojo!</div>
            <div class="masthead-heading text-uppercase">Sudahkah Anda absen hari ini?</div>
            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="<?= base_url('home/absen'); ?>">Absens Sekarang</a>
