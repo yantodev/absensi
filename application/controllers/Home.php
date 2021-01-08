@@ -333,4 +333,55 @@ class Home extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output('Detail Siswa.pdf', \Mpdf\Output\Destination::INLINE);
     }
+
+    public function kirim_email()
+    {
+        $name = $this->input->post('name');
+        $email = $this->input->post('email');
+        $message =
+            'Nama : ' . $this->input->post('name') . '<br/>' .
+            'Phone : ' . $this->input->post('phone') . '<br/>' .
+            'Email : ' . $this->input->post('email') . '<br/>' .
+            'Kritik dan Saran' . '<br/>' .
+            $this->input->post('message');
+
+        // Konfigurasi email
+        $config = [
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_user' => 'ekocahyanto007@gmail.com',  // Email gmail
+            'smtp_pass'   => 'C4hy4-1993',  // Password gmail
+            'smtp_crypto' => 'ssl',
+            'smtp_port'   => 465,
+            'crlf'    => "\r\n",
+            'newline' => "\r\n"
+        ];
+        $this->email->initialize($config);
+        // Load library email dan konfigurasinya
+        $this->load->library('email', $config);
+
+        // Email dan nama pengirim
+        $this->email->from($email, $name);
+
+        // Email penerima
+        $this->email->to('ekocahyanto007@gmail.com'); // Ganti dengan email tujuan
+
+        // Lampiran email, isi dengan url/path file
+        // $this->email->attach('https://masrud.com/content/images/20181215150137-codeigniter-smtp-gmail.png');
+
+        // Subject email
+        $this->email->subject($name);
+
+        // Isi email
+        $this->email->message($message);
+
+        // Tampilkan pesan sukses atau error
+        if ($this->email->send()) {
+            echo 'Sukses! email berhasil dikirim.';
+        } else {
+            echo 'Error! email tidak dapat dikirim.';
+        }
+    }
 }
