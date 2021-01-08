@@ -159,6 +159,16 @@ class Home extends CI_Controller
         $this->load->view('home/kegiatan', $data);
         $this->load->view('home/wrapper/footer', $data);
     }
+    public function detail_kegiatan($id)
+    {
+        $data['title'] = 'Home';
+        $data['data'] = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $id])->result_array();
+        $this->load->view('home/wrapper/header', $data);
+        $this->load->view('home/wrapper/navbar', $data);
+        $this->load->view('home/detail-kegiatan', $data);
+        $this->load->view('home/wrapper/footer', $data);
+    }
+
     public function absen_kegiatan($id)
     {
         $data['title'] = 'Home';

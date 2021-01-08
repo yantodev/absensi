@@ -2,7 +2,7 @@
 <section class="page-section">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Daftar Kegiatan</h2>
+            <h2 class="section-heading text-uppercase">DETAIL KEGIATAN</h2>
             <h2 class="section-subheading">SMK MUHAMMADIYAH KARANGMOJO</h2>
         </div>
         <div class="card shadow mb-4">
@@ -19,10 +19,11 @@
                         <thead>
                             <tr>
                                 <th width="50px">#</th>
-                                <th width="230px">TANGGAL</th>
-                                <th width="100px">JAM</th>
-                                <th>KEGIATAN</th>
-                                <th width="120px">Action</th>
+                                <th width="100px">NBM</th>
+                                <th>NAMA</th>
+                                <th>STATUS</th>
+                                <th>ALASAN</th>
+                                <th width="50px">TTD</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,13 +31,12 @@
                             <?php foreach ($data as $d) : ?>
                                 <tr>
                                     <td scope="row"><?= $i; ?></td>
-                                    <td><?= tgl($d['tgl']); ?></td>
-                                    <td><?= $d['time']; ?></td>
-                                    <td><?= $d['kegiatan']; ?></td>
-                                    <td>
-                                        <a href="<?= base_url('home/absen_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Absen Sekarang"></i></a>
-                                        <a href="<?= base_url('home/detail_kegiatan/') . $d['id']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="View Detail"></i></a>
-                                    </td>
+                                    <td><?= $d['nbm']; ?></td>
+                                    <td><?= $d['nama']; ?></td>
+                                    <td><?= $d['status']; ?></td>
+                                    <td><?= $d['alasan']; ?></td>
+                                    <td><img src="<?= base_url() . $d['ttd']; ?>" width="50px" height="50px"></td>
+
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
