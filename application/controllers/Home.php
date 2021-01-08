@@ -6,9 +6,6 @@ class Home extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        // if (!$this->session->userdata('email')) {
-        //     redirect('auth');
-        // }
         $this->load->model('Admin_model');
         $this->load->model('Home_model');
     }

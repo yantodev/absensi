@@ -11039,8 +11039,8 @@ img::-moz-selection {
 		padding-top: 0.5rem;
 		padding-bottom: 0.5rem;
 		border: none;
-		/* background-color: #3089e2; */
-		background-color: transparent;
+		background-color: #3089e2;
+		/* background-color: transparent; */
 		transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
 	}
 
