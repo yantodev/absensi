@@ -31,7 +31,10 @@
                                     <td><?= tgl($d['tgl']); ?></td>
                                     <td><?= $d['time']; ?></td>
                                     <td><?= $d['kegiatan']; ?></td>
-                                    <td><a href="<?= base_url('home/absen_kegiatan/') . $d['id']; ?>"><button class="btn btn-primary">ABSEN</button></a></td>
+                                    <td>
+                                        <a href="<?= base_url('home/absen_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Absen Sekarang"></i></a>
+                                        <a href="<?= base_url('home/absen_kegiatan/') . $d['id']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="View Detail"></i></a>
+                                    </td>
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
@@ -71,57 +74,3 @@
         </div>
     </div>
 </div>
-
-<!-- //tanda tangan -->
-<!-- <script src="<?= base_url(); ?>/assets/frontend/js/signature-pad.js"></script>
-<script>
-    var wrapper = document.getElementById("signature-pad"),
-        clearButton = wrapper.querySelector("[data-action=clear]"),
-        saveButton = wrapper.querySelector("[data-action=save]"),
-        canvas = wrapper.querySelector("canvas"),
-        signaturePad;
-    var today = new Date();
-    // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
-    function resizeCanvas() {
-        var ratio = window.devicePixelRatio || 1;
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
-    }
-    signaturePad = new SignaturePad(canvas);
-
-    clearButton.addEventListener("click", function(event) {
-        signaturePad.clear();
-    });
-    saveButton.addEventListener("click", function(event) {
-
-        if (signaturePad.isEmpty()) {
-            $('#myModal').modal('show');
-        } else {
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>home/update_DH",
-                data: {
-                    'image': signaturePad.toDataURL(),
-                    'nbm': $('#nbm').val(),
-                    'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
-                    'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-                },
-                success: function(datas1) {
-                    signaturePad.clear();
-                    $('#myModal2').modal('show');
-                    setTimeout(function() {
-                        window.location.reload(1);
-                    }, 3000);
-                    $('.success').html(datas1);
-                }
-            });
-        }
-    });
-</script> -->
-
-<!-- </body>
-
-</html> -->
