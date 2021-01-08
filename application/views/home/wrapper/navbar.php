@@ -8,9 +8,10 @@
                </button>
                <div class="collapse navbar-collapse" id="navbarResponsive">
                    <ul class="navbar-nav text-uppercase ml-auto">
+                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url(''); ?>">Home</a></li>
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/kegiatan'); ?>">Kegiatan</a></li>
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/absen'); ?>">Absen</a></li>
-                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Kritik & Saran</a></li>
+                       <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Kritik & Saran</a></li> -->
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('auth'); ?>">Login</a></li>
                    </ul>
                </div>
