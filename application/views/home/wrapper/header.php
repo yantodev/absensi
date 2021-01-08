@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Sistem Informasi SMK Muhammadiyah Karangmojo">
+    <meta name="description" content="Aplikasi Absensi Online SMK Muhammadiyah Karangmojo">
     <meta name="author" content="Eko Cahyanto">
     <title><?= $title; ?></title>
     <link rel="icon" href="<?= base_url(); ?>/assets/home/logo/favicon.ico">
