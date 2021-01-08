@@ -3,6 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_Model
 {
+
+    public function absen($id, $date)
+    {
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get_where('tbl_dh', ['level' => $id, 'date_in' => $date])->result_array();
+    }
     public function siswa($nis)
     {
         return $this->db->get_where('master', ['nis' => $nis])->result_array();

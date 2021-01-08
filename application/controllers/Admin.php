@@ -18,9 +18,9 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/index', $data);
         $this->load->view('wrapper/footer');
     }
@@ -29,9 +29,9 @@ class Admin extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'My Profile';
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/profile', $data);
         $this->load->view('wrapper/footer');
     }
@@ -45,9 +45,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('password2', 'Ulangi password', 'required|trim|min_length[8]|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/change-password', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -75,6 +75,20 @@ class Admin extends CI_Controller
         }
     }
 
+    public function absen()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar Absensi';
+        $id = $this->input->get('level');
+        $date = $this->input->get('date');
+        $data['data'] = $this->Admin_model->absen($id, $date);
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/absen', $data);
+        $this->load->view('wrapper/footer');
+    }
+
     public function data()
     {
         $data['title'] = 'Data siswa';
@@ -86,9 +100,9 @@ class Admin extends CI_Controller
         $data['jurusan'] = $this->Admin_model->getJurusan();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => $jurusan,])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/data-siswa', $data);
         $this->load->view('wrapper/footer');
     }
@@ -99,9 +113,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/detail-siswa', $data);
         $this->load->view('wrapper/footer');
     }
@@ -119,9 +133,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('nama_pejabat', 'Nama Pejabat/Pemilik', 'required');
         $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/edit-siswa', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -148,9 +162,9 @@ class Admin extends CI_Controller
         $data['jurusan'] = $this->Admin_model->getJurusan();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => $jurusan,])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -166,9 +180,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Teknik Kendaraan Ringan Otomotif'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tkro/nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -179,9 +193,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tkro/detail-nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -194,9 +208,9 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('nilai_1', 'Nilai Disiplin', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/tkro/edit-nilai', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -215,9 +229,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Teknik Bisnis Sepeda Motor'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tbsm/nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -228,9 +242,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tbsm/detail-nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -243,9 +257,9 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('nilai_1', 'Nilai Disiplin', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/tbsm/edit-nilai', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -264,9 +278,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Akuntansi dan Keuangan Lembaga'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/akl/nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -277,9 +291,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/akl/detail-nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -292,9 +306,9 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('nilai_1', 'Nilai Disiplin', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/akl/edit-nilai', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -313,9 +327,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Otomatisasi dan Tata Kelola Perkantoran'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/otkp/nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -326,9 +340,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/otkp/detail-nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -341,9 +355,9 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('nilai_1', 'Nilai Disiplin', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/otkp/edit-nilai', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -362,9 +376,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Bisnis Daring dan Pemasaran'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/bdp/nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -375,9 +389,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/bdp/detail-nilai', $data);
         $this->load->view('wrapper/footer');
     }
@@ -390,9 +404,9 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('nilai_1', 'Nilai Disiplin', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/bdp/edit-nilai', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -406,9 +420,9 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Cetak Sertifikat';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/sertifikat');
         $this->load->view('wrapper/footer');
     }
@@ -422,9 +436,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Teknik Kendaraan Ringan Otomotif'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tkro/sertifikat', $data);
         $this->load->view('wrapper/footer');
     }
@@ -435,9 +449,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tkro/sertifikat-depan', $data);
         $this->load->view('wrapper/footer');
 
@@ -466,9 +480,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tkro/sertifikat-belakang', $data);
         $this->load->view('wrapper/footer');
 
@@ -500,9 +514,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Teknik Bisnis Sepeda Motor'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tbsm/sertifikat', $data);
         $this->load->view('wrapper/footer');
     }
@@ -513,9 +527,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tbsm/sertifikat-depan', $data);
         $this->load->view('wrapper/footer');
 
@@ -545,9 +559,9 @@ class Admin extends CI_Controller
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
         $data['jurusan'] = $this->Admin_model->Jurusan();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/tbsm/sertifikat-belakang', $data);
         $this->load->view('wrapper/footer');
 
@@ -574,9 +588,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Akuntansi dan Keuangan Lembaga'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/akl/sertifikat', $data);
         $this->load->view('wrapper/footer');
     }
@@ -587,9 +601,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/akl/sertifikat-depan', $data);
         $this->load->view('wrapper/footer');
 
@@ -614,9 +628,9 @@ class Admin extends CI_Controller
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
         $data['jurusan'] = $this->Admin_model->Jurusan();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/akl/sertifikat-belakang', $data);
         $this->load->view('wrapper/footer');
 
@@ -643,9 +657,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Otomatisasi dan Tata Kelola Perkantoran'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/otkp/sertifikat', $data);
         $this->load->view('wrapper/footer');
     }
@@ -656,9 +670,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/otkp/sertifikat-depan', $data);
         $this->load->view('wrapper/footer');
 
@@ -683,9 +697,9 @@ class Admin extends CI_Controller
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
         $data['jurusan'] = $this->Admin_model->Jurusan();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/otkp/sertifikat-belakang', $data);
         $this->load->view('wrapper/footer');
 
@@ -712,9 +726,9 @@ class Admin extends CI_Controller
         $data['tp'] = $this->Admin_model->getTP();
         $data['data'] = $this->db->get_where('master', ['tp' => $tp, 'jurusan' => 'Bisnis Daring dan Pemasaran'])->result_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/bdp/sertifikat', $data);
         $this->load->view('wrapper/footer');
     }
@@ -725,9 +739,9 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/bdp/sertifikat-depan', $data);
         $this->load->view('wrapper/footer');
 
@@ -752,9 +766,9 @@ class Admin extends CI_Controller
         $data['siswa'] = $this->Admin_model->getSiswaById($id);
         $data['jurusan'] = $this->Admin_model->Jurusan();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/bdp/sertifikat-belakang', $data);
         $this->load->view('wrapper/footer');
 
@@ -776,9 +790,9 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Master Data';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/master-data', $data);
         $this->load->view('wrapper/footer');
     }
@@ -796,9 +810,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('iduka', 'Iduka/Instansi', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat Iduka', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/iduka', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -818,9 +832,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('iduka', 'Iduka/Instansi', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat Iduka/Instansi', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/edit-iduka', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -838,9 +852,9 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('pengumuman', 'pengumuman', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/pengumuman', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -893,9 +907,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('nomor', 'nomor', 'required');
         $this->form_validation->set_rules('lampiran', 'lampiran', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/surat-pkl', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -928,9 +942,9 @@ class Admin extends CI_Controller
         $data['data'] =  $this->Admin_model->getJurusan();
         // $data['guru2'] =  $this->Admin_model->getGuruby();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/guru', $data);
         $this->load->view('wrapper/footer');
     }
@@ -944,9 +958,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('nama', 'nama', 'required');
         $this->form_validation->set_rules('nbm', 'nbm', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/edit-guru', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -977,9 +991,9 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('nis[]', 'NIS', 'required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('wrapper/header', $data);
+            $this->load->view('admin/wrapper/header', $data);
             $this->load->view('admin/wrapper/sidebar', $data);
-            $this->load->view('wrapper/topbar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
             $this->load->view('admin/tambah-siswa', $data);
             $this->load->view('wrapper/footer');
         } else {
@@ -1013,9 +1027,9 @@ class Admin extends CI_Controller
         $data['title'] = 'Reset Password';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->load->view('wrapper/header', $data);
+        $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('wrapper/topbar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/reset-password', $data);
         $this->load->view('wrapper/footer');
     }

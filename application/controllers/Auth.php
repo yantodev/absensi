@@ -46,16 +46,16 @@ class Auth extends CI_Controller
                         redirect('administrator');
                     } else {
                         if ($user['role_id'] == 2) {
-                            redirect('menu');
+                            redirect('admin');
                         } else {
                             if ($user['role_id'] == 3) {
-                                redirect('admin');
+                                redirect('guru');
                             } else {
                                 if ($user['role_id'] == 4) {
-                                    redirect('tkro');
+                                    redirect('karyawan');
                                 } else {
                                     if ($user['role_id'] == 5) {
-                                        redirect('tbsm');
+                                        redirect('siswa');
                                     } else {
                                         if ($user['role_id'] == 6) {
                                             redirect('akl');

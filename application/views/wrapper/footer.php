@@ -39,7 +39,7 @@
      <script src="<?= base_url(); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
      <!-- Page level custom scripts -->
-     <script src="<?= base_url(); ?>assets/js/demo/datatables-demo.js"></script>
+     <script src="<?= base_url(); ?>/assets/js/demo/datatables-demo.js"></script>
      <script>
          $('.custom-file-input').on('change', function() {
              let fileName = $(this).val().split('\\').pop();
