@@ -10,18 +10,16 @@ $tgl = date('Y-m-d');
         </div>
         <div class="row">
             <div class="col-lg-4">
-                <a href="<?= base_url(); ?>">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="<?= base_url(); ?>/assets/frontend/assets/img/team/student.png" alt="" />
-                        <h4>Siswa</h4>
-                        <a href="<?= base_url('home/absen_guru'); ?>">
-                            <button class="btn btn-primary">MASUK</button>
-                        </a>
-                        <a href="<?= base_url('home/absen_guru'); ?>">
-                            <button class="btn btn-danger">PULANG</button>
-                        </a>
-                    </div>
-                </a>
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="<?= base_url(); ?>/assets/frontend/assets/img/team/student.png" alt="" />
+                    <h4>Siswa</h4>
+                    <a href="<?= base_url('home/siswa_masuk'); ?>">
+                        <button class="btn btn-primary">MASUK</button>
+                    </a>
+                    <a href="<?= base_url('home/siswa_pulang'); ?>">
+                        <button class="btn btn-danger">PULANG</button>
+                    </a>
+                </div>
             </div>
             <div class="col-lg-4">
 

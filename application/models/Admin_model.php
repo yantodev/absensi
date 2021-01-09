@@ -3,12 +3,46 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_Model
 {
-
-    public function absen($id, $date)
+    public function aktivitas()
+    {
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get_where('aktivitas',)->result_array();
+    }
+    public function absen_hr($id, $date)
     {
         $this->db->order_by('id', 'DESC');
         return $this->db->get_where('tbl_dh', ['level' => $id, 'date_in' => $date])->result_array();
     }
+    public function absen_bln($id)
+    {
+        $this->db->order_by('name', 'ASC');
+        return $this->db->get_where('user', ['status_id' => $id])->result_array();
+    }
+    public function detail_absen_bln($nbm, $bln)
+    {
+        $this->db->order_by('id', 'ASC');
+        return $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'bulan' => $bln])->result_array();
+    }
+    public function edit_absen()
+    {
+        $data = [
+            'time_in' => htmlspecialchars($this->input->post('time_in', true)),
+            'time_out' => htmlspecialchars($this->input->post('time_out', true)),
+
+        ];
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('tbl_dh', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('name', true)),
+            'kegiatan' => 'Merubah absensi harian ' . $this->input->post('nama') . '</br>jam masuk ' .
+                $this->input->post('time_in') . '</br>jam pulang ' . $this->input->post('time_out'),
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
+
+
+    //data lama
     public function siswa($nis)
     {
         return $this->db->get_where('master', ['nis' => $nis])->result_array();

@@ -29,16 +29,19 @@ class Home extends CI_Controller
         $this->load->view('home/absen', $data);
         $this->load->view('home/wrapper/footer', $data);
     }
-    public function pulang()
+    public function siswa_masuk()
     {
         $data['title'] = 'Form Absen';
-        $data['nbm'] = $this->Home_model->getNBM();
+        $data['nis'] = $this->Home_model->getNIS();
         $nbm = $this->input->get('nbm');
         $date = $this->input->get('date');
         $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'date_in' => $date])->result_array();
+        $$data['nis'] = $this->Home_model->getNIS();
+        $tgl = date('Y-m-d');
+        $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['tgl' => $tgl])->row_array();
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
-        $this->load->view('home/pulang', $data);
+        $this->load->view('home/siswa-masuk', $data);
         $this->load->view('home/wrapper/footer', $data);
     }
     public function absen_gukar_masuk()
@@ -62,94 +65,6 @@ class Home extends CI_Controller
         $this->load->view('home/wrapper/footer', $data);
     }
 
-    public function nama()
-    {
-        $nbm = $this->input->get('nbm');
-        $iduka = $this->Home_model->nama($nbm);
-        foreach ($iduka as $data) {
-            $lists = "<option value='" . $data->nama . "'>" . $data->nama . "</option>";
-        }
-        $callback = array('list_nama' => $lists);
-        echo json_encode($callback);
-    }
-
-    public function email()
-    {
-        $nbm = $this->input->get('nbm');
-        $iduka = $this->Home_model->nama($nbm);
-        foreach ($iduka as $data) {
-            $lists = "<option value='" . $data->email . "'>" . $data->email . "</option>";
-        }
-        $callback = array('list_email' => $lists);
-        echo json_encode($callback);
-    }
-    public function status()
-    {
-        $nbm = $this->input->get('nbm');
-        $iduka = $this->Home_model->nama($nbm);
-        foreach ($iduka as $data) {
-            $lists = "<option value='" . $data->status . "'>" . status($data->status) . "</option>";
-        }
-        $callback = array('list_level' => $lists);
-        echo json_encode($callback);
-    }
-
-    public function insert_DH()
-    {
-        $img = $_POST['image'];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $file = './signature-image/daftar-hadir/' . uniqid() . '.png';
-        $success = file_put_contents($file, $data);
-        $image = str_replace('./', '', $file);
-
-        // $id = $_POST['id'];
-        $nbm = $_POST['nbm'];
-        $nama = $_POST['nama'];
-        $email = $_POST['email'];
-        $bulan = $_POST['bulan'];
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $status = $_POST['status'];
-        $alasan = $_POST['alasan'];
-        $level = $_POST['level'];
-        $data = array(
-            'ttd_in' => $image,
-            'nbm' => $nbm,
-            'nama' => $nama,
-            'email' => $email,
-            'bulan' => $bulan,
-            'date_in' => $date,
-            'time_in' => $time,
-            'status' => $status,
-            'alasan' => $alasan,
-            'level' => $level
-        );
-        $this->db->insert('tbl_dh', $data);
-    }
-    public function update_DH()
-    {
-        $img = $_POST['image'];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $file = './signature-image/daftar-hadir/' . uniqid() . '.png';
-        $success = file_put_contents($file, $data);
-        $image = str_replace('./', '', $file);
-
-        $nbm = $_POST['nbm'];
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $data = array(
-            'ttd_out' => $image,
-            'date_out' => $date,
-            'time_out' => $time,
-        );
-        $this->db->where('nbm', $nbm);
-        $this->db->where('date_in', $date);
-        $this->db->update('tbl_dh', $data);
-    }
     public function kegiatan()
     {
         $data['title'] = 'Home';
@@ -179,35 +94,7 @@ class Home extends CI_Controller
         $this->load->view('home/absen-kegiatan', $data);
         $this->load->view('home/wrapper/footer', $data);
     }
-    public function insert_DH_kegiatan()
-    {
-        $img = $_POST['image'];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $file = './signature-image/daftar-hadir-kegiatan/' . uniqid() . '.png';
-        $success = file_put_contents($file, $data);
-        $image = str_replace('./', '', $file);
 
-        $id_keg = $_POST['id_keg'];
-        $nbm = $_POST['nbm'];
-        $nama = $_POST['nama'];
-        $email = $_POST['email'];
-        $tgl = $_POST['date'];
-        $status = $_POST['status'];
-        $alasan = $_POST['alasan'];
-        $data = array(
-            'id_kegiatan' => $id_keg,
-            'nbm' => $nbm,
-            'nama' => $nama,
-            'email' => $email,
-            'tgl' => $tgl,
-            'status' => $status,
-            'alasan' => $alasan,
-            'ttd' => $image
-        );
-        $this->db->insert('tbl_dh_kegiatan', $data);
-    }
     public function data()
     {
         $data['title'] = 'Home';

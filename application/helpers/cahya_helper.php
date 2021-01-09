@@ -80,7 +80,33 @@ if (!function_exists('status')) {
             case 2:
                 $status = "Karyawan";
                 break;
+            case 3:
+                $status = "Siswa";
+                break;
         }
         return $status;
+    }
+}
+if (!function_exists('jurusan')) {
+    function jurusan($jurusan)
+    {
+        switch ($jurusan) {
+            case 1:
+                $jurusan = "Teknik Kendaraan Ringan Otomotif";
+                break;
+            case 2:
+                $jurusan = "Teknik Bisnis Sepda Motor";
+                break;
+            case 3:
+                $jurusan = "Akuntansi dan Keuangan Lembaga";
+                break;
+            case 4:
+                $jurusan = "Otomomatisasi dan Tata Kelola Perkantoran";
+                break;
+            case 5:
+                $jurusan = "Bisnis Daring dan Pemasaran";
+                break;
+        }
+        return $jurusan;
     }
 }

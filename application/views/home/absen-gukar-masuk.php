@@ -10,10 +10,10 @@
             <div class="align-items-center mb-5">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NBM *" data-validation-required-message="Please enter your NBM." />
+                        <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NIP/NBM *" data-validation-required-message="Please enter your NBM." />
                         <datalist id="datalistOptions">
                             <?php foreach ($nbm as $n) : ?>
-                                <option value="<?= $n['nbm']; ?>">
+                                <option value="<?= $n['no_reg']; ?>">
                                 <?php endforeach; ?>
                         </datalist>
                         <p class="help-block text-danger"></p>
@@ -131,7 +131,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>home/insert_DH",
+                url: "<?php echo base_url(); ?>js/insert_DH",
                 data: {
                     'image': signaturePad.toDataURL(),
                     'nbm': $('#nbm').val(),

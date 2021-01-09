@@ -12,7 +12,7 @@
                         <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NBM *" data-validation-required-message="Please enter your NBM." />
                         <datalist id="datalistOptions">
                             <?php foreach ($nbm as $n) : ?>
-                                <option value="<?= $n['nbm']; ?>">
+                                <option value="<?= $n['no_reg']; ?>">
                                 <?php endforeach; ?>
                         </datalist>
                         <p class="help-block text-danger"></p>
@@ -110,9 +110,10 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>home/update_DH",
+                url: "<?php echo base_url(); ?>js/update_DH",
                 data: {
                     'image': signaturePad.toDataURL(),
+                    'nama': $('#listnama').val(),
                     'nbm': $('#nbm').val(),
                     'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
                     'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),

@@ -42,7 +42,7 @@
 
                    $.ajax({
                        type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                       url: "<?php echo base_url("home/nama"); ?>", // Isi dengan url/path file php yang dituju
+                       url: "<?php echo base_url("js/nama"); ?>", // Isi dengan url/path file php yang dituju
                        data: {
                            nbm: $("#nbm").val()
                        }, // data yang akan dikirim ke file yang dituju
@@ -76,7 +76,7 @@
 
                    $.ajax({
                        type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                       url: "<?php echo base_url("home/email"); ?>", // Isi dengan url/path file php yang dituju
+                       url: "<?php echo base_url("js/email"); ?>", // Isi dengan url/path file php yang dituju
                        data: {
                            nbm: $("#nbm").val()
                        }, // data yang akan dikirim ke file yang dituju
@@ -110,7 +110,7 @@
 
                    $.ajax({
                        type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                       url: "<?php echo base_url("home/status"); ?>", // Isi dengan url/path file php yang dituju
+                       url: "<?php echo base_url("js/status"); ?>", // Isi dengan url/path file php yang dituju
                        data: {
                            nbm: $("#nbm").val()
                        }, // data yang akan dikirim ke file yang dituju
@@ -133,7 +133,94 @@
                });
            });
        </script>
-
+       <!-- Siswa -->
+       <script>
+           $(document).ready(function() {
+               $("#loading").hide();
+               $("#nis").change(function() {
+                   $("#nama").hide();
+                   $("#loading").show();
+                   $.ajax({
+                       type: "GET",
+                       url: "<?php echo base_url("js/nama_siswa"); ?>",
+                       data: {
+                           nis: $("#nis").val()
+                       },
+                       dataType: "json",
+                       beforeSend: function(e) {
+                           if (e && e.overrideMimeType) {
+                               e.overrideMimeType("application/json;charset=UTF-8");
+                           }
+                       },
+                       success: function(response) {
+                           $("#loading").hide();
+                           $("#nama").html(response.list_nama).show();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {
+                           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                       }
+                   });
+               });
+           });
+       </script>
+       <script>
+           $(document).ready(function() {
+               $("#loading").hide();
+               $("#nis").change(function() {
+                   $("#kelas").hide();
+                   $("#loading").show();
+                   $.ajax({
+                       type: "GET",
+                       url: "<?php echo base_url("js/kelas"); ?>",
+                       data: {
+                           nis: $("#nis").val()
+                       },
+                       dataType: "json",
+                       beforeSend: function(e) {
+                           if (e && e.overrideMimeType) {
+                               e.overrideMimeType("application/json;charset=UTF-8");
+                           }
+                       },
+                       success: function(response) {
+                           $("#loading").hide();
+                           $("#kelas").html(response.list_nama).show();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {
+                           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                       }
+                   });
+               });
+           });
+       </script>
+       <script>
+           $(document).ready(function() {
+               $("#loading").hide();
+               $("#nis").change(function() {
+                   $("#level").hide();
+                   $("#loading").show();
+                   $.ajax({
+                       type: "GET",
+                       url: "<?php echo base_url("js/level_siswa"); ?>",
+                       data: {
+                           nis: $("#nis").val()
+                       },
+                       dataType: "json",
+                       beforeSend: function(e) {
+                           if (e && e.overrideMimeType) {
+                               e.overrideMimeType("application/json;charset=UTF-8");
+                           }
+                       },
+                       success: function(response) {
+                           $("#loading").hide();
+                           $("#level").html(response.list_nama).show();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {
+                           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                       }
+                   });
+               });
+           });
+       </script>
 
        </body>
 

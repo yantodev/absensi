@@ -1,38 +1,38 @@
 <!-- Contact-->
-<section class="page-section">
+<section class="page-section" id="absen">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Form Absensi Kegiatan</h2>
-            <h2 class="section-subheading mb-3">"<?= $kegiatan['kegiatan']; ?>"</h2>
+            <h2 class="section-heading text-uppercase">Form Absensi Masuk</h2>
+            <h2 class="section-subheading">Silahkan masukan data anda...</h2>
+            <!-- <p style="text-align: center;"><?= $motivasi['motivasi']; ?></p> -->
         </div>
         <form id="absenForm" name="sentMessage" novalidate="novalidate">
-            <input type="hidden" name="id_keg" id="id_keg" value="<?= $kegiatan['id']; ?>">
             <div class="align-items-center mb-5">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NBM *" data-validation-required-message="Please enter your NBM." />
+                        <input class="form-control" list="datalistOptions" id="nis" name="nis" placeholder="your NIS *" data-validation-required-message="Please enter your NIS." />
                         <datalist id="datalistOptions">
-                            <?php foreach ($nbm as $n) : ?>
-                                <option value="<?= $n['nbm']; ?>">
+                            <?php foreach ($nis as $n) : ?>
+                                <option value="<?= $n['nis']; ?>">
                                 <?php endforeach; ?>
                         </datalist>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="nama" id="listnama">
+                        <select class="form-control" name="nama" id="nama">
                             <option value="">Your name *</option>
                         </select>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="email" id="email">
-                            <option value="">Your email *</option>
+                        <select class="form-control" name="kelas" id="kelas">
+                            <option value="">Pilih Kelas</option>
                         </select>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="level" id="level">
-                            <option value="">Status Kepegawaian</option>
+                            <option value="">Pilih Status</option>
                         </select>
                         <p class="help-block text-danger"></p>
                     </div>
@@ -45,13 +45,13 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group mb-md-0">
-                        <input class="form-control" id="alasan" name="alasan" placeholder="Masukan alasan Anda." />
+                        <input class="form-control" id="alasan" name="alasan" placeholder="Masukan alasan Anda" />
                         <small style="color: red;"><i>*Diisi ketika anda izin saja apabila masuk silahkan dikosongkan</i></small>
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
-                <input type="hidden" name="kegiatan" id="kegiatan" value="<?= $kegiatan['kegiatan']; ?>">
-                <!-- <input type="hidden" name="time" id="time" value="<?= time(); ?>"> -->
+                <!-- <input type="hidden" name="date" id="date" value="<?= date("d-m-Y"); ?>">
+                <input type="hidden" name="time" id="time" value="<?= time(); ?>"> -->
                 <div class="container">
                     <div class="m-signature-pad-body mb-3">
                         <p>Tanda Tangan Disini</p>
@@ -131,17 +131,18 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>js/insert_DH_kegiatan",
+                url: "<?php echo base_url(); ?>js/insert_DHS",
                 data: {
                     'image': signaturePad.toDataURL(),
-                    'id_keg': $('#id_keg').val(),
-                    'nbm': $('#nbm').val(),
-                    'nama': $('#listnama').val(),
-                    'email': $('#email').val(),
+                    'nis': $('#nis').val(),
+                    'nama': $('#nama').val(),
+                    'kelas': $('#kelas').val(),
+                    'bulan': (today.getMonth() + 1),
                     'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+                    'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
                     'status': $('#status').val(),
-                    'alasan': $('#alasan').val(),
-                    'kegiatan': $('#kegiatan').val()
+                    'level': $('#level').val(),
+                    'alasan': $('#alasan').val()
                 },
                 success: function(datas1) {
                     signaturePad.clear();

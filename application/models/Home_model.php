@@ -3,32 +3,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Home_model extends CI_Model
 {
-    function Jurusan()
+    function getNIS()
     {
-        return $this->db->get_where('tbl_jurusan')->result_array();
+        $this->db->order_by('nis', 'ASC');
+        return $this->db->get_where('tbl_siswa')->result_array();
+    }
+    function nama_siswa($nis)
+    {
+        $this->db->where('nis', $nis);
+        $result = $this->db->get('tbl_siswa')->result();
+        return $result;
     }
 
-    function Iduka($singkatan_jurusan)
-    {
-        $this->db->where('jurusan', $singkatan_jurusan);
-        $result = $this->db->get('tbl_iduka')->result();
-        return $result;
-    }
-    function alamatIduka($nama_instansi)
-    {
-        $this->db->where('iduka', $nama_instansi);
-        $result = $this->db->get('tbl_iduka')->result();
-        return $result;
-    }
     function getNBM()
     {
-        $this->db->order_by('nbm', 'ASC');
-        return $this->db->get_where('tbl_gukar')->result_array();
+        $this->db->order_by('no_reg', 'ASC');
+        return $this->db->get_where('user')->result_array();
     }
     function nama($nbm)
     {
-        $this->db->where('nbm', $nbm);
-        $result = $this->db->get('tbl_gukar')->result();
+        $this->db->where('no_reg', $nbm);
+        $result = $this->db->get('user')->result();
         return $result;
     }
 
