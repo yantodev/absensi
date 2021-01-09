@@ -9,15 +9,32 @@
     </div>
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
-        <form action="<?= base_url('bk/bln'); ?> " method="get">
-            <select name="kelas" id="kelas" required>
-                <option value="">Pilih kelas</option>
-                <?php foreach ($kls as $k) : ?>
-                    <option value="<?= $k['kelas']; ?>"><?= $k['kelas']; ?></option>
-                <?php endforeach; ?>
-            </select>
-            <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
-        </form>
+        <div class="row">
+            <form action="<?= base_url('bk/bln'); ?> " method="get">
+                <select class="form-control mb-2" name="bulan" id="bulan" required>
+                    <option value="">Pilih bulan</option>
+                    <option value="1"><?= bulan(1); ?></option>
+                    <option value="2"><?= bulan(2); ?></option>
+                    <option value="3"><?= bulan(3); ?></option>
+                    <option value="4"><?= bulan(4); ?></option>
+                    <option value="5"><?= bulan(5); ?></option>
+                    <option value="6"><?= bulan(6); ?></option>
+                    <option value="7"><?= bulan(7); ?></option>
+                    <option value="8"><?= bulan(8); ?></option>
+                    <option value="9"><?= bulan(9); ?></option>
+                    <option value="10"><?= bulan(10); ?></option>
+                    <option value="11"><?= bulan(11); ?></option>
+                    <option value="12"><?= bulan(12); ?></option>
+                </select>
+                <select class="form-control mb-2" name="kelas" id="kelas" required>
+                    <option value="">Pilih kelas</option>
+                    <?php foreach ($kls as $k) : ?>
+                        <option value="<?= $k['kelas']; ?>"><?= $k['kelas']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
+            </form>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -26,6 +43,9 @@
                         <th>NIS</th>
                         <th>NAMA</th>
                         <th>JK</th>
+                        <th>HADIR</th>
+                        <th>IZIN</th>
+                        <th>ALPHA</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,6 +57,25 @@
                             <td><?= $d['nis']; ?></td>
                             <td><?= $d['nama']; ?></td>
                             <td><?= $d['jk']; ?></td>
+                            <td align="center">
+                                <?php
+                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'status' => 'Hadir'])->result_array();
+                                echo count($count);
+                                ?>
+                            </td>
+                            <td align="center">
+                                <?php
+                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'status' => 'Izin', 'bulan' => $bulan['id']])->result_array();
+                                echo count($count);
+                                ?>
+                            </td>
+                            <td align="center">
+                                <?php
+                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'bulan' => $bulan['id']])->result_array();
+                                $data = count($count);
+                                echo $bulan['jml'] - $data;
+                                ?>
+                            </td>
                             <td>
                                 <a href="<?= base_url('bk/dtl_absn?nis=') . $d['nis'] . '&' . 'bulan='; ?>"><button class="btn btn-primary">DETAIL</button></i></a>
                             </td>

@@ -119,6 +119,8 @@ class Bk extends CI_Controller
         $data['title'] = 'Daftar Absensi Bulanan';
         $data['kls'] = $this->db->get_where('tbl_kelas')->result_array();
         $kelas = $this->input->get('kelas');
+        $bulan = $this->input->get('bulan');
+        $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
         $data['data'] = $this->bk->absen_bln($kelas);
 
         $this->load->view('bk/wrapper/header', $data);
