@@ -9,26 +9,6 @@
     </div>
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
-        <form action="<?= base_url('bk/dtl_absn'); ?> " method="get">
-            <select class="form-control col-2 mb-2" name="bulan" id="bulan">
-                <option value="">Pilih bulan</option>
-                <option value="1"><?= bulan(1); ?></option>
-                <option value="2"><?= bulan(2); ?></option>
-                <option value="3"><?= bulan(3); ?></option>
-                <option value="4"><?= bulan(4); ?></option>
-                <option value="5"><?= bulan(5); ?></option>
-                <option value="6"><?= bulan(6); ?></option>
-                <option value="7"><?= bulan(7); ?></option>
-                <option value="8"><?= bulan(8); ?></option>
-                <option value="9"><?= bulan(9); ?></option>
-                <option value="10"><?= bulan(10); ?></option>
-                <option value="11"><?= bulan(11); ?></option>
-                <option value="12"><?= bulan(12); ?></option>
-            </select>
-            <input type="hidden" name="nis" id="nis" value="<?= $id['nis']; ?>">
-            <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
-        </form>
-
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -36,7 +16,8 @@
                         <th>#</th>
                         <th>TANGGAL</th>
                         <th>NBM</th>
-                        <th>Name</th>
+                        <th>NAMA</th>
+                        <th>STATUS</th>
                         <th>MASUK</th>
                         <th>TTD</th>
                         <th>PULANG</th>
@@ -51,7 +32,8 @@
                             <td><?= $i; ?></td>
                             <td><?= tgl($d['date_in']); ?></td>
                             <td><?= $d['nbm']; ?></td>
-                            <td><?= $d['nama']; ?></td>
+                            <td><?= ucwords(strtolower($d['nama'])); ?></td>
+                            <td><?= $d['status']; ?></td>
                             <td><?= $d['time_in']; ?></td>
                             <td><img src="<?= base_url() . $d['ttd_in']; ?>" width="50px" height="50px"></td>
                             <td><?= $d['time_out']; ?></td>

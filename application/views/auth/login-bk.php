@@ -14,11 +14,11 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">
-                                        Selamat Datang di Aplikasi<br />
-                                        <b>Absensi Online</b><br />
+                                        Selamat Datang Admin<br />
+                                        <b>Bimbingan Konseling</b><br />
                                         <b>"SMK Muh Karangmojo"</b>
                                     </h1>
-                                </div> <?= $this->session->flashdata('message'); ?> <form class="user" method="POST" action="<?= base_url('auth'); ?>">
+                                </div> <?= $this->session->flashdata('message'); ?> <form class="user" method="POST" action="<?= base_url('auth/bk'); ?>">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address..." value="<?= set_value('email'); ?>">
                                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -43,9 +43,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>

@@ -6,10 +6,10 @@ class Administrator extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        // if (!$this->session->userdata('email')) {
-        //     redirect('auth');
-        // }
-        is_logged_in();
+        if (!$this->session->userdata('email')) {
+            redirect('auth');
+        }
+        // is_logged_in();
     }
 
     public function index()
@@ -38,13 +38,25 @@ class Administrator extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Role';
+        $this->db->where('id !=', 1);
+        $data['role'] = $this->db->get('user')->result_array();
 
-        $data['role'] = $this->db->get('user_role')->result_array();
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/sidebar', $data);
         $this->load->view('wrapper/topbar', $data);
         $this->load->view('administrator/role', $data);
         $this->load->view('wrapper/footer');
+    }
+    public function role_edit()
+    {
+        $status_id = $this->input->get('status_id');
+
+        $this->db->set('status_id', $status_id);
+        $this->db->where('id', $this->input->get('id'));
+        $this->db->update('user');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success col-4" role="alert">Data berhasil disimpan</div>');
+        redirect('administrator/role');
     }
 
     public function roleaccess($role_id)

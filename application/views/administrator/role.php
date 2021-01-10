@@ -1,33 +1,49 @@
-<div class="row">
-    <div class="col-lg-6">
-        <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase">DAFTAR HAK AKSES</h6>
+    </div>
+    <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
-        <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#NewRoleModal">Add New Role</a>
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($role as $r) : ?>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable">
+                <thead>
                     <tr>
-                        <th scope="row"><?= $i; ?></th>
-                        <td><?= $r['role']; ?></td>
-                        <td>
-                            <a href="<?= base_url('administrator/roleaccess/') . $r['id']; ?>" class="badge badge-warning">Access</a>
-                            <a href="" class="badge badge-success">Edit</a>
-                            <a href="" class="badge badge-danger">Hapus</a>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">NBM</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Status Admin</th>
+                        <th scope="col">Action</th>
                     </tr>
-                    <?php $i++; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($role as $r) : ?>
+                        <tr>
+                            <form action="<?= base_url('administrator/role_edit'); ?>" methode="POST">
+                                <th scope="row"><?= $i; ?></th>
+                                <td><?= $r['no_reg']; ?></td>
+                                <td><?= $r['name']; ?></td>
+                                <td><?= akun($r['role_id']); ?></td>
+                                <td>
+                                    <select name="status_id" id="status_id">
+                                        <option value="<?= $r['status_id']; ?>"><?= akun($r['status_id']); ?></option>
+                                        <option value="0">Non Aktif</option>
+                                        <option value="2">Admin Absensi</option>
+                                        <option value="6">Admin BK</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="hidden" id="id" name="id" value="<?= $r['id']; ?>">
+                                    <button type="submit" class="btn btn-primary">SAVE</button>
+                                </td>
+                            </form>
+                        </tr>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

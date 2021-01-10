@@ -55,7 +55,7 @@
                         <tr>
                             <td><?= $i; ?></td>
                             <td><?= $d['nis']; ?></td>
-                            <td><?= $d['nama']; ?></td>
+                            <td><?= ucwords(strtolower($d['nama'])); ?></td>
                             <td><?= $d['jk']; ?></td>
                             <td align="center">
                                 <?php
@@ -77,7 +77,7 @@
                                 ?>
                             </td>
                             <td>
-                                <a href="<?= base_url('bk/dtl_absn?nis=') . $d['nis'] . '&' . 'bulan='; ?>"><button class="btn btn-primary">DETAIL</button></i></a>
+                                <a href="<?= base_url('bk/dtl_absn?nis=') . $d['nis'] . '&' . 'bulan=' . $bulan['id']; ?>"><button class="btn btn-primary">DETAIL</button></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>

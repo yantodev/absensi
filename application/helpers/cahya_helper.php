@@ -39,23 +39,26 @@ if (!function_exists('akun')) {
     function akun($akun)
     {
         switch ($akun) {
+            case 0:
+                $akun = "Null";
+                break;
             case 1:
                 $akun = "Administrator";
                 break;
             case 2:
-                $akun = "Februari";
+                $akun = "Admin Absensi";
                 break;
             case 3:
-                $akun = "Admin PKL";
+                $akun = "Guru";
                 break;
             case 4:
-                $akun = "Siswa";
+                $akun = "Karyawan";
                 break;
             case 5:
-                $akun = "Guru Pembimbing PKL";
+                $akun = "Siswa";
                 break;
             case 6:
-                $akun = "Kepala Sekolah";
+                $akun = "Admin BK";
                 break;
             case 7:
                 $akun = "Ketua Komptensi Keahlian";

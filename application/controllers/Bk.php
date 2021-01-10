@@ -7,7 +7,7 @@ class Bk extends CI_Controller
     {
         parent::__construct();
         if (!$this->session->userdata('email')) {
-            redirect('auth');
+            redirect();
         }
         // is_logged_in();
         $this->load->library('form_validation');

@@ -27,7 +27,7 @@ $alpha = $efektif['jml'] - ($count->izin + $count->hadir);
         <tr>
             <td>Nama</td>
             <td>:</td>
-            <td><?= $id['nama']; ?></td>
+            <td><?= ucwords(strtolower($id['nama'])); ?></td>
         </tr>
         <tr>
             <td>Kelas</td>

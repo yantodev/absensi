@@ -7,7 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         if (!$this->session->userdata('email')) {
-            redirect('auth');
+            redirect();
         }
         // is_logged_in();
         $this->load->model('Admin_model');
@@ -124,6 +124,8 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Daftar Absensi';
         $id = $this->input->get('status_id');
+        $bulan = $this->input->get('bulan');
+        $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
         $data['level'] = $this->db->get_where('tbl_status', ['id' => $id])->row_array();
         $data['data'] = $this->Admin_model->absen_bln($id);
         $this->load->view('admin/wrapper/header', $data);
@@ -137,6 +139,8 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Daftar Absensi';
         $nbm = $this->input->get('nbm');
+        $bulan = $this->input->get('bulan');
+        $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
         $data['id'] = $this->db->get_where('user', ['no_reg' => $nbm])->row_array();
         $bulan = $this->input->get('bulan');
         $data['data'] = $this->Admin_model->detail_absen_bln($nbm, $bulan);
@@ -177,6 +181,13 @@ class Admin extends CI_Controller
         $mpdf->Output('Detail Absensi ' . $nama . '.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
+    public function hapus($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_dh');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('admin');
+    }
     //data lama
 
     public function data()
@@ -235,12 +246,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function hapus($id)
-    {
-        $this->Admin_model->hapusData($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
-        redirect('admin/data');
-    }
+
 
     public function nilai()
     {
