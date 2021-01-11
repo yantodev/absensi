@@ -13,6 +13,24 @@ class Home extends CI_Controller
 
     public function lokasi()
     {
+        $this->load->library('Geolocation');
+        $this->load->config('geolocation', true);
+
+        $config = $this->config->config['geolocation'];
+
+        $this->geolocation->initialize($config);
+        $this->geolocation->set_ip_address($ip); // IP to locate
+        // $this->geolocation->set_format('json');
+        // OR you can change the format within `config/geolocation.php` config file
+        $country = $this->geolocation->get_country();
+        var_dump($country);
+
+        // For more precision
+        $city = $this->geolocation->get_city();
+        if ($city === FALSE)
+            var_dump($this->geolocation->get_error());
+        else
+            var_dump($city);
         $this->load->library('user_agent');
         $data['browser'] = $this->agent->browser();
         $data['browser_version'] = $this->agent->version();
