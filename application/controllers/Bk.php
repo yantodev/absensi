@@ -176,4 +176,11 @@ class Bk extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output($filename, \Mpdf\Output\Destination::INLINE);
     }
+    public function hapus($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_dh');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('bk/hr');
+    }
 }
