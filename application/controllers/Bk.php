@@ -181,6 +181,7 @@ class Bk extends CI_Controller
         $this->db->where('id', $id);
         $this->db->delete('tbl_dh');
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
-        redirect('bk/hr');
+        $url = $_SERVER['HTTP_REFERER'];
+        redirect($url);
     }
 }
