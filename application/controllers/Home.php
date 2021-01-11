@@ -36,12 +36,20 @@ class Home extends CI_Controller
         $nbm = $this->input->get('nbm');
         $date = $this->input->get('date');
         $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'date_in' => $date])->result_array();
-        $$data['nis'] = $this->Home_model->getNIS();
         $tgl = date('Y-m-d');
         $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['tgl' => $tgl])->row_array();
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
         $this->load->view('home/siswa-masuk', $data);
+        $this->load->view('home/wrapper/footer', $data);
+    }
+    public function siswa_pulang()
+    {
+        $data['title'] = 'Form Absen';
+        $data['nis'] = $this->Home_model->getNIS();
+        $this->load->view('home/wrapper/header', $data);
+        $this->load->view('home/wrapper/navbar', $data);
+        $this->load->view('home/siswa-pulang', $data);
         $this->load->view('home/wrapper/footer', $data);
     }
     public function absen_gukar_masuk()

@@ -3,7 +3,7 @@
     <div class="container">
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Daftar Kegiatan</h2>
-            <h2 class="section-subheading">SMK MUHAMMADIYAH KARANGMOJO</h2>
+            <h3 class="section-subheading">SMK MUHAMMADIYAH KARANGMOJO</h3>
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">

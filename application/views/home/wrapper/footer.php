@@ -8,10 +8,6 @@
                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fas fa-globe"></i></a>
                    </div>
-                   <div class="col-lg-4 text-lg-right">
-                       <a class="mr-3" href="#!">Privacy Policy</a>
-                       <a href="#!">Terms of Use</a>
-                   </div>
                </div>
            </div>
        </footer>

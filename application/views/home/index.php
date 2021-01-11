@@ -2,13 +2,15 @@
    <header class="masthead">
        <div class="container">
            <?= $this->session->flashdata('message'); ?>
-           <div class="masthead-subheading">Selamat datang di Aplikasi Absensi Online SMK Muh Karangmojo!</div>
-           <div class="masthead-heading text-uppercase">Sudahkah Anda absen hari ini?</div>
+           <!-- <div class="masthead-subheading">Selamat datang di Aplikasi Absensi Online SMK Muh Karangmojo!</div> -->
+           <div class="masthead-heading text-uppercase">
+               Absensi Online<br />SMK Muh Karangmojo
+           </div>
            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="<?= base_url('home/absen'); ?>">Absens Sekarang</a>
        </div>
    </header>
    <!-- Contact-->
-   <section class="page-section" id="contact">
+   <!-- <section class="page-section" id="contact">
        <div class="container">
            <div class="text-center">
                <h2 class="section-heading text-uppercase">Kritik dan Saran</h2>
@@ -42,4 +44,4 @@
            </div>
            </form>
        </div>
-   </section>
+   </section> -->

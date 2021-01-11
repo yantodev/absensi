@@ -85,6 +85,40 @@ class Js extends CI_Controller
         );
         $this->db->insert('aktivitas', $master);
     }
+    public function update_DHS()
+    {
+        $img = $_POST['image'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+        $data = base64_decode($img);
+        $file = './signature-image/daftar-hadir/siswa/pulang/' . uniqid() . '.png';
+        $success = file_put_contents($file, $data);
+        $image = str_replace('./', '', $file);
+
+        // $id = $_POST['id'];
+        $nis = $_POST['nis'];
+        $nama = $_POST['nama'];
+        $kelas = $_POST['kelas'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $level = $_POST['level'];
+        $id = $_POST['id'];
+        $data = array(
+            'ttd_out' => $image,
+            'time_out' => $time
+        );
+        $this->db->where('nbm', $nis);
+        $this->db->where('date_in', $date);
+        $this->db->update('tbl_dh', $data);
+
+        $master = array(
+            'nama' => $nama,
+            'kegiatan' =>
+            'Mengisi daftar pualng tanggal ' . $date . '<br/>' .
+                'Jam pulang ' . $time
+        );
+        $this->db->insert('aktivitas', $master);
+    }
 
     //guru
     public function nama()
