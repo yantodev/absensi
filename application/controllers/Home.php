@@ -11,6 +11,10 @@ class Home extends CI_Controller
         $this->load->model('Count_model');
     }
 
+    public function lokasi()
+    {
+        $this->load->view('home/lokasi');
+    }
     public function index()
     {
         $data['title'] = 'Home';
