@@ -11,7 +11,7 @@
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url(''); ?>">Home</a></li>
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/kegiatan'); ?>">Kegiatan</a></li>
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/absen'); ?>">Absen</a></li>
-                       <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Kritik & Saran</a></li> -->
+                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/lokasi'); ?>">Lokasi</a></li>
                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                LOGIN
