@@ -13,7 +13,12 @@ class Home extends CI_Controller
 
     public function lokasi()
     {
-        $this->load->view('home/lokasi');
+        $this->load->library('user_agent');
+        $data['browser'] = $this->agent->browser();
+        $data['browser_version'] = $this->agent->version();
+        $data['os'] = $this->agent->platform();
+        $data['ip_address'] = $this->input->ip_address();
+        $this->load->view('home/lokasi', $data);
     }
     public function index()
     {
