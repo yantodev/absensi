@@ -16,7 +16,7 @@ class Admin_model extends CI_Model
     public function absen_bln($id)
     {
         $this->db->order_by('name', 'ASC');
-        return $this->db->get_where('user', ['status_id' => $id])->result_array();
+        return $this->db->get_where('user', ['role_id' => $id])->result_array();
     }
     public function detail_absen_bln($nbm, $bln)
     {

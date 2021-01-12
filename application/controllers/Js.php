@@ -147,7 +147,7 @@ class Js extends CI_Controller
         $nbm = $this->input->get('nbm');
         $iduka = $this->Home_model->nama($nbm);
         foreach ($iduka as $data) {
-            $lists = "<option value='" . $data->status_id . "'>" . status($data->status_id) . "</option>";
+            $lists = "<option value='" . $data->role_id . "'>" . status($data->role_id) . "</option>";
         }
         $callback = array('list_level' => $lists);
         echo json_encode($callback);
