@@ -12,8 +12,8 @@
         <form action="<?= base_url('admin/hr'); ?> " method="get">
             <select name="level" id="level">
                 <option value="">pilih status</option>
-                <option value="1">Guru</option>
-                <option value="2">Karyawan</option>
+                <option value="3">Guru</option>
+                <option value="4">Karyawan</option>
             </select>
             <input type="date" name="date" id="date">
             <button type="submit">VIEW</button>

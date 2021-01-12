@@ -16,7 +16,7 @@
                     <option value="<?= $k['kelas']; ?>"><?= $k['kelas']; ?></option>
                 <?php endforeach; ?>
             </select>
-            <input type="hidden" name="level" id="level" value="3">
+            <input type="hidden" name="level" id="level" value="5">
             <input type="date" name="date" id="date" required>
             <button type="submit">VIEW</button>
         </form>
