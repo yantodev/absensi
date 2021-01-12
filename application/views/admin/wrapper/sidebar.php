@@ -46,8 +46,8 @@
                 <div id="siswa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/hr'); ?>">Rekap Harian</a>
-                        <a class="collapse-item" href="<?= base_url('admin/bln'); ?>">Rekap Bulanan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/hr_siswa'); ?>">Rekap Harian</a>
+                        <a class="collapse-item" href="<?= base_url('admin/bln_siswa'); ?>">Rekap Bulanan</a>
                         <!-- <a class="collapse-item" href="<?= base_url('admin/thn'); ?>">Siswa</a> -->
                     </div>
                 </div>

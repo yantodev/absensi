@@ -12,6 +12,8 @@ class Admin extends CI_Controller
         // is_logged_in();
         $this->load->model('Admin_model');
         $this->load->model('Home_model');
+        $this->load->model('BK_model', 'bk');
+        $this->load->model('Count_model', 'count');
     }
 
     public function aktivitas()
@@ -85,7 +87,7 @@ class Admin extends CI_Controller
             }
         }
     }
-
+    //guru dan karyawan
     public function hr()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -199,6 +201,107 @@ class Admin extends CI_Controller
         $this->load->view('admin/wrapper/topbar', $data);
         $this->load->view('admin/gukar', $data);
         $this->load->view('wrapper/footer');
+    }
+
+
+    //siswa
+    public function hr_siswa()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar Absensi Harian';
+        $data['kls'] = $this->db->get_where('tbl_kelas')->result_array();
+        $level = $this->input->get('level');
+        $date = $this->input->get('date');
+        $kelas = $this->input->get('kelas');
+        $data['data'] = $this->bk->absen_hr($level, $date, $kelas);
+        $data['kelas'] = $kelas;
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/absen-harian-siswa', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function edit_hr_siswa($id)
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Edit Absensi Harian';
+        $data['data'] = $this->db->get_where('tbl_dh', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('id', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/edit-harian-siswa', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->bk->edit_absen();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('admin/edit_hr/' . $id);
+        }
+    }
+    public function bln_siswa()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar Absensi Bulanan';
+        $data['kls'] = $this->db->get_where('tbl_kelas')->result_array();
+        $kelas = $this->input->get('kelas');
+        $bulan = $this->input->get('bulan');
+        $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
+        $data['data'] = $this->bk->absen_bln($kelas);
+
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/absen-bulanan-siswa', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function dtl_absn_siswa()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar Absensi';
+        $nis = $this->input->get('nis');
+        $data['id'] = $this->db->get_where('tbl_siswa', ['nis' => $nis])->row_array();
+        $bulan = $this->input->get('bulan');
+        $data['bulan'] = $bulan;
+        $data['data'] = $this->bk->detail_absen_bln($nis, $bulan);
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/detail-absen-bulanan-siswa', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function cetak_pdf_bln_siswa()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar Absensi';
+        $nama = $this->input->get('nama');
+        $nis = $this->input->get('nis');
+        $data['id'] = $this->db->get_where('tbl_siswa', ['nis' => $nis])->row_array();
+        $bulan = $this->input->get('bulan');
+        $data['bulan'] = $bulan;
+        $data['data'] = $this->bk->detail_absen_bln($nis, $bulan);
+        $data['count'] = $this->count->bulan($bulan, $nis);
+        $data['efektif'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
+        $this->load->view('admin/cetak-pdf-bulanan-siswa', $data);
+
+        $mpdf = new \Mpdf\Mpdf(
+            [
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'setAutoTopMargin' => false
+            ]
+        );
+
+        // $mpdf->SetHTMLHeader('
+        // <div style="text-align: center; font-weight: bold;">
+        //   <img src="assets/img/pi-2020.png" width="100%" height="100%" />
+        // </div>');
+        $filename = 'Detail Absensi ' . $nama . ' bulan ' . bulan($bulan) . '.pdf';
+        $html = $this->load->view('admin/cetak-pdf-bulanan-siswa', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output($filename, \Mpdf\Output\Destination::INLINE);
     }
 
     //data lama
