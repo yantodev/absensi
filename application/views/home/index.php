@@ -4,10 +4,11 @@
            <?= $this->session->flashdata('message'); ?>
            <!-- <div class="masthead-subheading">Selamat datang di Aplikasi Absensi Online SMK Muh Karangmojo!</div> -->
            <div class="masthead-heading text-uppercase">
-               Absensi Online<br />SMK Muh Karangmojo
+               Absensi Online<br />SMK Muhammadiyah Karangmojo
            </div>
-           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="<?= base_url('home/absen'); ?>">Absens Sekarang</a>
+           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="<?= base_url('home/absen'); ?>">Absen Sekarang</a>
        </div>
+       <div class="masthead-subheading">Informasi silahkan hubungi<br /><b>Admin <a href="https://api.whatsapp.com/send?phone=6281328646069&text=Assalamu'laikum,%20Saya%20butuh%20bantuan%20tentang%20aplikasi%20absensi"><i class="fab fa-whatsapp-square"> </i> 081328646069</i></a></b></div>
    </header>
    <!-- Contact-->
    <!-- <section class="page-section" id="contact">

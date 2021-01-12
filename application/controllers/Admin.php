@@ -188,6 +188,19 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
         redirect('admin');
     }
+    public function gukar()
+    {
+        $data['title'] = 'Guru dan Karyawan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id = $this->input->get('status_id');
+        $data['data'] = $this->db->get_where('tbl_gukar', ['status' => $id])->result_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/gukar', $data);
+        $this->load->view('wrapper/footer');
+    }
+
     //data lama
 
     public function data()

@@ -12,7 +12,12 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Level</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="level" id="level" value="<?= status($data['level']); ?>" readonly>
+                        <select class="form-control" name="level" id="level">
+                            <option value="<?= $data['level']; ?>"><?= status($data['level']); ?></option>
+                            <option value="3">Guru</option>
+                            <option value="4">Karyawan</option>
+                            <option value="5">Siswa</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">

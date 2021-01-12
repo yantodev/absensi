@@ -26,6 +26,7 @@ class Bk_model extends CI_Model
     public function edit_absen()
     {
         $data = [
+            'level' => htmlspecialchars($this->input->post('level', true)),
             'time_in' => htmlspecialchars($this->input->post('time_in', true)),
             'time_out' => htmlspecialchars($this->input->post('time_out', true)),
 

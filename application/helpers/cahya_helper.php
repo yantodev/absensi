@@ -77,13 +77,13 @@ if (!function_exists('status')) {
     function status($status)
     {
         switch ($status) {
-            case 1:
+            case 3:
                 $status = "Guru";
                 break;
-            case 2:
+            case 4:
                 $status = "Karyawan";
                 break;
-            case 3:
+            case 5:
                 $status = "Siswa";
                 break;
         }

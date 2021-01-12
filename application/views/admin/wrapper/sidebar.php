@@ -60,10 +60,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <!-- <a class="collapse-item" href="<?= base_url('admin/iduka'); ?>">Data Iduka</a>
-                        <a class="collapse-item" href="<?= base_url('admin/guru'); ?>">Data Guru</a>
-                        <a class="collapse-item" href="<?= base_url('admin/suratpkl/1'); ?>">Surat Permohonan</a>
-                        <a class="collapse-item" href="<?= base_url('admin/pengumuman'); ?>">Pengumuman</a> -->
+                        <a class="collapse-item" href="<?= base_url('admin/gukar'); ?>">Data Guru & Karyawan</a>
                     </div>
                 </div>
             </li>
