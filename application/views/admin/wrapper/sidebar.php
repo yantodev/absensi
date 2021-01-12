@@ -61,6 +61,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
                         <a class="collapse-item" href="<?= base_url('admin/gukar'); ?>">Data Guru & Karyawan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/siswa'); ?>">Data Siswa</a>
                     </div>
                 </div>
             </li>

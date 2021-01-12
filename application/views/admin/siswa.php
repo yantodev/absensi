@@ -9,11 +9,12 @@
     </div>
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
-        <form action="<?= base_url('admin/gukar'); ?> " method="get">
-            <select class="form-control col-2 mb-1" name="status_id" id="status_id">
-                <option value="">Pilih status</option>
-                <option value="3">Guru</option>
-                <option value="4">Karyawan</option>
+        <form action="<?= base_url('admin/siswa'); ?> " method="get">
+            <select class="form-control col-2 mb-1" name="kelas" id="kelas">
+                <option value="">Pilih Kelas</option>
+                <?php foreach ($kelas as $k) : ?>
+                    <option value="<?= $k['kelas']; ?>"><?= $k['kelas']; ?></option>
+                <?php endforeach; ?>
             </select>
             <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
         </form>
@@ -22,10 +23,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>NBM</th>
+                        <th>NIS</th>
                         <th>NAMA</th>
                         <th>EMAIL</th>
-                        <th>JABATAN</th>
+                        <th>JK</th>
+                        <th>KELAS</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,12 +36,13 @@
                     <?php foreach ($data as $d) : ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td><?= $d['nbm']; ?></td>
+                            <td><?= $d['nis']; ?></td>
                             <td><?= $d['nama']; ?></td>
                             <td><?= $d['email']; ?></td>
-                            <td><?= $d['jabatan']; ?></td>
+                            <td><?= $d['jk']; ?></td>
+                            <td><?= $d['kelas']; ?></td>
                             <td>
-                                <a href="<?= base_url('admin/edit_gukar/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
+                                <a href="<?= base_url('admin/edit_siswa/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
                                 <!-- <a href="<?= base_url(); ?>admin/hapus_gukar/<?= $d['id']; ?>" target="_blank"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a> -->
                             </td>
                         </tr>

@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_Model
 {
-    
+
     public function aktivitas()
     {
         $this->db->order_by('id', 'DESC');
@@ -41,7 +41,55 @@ class Admin_model extends CI_Model
         ];
         $this->db->insert('aktivitas', $master);
     }
+    public function edit_gukar()
+    {
+        $data = [
+            'nbm' => htmlspecialchars($this->input->post('nbm', true)),
+            'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'email' => htmlspecialchars($this->input->post('email', true)),
+            'jabatan' => htmlspecialchars($this->input->post('jabatan', true)),
+            'hp' => htmlspecialchars($this->input->post('hp', true))
 
+        ];
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('tbl_gukar', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('user', true)),
+            'kegiatan' => 'Merubah data pribadi ' . $this->input->post('nama') . '</br>' .
+                'NBM ' . $this->input->post('nbm') . '</br>' .
+                'email ' . $this->input->post('email') . '</br>' .
+                'jabatan ' . $this->input->post('jabatan') . '</br>' .
+                'hp ' . $this->input->post('hp')
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
+    public function edit_siswa()
+    {
+        $data = [
+            'nis' => htmlspecialchars($this->input->post('nis', true)),
+            'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'email' => htmlspecialchars($this->input->post('email', true)),
+            'jk' => htmlspecialchars($this->input->post('jk', true)),
+
+
+        ];
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('tbl_siswa', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('user', true)),
+            'kegiatan' => 'Merubah data pribadi ' . $this->input->post('nama') . '</br>' .
+                'NIS ' . $this->input->post('nis') . '</br>' .
+                'email ' . $this->input->post('email') . '</br>' .
+                'Jenis Kelamin ' . $this->input->post('jk')
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
+    public function getKelas()
+    {
+        return $this->db->get_where('tbl_kelas')->result_array();
+    }
 
     //data lama
     public function siswa($nis)
@@ -105,10 +153,7 @@ class Admin_model extends CI_Model
         return $this->db->get_where('tbl_iduka', ['id' => $id])->row_array();
     }
 
-    public function getKelas()
-    {
-        return $this->db->get_where('tbl_kelas')->result_array();
-    }
+
     public function getJR($jurusan)
     {
         return $this->db->get_where('tbl_jurusan', ['singkatan_jurusan' => $jurusan])->row_array();

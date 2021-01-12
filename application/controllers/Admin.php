@@ -203,8 +203,61 @@ class Admin extends CI_Controller
         $this->load->view('wrapper/footer');
     }
 
+    public function edit_gukar($id)
+    {
+        $data['title'] = 'Edit Guru dan Karyawan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_gukar', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('id', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/edit-gukar', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->edit_gukar();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('admin/edit_gukar/' . $id);
+        }
+    }
+
 
     //siswa
+    public function siswa()
+    {
+        $data['title'] = 'Guru dan Karyawan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['kelas'] = $this->Admin_model->getKelas();
+        $kelas = $this->input->get('kelas');
+        $data['data'] = $this->db->get_where('tbl_siswa', ['kelas' => $kelas])->result_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/siswa', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function edit_siswa($id)
+    {
+        $data['title'] = 'Edit Guru dan Karyawan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_siswa', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('id', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/edit-siswa', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->edit_siswa();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('admin/edit_siswa/' . $id);
+        }
+    }
+
     public function hr_siswa()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
