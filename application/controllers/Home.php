@@ -13,7 +13,8 @@ class Home extends CI_Controller
 
     public function lokasi()
     {
-        $ip = $this->input->ip_address();
+        // $ip = $this->input->ip_address();
+        $ip = '180.245.196.93';
         $this->load->library('Geolocation');
         $this->load->config('geolocation', true);
 
@@ -21,17 +22,18 @@ class Home extends CI_Controller
 
         $this->geolocation->initialize($config);
         $this->geolocation->set_ip_address($ip); // IP to locate
-        // $this->geolocation->set_format('json');
+        $this->geolocation->set_format('json');
         // OR you can change the format within `config/geolocation.php` config file
-        $country = $this->geolocation->get_country();
-        var_dump($country);
+        // $country = $this->geolocation->get_country();
+        // var_dump($country);
 
         // For more precision
-        $city = $this->geolocation->get_city();
-        if ($city === FALSE)
-            var_dump($this->geolocation->get_error());
-        else
-            var_dump($city);
+        $data['city'] = $this->geolocation->get_city();
+
+        // if ($city === FALSE)
+        //     var_dump($this->geolocation->get_error());
+        // else
+        //     $data['city'] = $city;
         $this->load->library('user_agent');
         $data['browser'] = $this->agent->browser();
         $data['browser_version'] = $this->agent->version();

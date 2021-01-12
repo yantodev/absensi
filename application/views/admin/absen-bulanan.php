@@ -27,8 +27,8 @@
             </select>
             <select class="form-control col-2 mb-1" name="status_id" id="status_id">
                 <option value="">Pilih status</option>
-                <option value="1">Guru</option>
-                <option value="2">Karyawan</option>
+                <option value="3">Guru</option>
+                <option value="4">Karyawan</option>
             </select>
             <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
         </form>
