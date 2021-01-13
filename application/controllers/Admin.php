@@ -357,6 +357,62 @@ class Admin extends CI_Controller
         $mpdf->Output($filename, \Mpdf\Output\Destination::INLINE);
     }
 
+    //kegiatan
+    public function kegiatan()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $owner = $this->input->get('owner');
+        $owner2 = $this->input->post('owner');
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
+
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'required');
+        $this->form_validation->set_rules('time', 'Waktu', 'required');
+        $this->form_validation->set_rules('kegiatan', 'Nama Kegiatan', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/kegiatan', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->tambah_kegiatan();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('admin/kegiatan?owner=' . $owner2);
+        }
+    }
+    public function edit_kegiatan($id)
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/kegiatan', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function detail_kegiatan($id)
+    {
+        $data['title'] = 'Detail Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $id])->result_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/detail-kegiatan', $data);
+        $this->load->view('wrapper/footer', $data);
+    }
+
+    public function hapus_kegiatan($id)
+    {
+        // $owner = $this->input->post('owner');
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_kegiatan');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('admin/kegiatan');
+    }
+
     //data lama
 
     public function data()

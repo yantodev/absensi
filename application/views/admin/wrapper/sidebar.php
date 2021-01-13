@@ -62,6 +62,7 @@
                         <h6 class="collapse-header">Daftar Menu</h6>
                         <a class="collapse-item" href="<?= base_url('admin/gukar'); ?>">Data Guru & Karyawan</a>
                         <a class="collapse-item" href="<?= base_url('admin/siswa'); ?>">Data Siswa</a>
+                        <a class="collapse-item" href="<?= base_url('admin/kegiatan?owner=' . $user['name']); ?>">Data Kegiatan</a>
                     </div>
                 </div>
             </li>

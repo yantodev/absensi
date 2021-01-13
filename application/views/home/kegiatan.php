@@ -17,11 +17,13 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <tr>
+                            <tr align="center">
                                 <th width="50px">#</th>
                                 <th width="230px">TANGGAL</th>
                                 <th width="100px">JAM</th>
                                 <th>KEGIATAN</th>
+                                <th>PEMBUAT</th>
+                                <th width="150px">PESERTA</th>
                                 <th width="120px">Action</th>
                             </tr>
                         </thead>
@@ -33,6 +35,13 @@
                                     <td><?= tgl($d['tgl']); ?></td>
                                     <td><?= $d['time']; ?></td>
                                     <td><?= $d['kegiatan']; ?></td>
+                                    <td><?= $d['owner']; ?></td>
+                                    <td align="center">
+                                        <?php
+                                        $count = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $d['id']])->result_array();
+                                        echo count($count);
+                                        ?> Orang
+                                    </td>
                                     <td>
                                         <a href="<?= base_url('home/absen_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Absen Sekarang"></i></a>
                                         <a href="<?= base_url('home/detail_kegiatan/') . $d['id']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="View Detail"></i></a>
