@@ -107,4 +107,80 @@ class Guru extends CI_Controller
         $this->load->view('guru/rekap', $data);
         $this->load->view('wrapper/footer');
     }
+
+    public function kegiatan()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $owner = $this->input->get('owner');
+        $owner2 = $this->input->post('owner');
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
+
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'required');
+        $this->form_validation->set_rules('time', 'Waktu', 'required');
+        $this->form_validation->set_rules('kegiatan', 'Nama Kegiatan', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('guru/wrapper/header', $data);
+            $this->load->view('guru/wrapper/sidebar', $data);
+            $this->load->view('guru/wrapper/topbar', $data);
+            $this->load->view('guru/kegiatan', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->tambah_kegiatan();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('guru/kegiatan?owner=' . $owner2);
+        }
+    }
+    public function edit_kegiatan($id)
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/kegiatan', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function detail_kegiatan($id)
+    {
+        $data['title'] = 'Detail Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $id])->result_array();
+        $data['id'] = $id;
+        $data['data2'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/detail-kegiatan', $data);
+        $this->load->view('wrapper/footer', $data);
+    }
+    public function cetak_pdf_kegiatan()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar hadir Kegiatan';
+        $id = $this->input->get('id');
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+        $data['data2'] = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $id])->result_array();
+        $this->load->view('guru/cetak-pdf-kegiatan', $data);
+
+        $mpdf = new \Mpdf\Mpdf(
+            [
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'setAutoTopMargin' => false
+            ]
+        );
+
+        // $mpdf->SetHTMLHeader('
+        // <div style="text-align: center; font-weight: bold;">
+        //   <img src="assets/img/pi-2020.png" width="100%" height="100%" />
+        // </div>');
+        $filename = 'Daftar Hadir Kegiatan ' . $this->input->get('kegiatan');
+        '.pdf';
+        $html = $this->load->view('guru/cetak-pdf-kegiatan', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output($filename, \Mpdf\Output\Destination::INLINE);
+    }
 }

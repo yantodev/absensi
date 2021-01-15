@@ -116,6 +116,7 @@ class Home extends CI_Controller
     {
         $data['title'] = 'Home';
         $data['data'] = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $id])->result_array();
+        $data['data2'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
         $this->load->view('home/detail-kegiatan', $data);

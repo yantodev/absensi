@@ -108,4 +108,21 @@ class Admin_model extends CI_Model
         ];
         $this->db->insert('aktivitas', $master);
     }
+    function edit_kegiatan()
+    {
+        $data = [
+            'tgl' => htmlspecialchars($this->input->post('tgl', true)),
+            'time' => htmlspecialchars($this->input->post('time', true)),
+            'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
+            'keterangan' => htmlspecialchars($this->input->post('keterangan', true)),
+        ];
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('tbl_kegiatan', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('owner', true)),
+            'kegiatan' => 'Mengedit kegiatan ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
 }

@@ -33,7 +33,7 @@
                $("#loading").hide();
 
                $("#nbm").change(function() { // Ketika user mengganti atau memilih data jurusan
-                   $("#listnama").hide(); // Sembunyikan dulu combobox kota nya
+                   $("#nama").hide(); // Sembunyikan dulu combobox kota nya
                    $("#loading").show(); // Tampilkan loadingnya
 
                    $.ajax({
@@ -52,7 +52,7 @@
                            $("#loading").hide(); // Sembunyikan loadingnya
                            // set isi dari combobox kota
                            // lalu munculkan kembali combobox kotanya
-                           $("#listnama").html(response.list_nama).show();
+                           $("#nama").html(response.list_nama).show();
                        },
                        error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
                            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error

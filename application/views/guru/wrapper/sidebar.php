@@ -45,9 +45,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url('guru/gukar'); ?>">Data Guru & Karyawan</a>
-                        <a class="collapse-item" href="<?= base_url('guru/siswa'); ?>">Data Siswa</a>
-                        <a class="collapse-item" href="<?= base_url('guru/kegiatan?owner=' . $user['name']); ?>">Data Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url('guru/kegiatan?owner=' . $user['name']); ?>">Kegiatan</a>
                     </div>
                 </div>
             </li>
