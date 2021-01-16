@@ -8,4 +8,7 @@
     }
 </style> -->
 <img src="<?= base_url('assets/img/kop.png'); ?>">
-<h3>Jurnal-Ku</h3>
+<h3 style="text-align: center;">Jurnal-Ku</h3>
+<?php foreach ($data as $d) : ?>
+    <p><?= $d['nbm']; ?></p>
+<?php endforeach; ?>
