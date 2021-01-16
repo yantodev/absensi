@@ -125,4 +125,38 @@ class Admin_model extends CI_Model
         ];
         $this->db->insert('aktivitas', $master);
     }
+
+    function tambah_jurnal()
+    {
+        $data = [
+            'tgl' => htmlspecialchars($this->input->post('tgl', true)),
+            'time' => htmlspecialchars($this->input->post('time', true)),
+            'nbm' => htmlspecialchars($this->input->post('nbm', true)),
+            'kegiatan' => $this->input->post('kegiatan', true),
+            'nama' => htmlspecialchars($this->input->post('name', true)),
+        ];
+        $this->db->insert('tbl_jurnal', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('name', true)),
+            'kegiatan' => 'Membuat jurnal ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
+    function edit_jurnal()
+    {
+        $data = [
+            'tgl' => htmlspecialchars($this->input->post('tgl', true)),
+            'time' => htmlspecialchars($this->input->post('time', true)),
+            'kegiatan' => $this->input->post('kegiatan', true),
+        ];
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('tbl_jurnal', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('name', true)),
+            'kegiatan' => 'Mengedit jurnal ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
 }

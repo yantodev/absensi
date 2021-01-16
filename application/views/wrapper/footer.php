@@ -172,8 +172,8 @@
          });
      </script>
      <script type="text/javascript" src="<?= base_url(); ?>assets/ckeditor/ckeditor.js"></script>
-     <!-- <script>
-         var ckeditor = CKEDITOR.replace('kegiatan', {
+     <script>
+         var ckeditor = CKEDITOR.replace('jurnal', {
              height: '100px'
          });
          CKEDITOR.disableautoInline = true;
@@ -185,7 +185,7 @@
          });
          CKEDITOR.disableautoInline = true;
          CKEDITOR.Inline('editable');
-     </script> -->
+     </script>
      <script>
          var ckeditor = CKEDITOR.replace('waktu', {
              height: '100px'

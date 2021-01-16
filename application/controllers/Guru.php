@@ -194,4 +194,66 @@ class Guru extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output($filename, \Mpdf\Output\Destination::INLINE);
     }
+    public function hapus_kegiatan($id)
+    {
+        // $owner = $this->input->post('owner');
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_kegiatan');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('guru');
+    }
+
+    public function jurnal()
+    {
+        $data['title'] = 'Jurnal-ku';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $nbm = $this->input->get('nbm');
+        $nbm2 = $this->input->post('nbm');
+        $data['data'] = $this->db->get_where('tbl_jurnal', ['nbm' => $nbm])->result_array();
+
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'required');
+        $this->form_validation->set_rules('time', 'Waktu', 'required');
+        $this->form_validation->set_rules('kegiatan', 'Nama Kegiatan', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('guru/wrapper/header', $data);
+            $this->load->view('guru/wrapper/sidebar', $data);
+            $this->load->view('guru/wrapper/topbar', $data);
+            $this->load->view('guru/jurnal', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->tambah_jurnal();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('guru/jurnal?nbm=' . $nbm2);
+        }
+    }
+    public function edit_jurnal($id)
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_jurnal', ['id' => $id])->row_array();
+        $nbm = $this->input->post('nbm');
+
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'required');
+        $this->form_validation->set_rules('time', 'Waktu', 'required');
+        $this->form_validation->set_rules('kegiatan', 'Nama Kegiatan', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('guru/wrapper/header', $data);
+            $this->load->view('guru/wrapper/sidebar', $data);
+            $this->load->view('guru/wrapper/topbar', $data);
+            $this->load->view('guru/edit-jurnal', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->edit_jurnal();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('guru/jurnal?nbm=' . $nbm);
+        }
+    }
+    public function hapus_jurnal($id)
+    {
+        // $owner = $this->input->post('owner');
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_jurnal');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('guru');
+    }
 }

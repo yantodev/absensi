@@ -25,6 +25,11 @@
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('guru/jurnal?nbm=' . $user['no_reg']); ?>">
+                    <i class="fas fa-book"></i>
+                    <span>Jurnal-ku</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#absen" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="far fa-calendar-check"></i>
                     <span>Data Absen-ku</span>
@@ -48,11 +53,6 @@
                         <a class="collapse-item" href="<?= base_url('guru/kegiatan?owner=' . $user['name']); ?>">Kegiatan</a>
                     </div>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('guru/aktivitas'); ?>">
-                    <i class="fas fa-trash-restore-alt"></i>
-                    <span>Aktivitas Terahhir</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
