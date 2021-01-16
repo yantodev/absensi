@@ -19,7 +19,7 @@
                     <tr>
                         <th width="25px">#</th>
                         <th width="180px">Tanggal</th>
-                        <th width="50px">Waktu</th>
+                        <th width="50px">Jam</th>
                         <th>Kegiatan</th>
                         <th width="80px">Foto</th>
                         <th width="25px">Action</th>
