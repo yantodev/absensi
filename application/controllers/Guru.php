@@ -136,11 +136,22 @@ class Guru extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
-        $this->load->view('guru/wrapper/header', $data);
-        $this->load->view('guru/wrapper/sidebar', $data);
-        $this->load->view('guru/wrapper/topbar', $data);
-        $this->load->view('guru/kegiatan', $data);
-        $this->load->view('wrapper/footer');
+        $owner2 = $this->input->post('owner');
+
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'required');
+        $this->form_validation->set_rules('time', 'Waktu', 'required');
+        $this->form_validation->set_rules('kegiatan', 'Nama Kegiatan', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('guru/wrapper/header', $data);
+            $this->load->view('guru/wrapper/sidebar', $data);
+            $this->load->view('guru/wrapper/topbar', $data);
+            $this->load->view('guru/edit-kegiatan', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->edit_kegiatan();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('guru/kegiatan?owner=' . $owner2);
+        }
     }
     public function detail_kegiatan($id)
     {
