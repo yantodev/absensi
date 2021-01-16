@@ -134,6 +134,7 @@ class Admin_model extends CI_Model
             'nbm' => htmlspecialchars($this->input->post('nbm', true)),
             'kegiatan' => $this->input->post('kegiatan', true),
             'nama' => htmlspecialchars($this->input->post('name', true)),
+            'foto' => 'noimage.png',
         ];
         $this->db->insert('tbl_jurnal', $data);
 

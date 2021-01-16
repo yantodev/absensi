@@ -51,6 +51,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
                         <a class="collapse-item" href="<?= base_url('guru/kegiatan?owner=' . $user['name']); ?>">Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url('guru/fl_keg?owner=' . $user['name']); ?>">File Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url('guru/ft_keg?owner=' . $user['name']); ?>">Foto Kegiatan</a>
                     </div>
                 </div>
             </li>

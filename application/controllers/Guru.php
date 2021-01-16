@@ -10,6 +10,7 @@ class Guru extends CI_Controller
             redirect();
         }
         // is_logged_in();
+        $this->load->helper('url');
         $this->load->model('Admin_model');
         $this->load->model('Home_model');
         $this->load->model('BK_model', 'bk');
@@ -202,6 +203,171 @@ class Guru extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
         redirect('guru');
     }
+    public function file_kegiatan()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id = $this->input->get('id');
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('id', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('guru/wrapper/header', $data);
+            $this->load->view('guru/wrapper/sidebar', $data);
+            $this->load->view('guru/wrapper/topbar', $data);
+            $this->load->view('guru/upload-file', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $judul = $this->input->post('judul');
+            $owner = $this->input->post('owner');
+            $config['allowed_types'] = 'jpeg|jpg|png|jpeg|pdf|doc|docx';
+            $config['max_size']     = '10240';
+            $config['upload_path']  = './image/kegiatan/file';
+            $config['file_name']  = $judul;
+
+            $this->load->library('upload', $config);
+            if ($_FILES['file']['name'] != null) {
+                if ($this->upload->do_upload('file')) {
+                    $file = $this->upload->data('file_name');
+                    $id = $this->input->post('id');
+                    $data = array(
+                        'id_kegiatan' => $id,
+                        'file' => $file
+                    );
+
+                    $this->db->insert('file', $data);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data berhasil diupdate!</div>');
+                    redirect('guru/kegiatan?owner=' . $owner);
+                } else {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->load->view('guru/wrapper/header', $data);
+                    $this->load->view('guru/wrapper/sidebar', $data);
+                    $this->load->view('guru/wrapper/topbar', $data);
+                    $this->load->view('guru/error', $error);
+                    $this->load->view('wrapper/footer');
+                }
+            }
+        }
+    }
+    public function foto_kegiatan()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id = $this->input->get('id');
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/upload-foto', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function upload_foto_kegiatan()
+    {
+        $owner = $this->input->post('owner');
+        $data = [];
+
+        $count = count($_FILES['foto']['name']);
+
+        for ($i = 0; $i < $count; $i++) {
+
+            if (!empty($_FILES['foto']['name'][$i])) {
+
+                $_FILES['file']['name'] = $_FILES['foto']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['foto']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['foto']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['foto']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['foto']['size'][$i];
+
+                $config['upload_path'] = './image/kegiatan/foto';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['max_size'] = '20000';
+                $config['file_name'] = $_FILES['foto']['name'][$i];
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('file')) {
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+                    foreach ($_POST['id'] as $key => $val) {
+                        $data[] = array(
+                            'id_kegiatan' => $_POST['id'][$key],
+                            'foto' => $filename
+                        );
+                    }
+                    $this->db->insert_batch('foto', $data);
+                }
+            }
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data berhasil diupdate!</div>');
+        redirect('guru/kegiatan?owner=' . $owner);
+    }
+    public function fl_keg()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $owner = $this->input->get('owner');
+        $id = $this->input->get('id');
+        $data['dt'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
+        $data['dt2'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->row_array();
+        $data['data'] = $this->db->get_where('file', ['id_kegiatan' => $id])->result_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/file-kegiatan', $data);
+        $this->load->view('wrapper/footer');
+    }
+    function file($name = NULL)
+    {
+        $this->load->helper('download');
+        // $name = $this->uri->segment(4);
+        $data = file_get_contents(base_url('/image/kegiatan/file/' . $name));
+        force_download($name, $data);
+    }
+    function hapus_file()
+    {
+        $owner = $this->input->get('owner');
+        $id_keg = $this->input->get('id_keg');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('file');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('guru/fl_keg?id=' . $id_keg . '&owner=' . $owner);
+    }
+    public function ft_keg()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $owner = $this->input->get('owner');
+        $id = $this->input->get('id');
+        $data['dt'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
+        $data['dt2'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->row_array();
+        $data['data'] = $this->db->get_where('foto', ['id_kegiatan' => $id])->result_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/foto-kegiatan', $data);
+        $this->load->view('wrapper/footer');
+    }
+    function foto($name = NULL)
+    {
+        $this->load->helper('download');
+        // $name = $this->uri->segment(4);
+        $data = file_get_contents(base_url('/image/kegiatan/foto/' . $name));
+        force_download($name, $data);
+    }
+    function hapus_foto()
+    {
+        $owner = $this->input->get('owner');
+        $id_keg = $this->input->get('id_keg');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('foto');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('guru/ft_keg?id=' . $id_keg . '&owner=' . $owner);
+    }
 
     public function jurnal()
     {
@@ -248,12 +414,93 @@ class Guru extends CI_Controller
             redirect('guru/jurnal?nbm=' . $nbm);
         }
     }
-    public function hapus_jurnal($id)
+    public function hapus_jurnal()
     {
-        // $owner = $this->input->post('owner');
+        $nbm = $this->input->get('nbm');
+        $id = $this->input->get('id');
         $this->db->where('id', $id);
         $this->db->delete('tbl_jurnal');
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
-        redirect('guru');
+        redirect('guru/jurnal?nbm=' . $nbm);
+    }
+
+    public function upload_jurnal()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id = $this->input->get('id');
+        $data['data'] = $this->db->get_where('tbl_jurnal', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('id', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('guru/wrapper/header', $data);
+            $this->load->view('guru/wrapper/sidebar', $data);
+            $this->load->view('guru/wrapper/topbar', $data);
+            $this->load->view('guru/upload-jurnal', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $id = $this->input->post('id');
+            $nbm = $this->input->post('nbm');
+            $config['allowed_types'] = 'jpeg|jpg|png|jpeg';
+            $config['max_size']     = '10240';
+            $config['upload_path']  = './image/jurnal';
+            $config['file_name']  = 'Doc_jurnal-' . date('Y-m-d');
+
+            $this->load->library('upload', $config);
+            if ($_FILES['foto']['name'] != null) {
+                if ($this->upload->do_upload('foto')) {
+                    $foto = $this->upload->data('file_name');
+                    $id = $this->input->post('id');
+                    $data = array(
+                        'foto' => $foto
+                    );
+                    $this->db->where('id', $id);
+                    $this->db->update('tbl_jurnal', $data);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data berhasil diupdate!</div>');
+                    redirect('guru/jurnal?nbm=' . $nbm);
+                } else {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->load->view('guru/wrapper/header', $data);
+                    $this->load->view('guru/wrapper/sidebar', $data);
+                    $this->load->view('guru/wrapper/topbar', $data);
+                    $this->load->view('guru/error', $error);
+                    $this->load->view('wrapper/footer');
+                }
+            }
+        }
+    }
+
+    public function cetak_pdf_jurnal()
+    {
+        $data['title'] = 'Cetak PDF Jurnal';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $tgl = $this->input->post('tgl');
+        $nbm = $this->input->post('nbm');
+        $data['data'] = $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->result_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/cetak-pdf-jurnal', $data);
+        $this->load->view('wrapper/footer');
+
+
+        $mpdf = new \Mpdf\Mpdf(
+            [
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'setAutoTopMargin' => false
+            ]
+        );
+
+        // $mpdf->SetHTMLHeader('
+        // <div style="text-align: center; font-weight: bold;">
+        //   <img src="assets/img/pi-2020.png" width="100%" height="100%" />
+        // </div>');
+
+        $html = $this->load->view('guru/cetak-pdf-jurnal', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Jurnal-ku.pdf', \Mpdf\Output\Destination::INLINE);
     }
 }

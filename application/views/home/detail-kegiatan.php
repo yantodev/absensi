@@ -59,9 +59,11 @@
                         DOWNLOAD
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <a href="">Notulen.pdf</a>
-                        </li>
+                        <?php foreach ($file as $f) : ?>
+                            <li class="list-group-item">
+                                <a href="<?= base_url(); ?>home/file/<?= $f['file']; ?>"><?= $f['file']; ?></a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 <div class="card" style="width: 18rem;">
@@ -69,9 +71,12 @@
                         DOKUMENTASI
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <a href="">IMG-10101.JPEG</a>
-                        </li>
+                        <?php foreach ($foto as $f) : ?>
+                            <li class="list-group-item">
+                                <a href="<?= base_url(); ?>home/foto/<?= $f['foto']; ?>">
+                                    <img src="<?= base_url('image/kegiatan/foto/') . $f['foto']; ?>" width="250px"></a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>

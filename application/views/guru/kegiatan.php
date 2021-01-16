@@ -5,7 +5,9 @@
         <small>Keterangan <br />
             <i class="fa fa-edit"></i> Edit |
             <i class="fa fa-eye"></i> Detail |
-            <i class="fa fa-trash"></i> Hapus
+            <i class="fa fa-trash"></i> Hapus |
+            <i class="fa fa-image"></i> Upload Dokumentasi |
+            <i class="fa fa-file"></i> Upload File
         </small>
     </div>
     <div class="card-body">
@@ -23,6 +25,7 @@
                         <th>Kegiatan</th>
                         <th>Keterangan</th>
                         <th>Peserta</th>
+                        <th>Upload</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -40,6 +43,10 @@
                                 $count = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $d['id']])->result_array();
                                 echo count($count);
                                 ?>
+                            </td>
+                            <td>
+                                <a href="<?= base_url('guru/foto_kegiatan?id=') . $d['id']; ?>"><i class="fa fa-image fa-fw" alt="detail" title="Upload Dokumentasi"></i></a>
+                                <a href="<?= base_url('guru/file_kegiatan?id=') . $d['id']; ?>"><i class="fa fa-file fa-fw" alt="detail" title="Upload File"></i></a>
                             </td>
                             <td>
                                 <a href="<?= base_url('guru/edit_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>

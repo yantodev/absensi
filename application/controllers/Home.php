@@ -117,10 +117,27 @@ class Home extends CI_Controller
         $data['title'] = 'Home';
         $data['data'] = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $id])->result_array();
         $data['data2'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+        $data['file'] = $this->db->get_where('file', ['id_kegiatan' => $id])->result_array();
+        $data['foto'] = $this->db->get_where('foto', ['id_kegiatan' => $id])->result_array();
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
         $this->load->view('home/detail-kegiatan', $data);
         $this->load->view('home/wrapper/footer', $data);
+    }
+
+    function file($name = NULL)
+    {
+        $this->load->helper('download');
+        // $name = $this->uri->segment(4);
+        $data = file_get_contents(base_url('/image/kegiatan/file/' . $name));
+        force_download($name, $data);
+    }
+    function foto($name = NULL)
+    {
+        $this->load->helper('download');
+        // $name = $this->uri->segment(4);
+        $data = file_get_contents(base_url('/image/kegiatan/file/' . $name));
+        force_download($name, $data);
     }
 
     public function absen_kegiatan($id)
