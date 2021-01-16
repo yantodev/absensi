@@ -6,7 +6,7 @@
      <footer class="sticky-footer bg-white">
          <div class="container my-auto">
              <div class="copyright text-center my-auto">
-                 <span>Copyright &copy; IT Development <a href="https://smkmuhkarangmojo.sch.id/">SMK Muhammadiyah Karangmojo</a> <?= date('Y'); ?>.<br />Versi 2.0</span>
+                 <span>Copyright &copy; IT Development <a href="https://smkmuhkarangmojo.sch.id/">SMK Muhammadiyah Karangmojo</a> <?= date('Y'); ?></span>
              </div>
          </div>
      </footer>
