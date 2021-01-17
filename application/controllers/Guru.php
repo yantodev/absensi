@@ -477,7 +477,8 @@ class Guru extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $tgl = $this->input->post('tgl');
         $nbm = $this->input->post('nbm');
-        $data['data'] = $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->result_array();
+        $data['data'] = $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->row_array();
+        $data['data2'] = $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->result_array();
         $this->load->view('guru/wrapper/header', $data);
         $this->load->view('guru/wrapper/sidebar', $data);
         $this->load->view('guru/wrapper/topbar', $data);
