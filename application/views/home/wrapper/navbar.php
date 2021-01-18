@@ -20,6 +20,7 @@
                                <a class="dropdown-item" href="<?= base_url('auth'); ?>">Admin</a>
                                <a class="dropdown-item" href="<?= base_url('auth/bk'); ?>">BK</a>
                                <a class="dropdown-item" href="<?= base_url('auth/guru'); ?>">Guru</a>
+                               <a class="dropdown-item" href="<?= base_url('auth/ks'); ?>">Kepala Sekolah</a>
                            </div>
                        </li>
                    </ul>

@@ -24,6 +24,11 @@ class Admin_model extends CI_Model
         $this->db->order_by('id', 'ASC');
         return $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'bulan' => $bln])->result_array();
     }
+    public function detail_all_bln($id)
+    {
+        $this->db->order_by('nama', 'ASC');
+        return $this->db->get_where('tbl_gukar', ['status' => $id])->result_array();
+    }
     public function edit_absen()
     {
         $data = [

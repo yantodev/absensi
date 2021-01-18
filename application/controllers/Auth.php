@@ -184,6 +184,62 @@ class Auth extends CI_Controller
             redirect('auth/guru');
         }
     }
+    public function ks()
+    {
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'User Login BK';
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/login-ks');
+            $this->load->view('templates/auth_footer');
+        } else {
+            //validation berhasil
+            $this->_loginks();
+        }
+    }
+    private function _loginks()
+    {
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+        if ($user) {
+            // user ada
+            if ($user['is_active'] == 1) {
+                //cek password
+                if (password_verify($password, $user['password'])) {
+                    $data = [
+                        'email' => $user['email'],
+                        'status_id' => $user['status_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    if ($user['status_id'] == 3) {
+                        redirect('ks');
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                        Maaf, Anda tidak memiliki akses ini!!</div>');
+                        redirect('auth/ks');
+                    }
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                    Wrong password!!</div>');
+                    redirect('auth/ks');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            This email has not been actived!</div>');
+                redirect('auth/ks');
+            }
+        } else {
+            //user tidak ada
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            Email is not registered!!!</div>');
+            redirect('auth/ks');
+        }
+    }
 
     public function registration()
     {

@@ -15,40 +15,26 @@
             <hr class="sidebar-divider">
             <!-- Heading -->
             <div class="sidebar-heading">
-                Admin Absensi
+                Akun Kepala Sekolah
             </div>
 
             <!-- Nav Item -->
             <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('admin'); ?>">
+                <a class="nav-link pb-0" href="<?= base_url('ks'); ?>">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#guru" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-archive"></i>
-                    <span>Data Absen Gukar</span>
-                </a>
-                <div id="guru" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/hr'); ?>">Rekap Harian</a>
-                        <a class="collapse-item" href="<?= base_url('admin/bln'); ?>">Rekap Bulanan</a>
-                        <!-- <a class="collapse-item" href="<?= base_url('admin/thn'); ?>">Siswa</a> -->
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#siswa" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-archive"></i>
-                    <span>Data Absen Siswa</span>
+                    <span>Data Absen Gukar</span>
                 </a>
                 <div id="siswa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/hr_siswa'); ?>">Rekap Harian</a>
-                        <a class="collapse-item" href="<?= base_url('admin/bln_siswa'); ?>">Rekap Bulanan</a>
-                        <!-- <a class="collapse-item" href="<?= base_url('admin/thn'); ?>">Siswa</a> -->
+                        <a class="collapse-item" href="<?= base_url('ks/hr'); ?>">Rekap Harian</a>
+                        <a class="collapse-item" href="<?= base_url('ks/bln'); ?>">Rekap Bulanan</a>
+                        <!-- <a class="collapse-item" href="<?= base_url('ks/thn'); ?>">Siswa</a> -->
                     </div>
                 </div>
             </li>
@@ -60,17 +46,12 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url('admin/gukar'); ?>">Data Guru & Karyawan</a>
-                        <a class="collapse-item" href="<?= base_url('admin/siswa'); ?>">Data Siswa</a>
-                        <a class="collapse-item" href="<?= base_url('admin/kegiatan?owner=' . $user['name']); ?>">Data Kegiatan</a>
-                        <a class="collapse-item" href="<?= base_url('admin/hr_efektif'); ?>">Hari Efektif</a>
+                        <!-- <a class="collapse-item" href="<?= base_url('ks/iduka'); ?>">Data Iduka</a>
+                        <a class="collapse-item" href="<?= base_url('ks/guru'); ?>">Data Guru</a>
+                        <a class="collapse-item" href="<?= base_url('ks/suratpkl/1'); ?>">Surat Permohonan</a>
+                        <a class="collapse-item" href="<?= base_url('ks/pengumuman'); ?>">Pengumuman</a> -->
                     </div>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('admin/aktivitas'); ?>">
-                    <i class="fas fa-trash-restore-alt"></i>
-                    <span>Aktivitas Terahhir</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
