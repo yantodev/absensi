@@ -52,6 +52,8 @@ class Js extends CI_Controller
         $image = str_replace('./', '', $file);
 
         // $id = $_POST['id'];
+        $tp = $_POST['tp'];
+        $semester = $_POST['semester'];
         $nis = $_POST['nis'];
         $nama = $_POST['nama'];
         $kelas = $_POST['kelas'];
@@ -71,7 +73,9 @@ class Js extends CI_Controller
             'time_in' => $time,
             'status' => $status,
             'alasan' => $alasan,
-            'level' => $level
+            'level' => $level,
+            'tp' => $tp,
+            'semester' => $semester
         );
         $this->db->insert('tbl_dh', $data);
 
