@@ -184,4 +184,32 @@ class Bk extends CI_Controller
         $url = $_SERVER['HTTP_REFERER'];
         redirect($url);
     }
+    public function hr_efektif()
+    {
+        $data['title'] = 'Hari Efektif';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_hari_efektif')->result_array();
+
+        $this->form_validation->set_rules('id[]', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('bk/wrapper/header', $data);
+            $this->load->view('bk/wrapper/sidebar', $data);
+            $this->load->view('bk/wrapper/topbar', $data);
+            $this->load->view('bk/hr-efektif', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $id = $this->input->post('id[]');
+            $jml = $this->input->post('jml[]');
+            $result = array();
+            foreach ($id as $key => $val) {
+                $result[] = array(
+                    'id'    => $id[$key],
+                    'jml'    => $jml[$key],
+                );
+            }
+            $this->db->update_batch('tbl_hari_efektif', $result, 'id');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!!!</div>');
+            redirect('bk/hr_efektif');
+        }
+    }
 }
