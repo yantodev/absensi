@@ -10,6 +10,12 @@
             <div class="align-items-center mb-5">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <input class="form-control" type="text" name="tp" id="tp" value="<?= $data['tp']; ?>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="semester" id="semester" value="<?= $data['semester']; ?>" readonly>
+                    </div>
+                    <div class="form-group">
                         <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NIP/NBM *" data-validation-required-message="Please enter your NBM." />
                         <datalist id="datalistOptions">
                             <?php foreach ($nbm as $n) : ?>
@@ -134,6 +140,8 @@
                 url: "<?php echo base_url(); ?>js/insert_DH",
                 data: {
                     'image': signaturePad.toDataURL(),
+                    'tp': $('#tp').val(),
+                    'semester': $('#semester').val(),
                     'nbm': $('#nbm').val(),
                     'nama': $('#listnama').val(),
                     'email': $('#email').val(),

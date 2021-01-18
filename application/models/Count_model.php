@@ -18,4 +18,12 @@ class Count_model extends CI_Model
         $result = $this->db->query($sql);
         return $result->row();
     }
+    public function hf()
+    {
+        $sql = "SELECT  SUM(if(semester='Gasal', jml, NULL)) as Gasal,
+                        SUM(if(semester='Genap', jml, NULL)) as Genap
+                FROM tbl_hari_efektif";
+        $result = $this->db->query($sql);
+        return $result->row();
+    }
 }

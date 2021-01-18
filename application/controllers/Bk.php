@@ -184,6 +184,27 @@ class Bk extends CI_Controller
         $url = $_SERVER['HTTP_REFERER'];
         redirect($url);
     }
+
+    public function smstr()
+    {
+        $data['title'] = 'Rekap Semester';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['tp'] = $this->db->get_where('tp')->result_array();
+        $data['smstr'] = $this->db->get_where('semester')->result_array();
+        $data['kls'] = $this->db->get_where('tbl_kelas')->result_array();
+        $tp = $this->input->get('tp');
+        $smsrt = $this->input->get('smsrt');
+        $kelas = $this->input->get('kelas');
+        $data['semester'] = $smsrt;
+        $data['tp2'] = $tp;
+        $data['data'] = $this->db->get_where('tbl_siswa', ['kelas' => $kelas])->result_array();
+        $data['hf'] = $this->count->hf();
+        $this->load->view('bk/wrapper/header', $data);
+        $this->load->view('bk/wrapper/sidebar', $data);
+        $this->load->view('bk/wrapper/topbar', $data);
+        $this->load->view('bk/smstr', $data);
+        $this->load->view('wrapper/footer');
+    }
     public function hr_efektif()
     {
         $data['title'] = 'Hari Efektif';

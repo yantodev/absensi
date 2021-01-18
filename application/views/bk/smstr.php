@@ -1,7 +1,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-uppercase">REKAP DAFTAR HADIR BULANAN </h6>
+        <h6 class="m-0 font-weight-bold text-uppercase">REKAP DAFTAR HADIR SEMESTER <?= $semester; ?> </h6>
         <small>Keterangan <br />
             <i class="fa fa-edit"></i> Edit Data |
             <i class="fa fa-trash"></i> Hapus Data
@@ -10,21 +10,18 @@
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
         <div class="row">
-            <form action="<?= base_url('bk/bln'); ?> " method="get">
-                <select class="form-control mb-2" name="bulan" id="bulan" required>
-                    <option value="">Pilih bulan</option>
-                    <option value="1"><?= bulan(1); ?></option>
-                    <option value="2"><?= bulan(2); ?></option>
-                    <option value="3"><?= bulan(3); ?></option>
-                    <option value="4"><?= bulan(4); ?></option>
-                    <option value="5"><?= bulan(5); ?></option>
-                    <option value="6"><?= bulan(6); ?></option>
-                    <option value="7"><?= bulan(7); ?></option>
-                    <option value="8"><?= bulan(8); ?></option>
-                    <option value="9"><?= bulan(9); ?></option>
-                    <option value="10"><?= bulan(10); ?></option>
-                    <option value="11"><?= bulan(11); ?></option>
-                    <option value="12"><?= bulan(12); ?></option>
+            <form action="" method="get">
+                <select class="form-control mb-2" name="tp" id="tp" required>
+                    <option value="">Tahun Pelajaran</option>
+                    <?php foreach ($tp as $t) : ?>
+                        <option value="<?= $t['tp']; ?>"><?= $t['tp']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select class="form-control mb-2" name="smsrt" id="smsrt" required>
+                    <option value="">Pilih Semester</option>
+                    <?php foreach ($smstr as $s) : ?>
+                        <option value="<?= $s['semester']; ?>"><?= $s['semester']; ?></option>
+                    <?php endforeach; ?>
                 </select>
                 <select class="form-control mb-2" name="kelas" id="kelas" required>
                     <option value="">Pilih kelas</option>
@@ -46,7 +43,6 @@
                         <th>HADIR</th>
                         <th>IZIN</th>
                         <th>ALPHA</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,25 +55,24 @@
                             <td><?= $d['jk']; ?></td>
                             <td align="center">
                                 <?php
-                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'status' => 'Hadir', 'bulan' => $bulan['id']])->result_array();
+                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'status' => 'Hadir', 'tp' => $tp2, 'semester' =>  $semester])->result_array();
                                 echo count($count);
                                 ?>
                             </td>
                             <td align="center">
                                 <?php
-                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'status' => 'Izin', 'bulan' => $bulan['id']])->result_array();
+                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'status' => 'Izin', 'tp' => $tp2, 'semester' =>  $semester])->result_array();
                                 echo count($count);
                                 ?>
                             </td>
                             <td align="center">
                                 <?php
-                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'bulan' => $bulan['id']])->result_array();
+                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'tp' => $tp2, 'semester' => $semester])->result_array();
                                 $data = count($count);
-                                echo $bulan['jml'] - $data;
+                                $data2 = $hf->$semester;
+                                echo $data2 - $data;
+
                                 ?>
-                            </td>
-                            <td>
-                                <a href="<?= base_url('bk/dtl_absn?nis=') . $d['nis'] . '&' . 'bulan=' . $bulan['id']; ?>"><button class="btn btn-primary">DETAIL</button></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>

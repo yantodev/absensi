@@ -34,7 +34,7 @@
                         <h6 class="collapse-header">Daftar Menu</h6>
                         <a class="collapse-item" href="<?= base_url('bk/hr'); ?>">Rekap Harian</a>
                         <a class="collapse-item" href="<?= base_url('bk/bln'); ?>">Rekap Bulanan</a>
-                        <!-- <a class="collapse-item" href="<?= base_url('bk/thn'); ?>">Siswa</a> -->
+                        <a class="collapse-item" href="<?= base_url('bk/smstr'); ?>">Rekap Semester</a>
                     </div>
                 </div>
             </li>
