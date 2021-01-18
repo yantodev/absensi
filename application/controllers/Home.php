@@ -68,6 +68,7 @@ class Home extends CI_Controller
         $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'date_in' => $date])->result_array();
         $tgl = date('Y-m-d');
         $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['tgl' => $tgl])->row_array();
+        $data['data'] = $this->db->get_where('home', ['id' => 1])->row_array();
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
         $this->load->view('home/siswa-masuk', $data);
