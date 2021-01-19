@@ -18,7 +18,7 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="nama" id="listnama">
+                        <select class="form-control" name="nama" id="nama">
                             <option value="">Your name *</option>
                         </select>
                         <p class="help-block text-danger"></p>
@@ -113,7 +113,7 @@
                 url: "<?php echo base_url(); ?>js/update_DH",
                 data: {
                     'image': signaturePad.toDataURL(),
-                    'nama': $('#listnama').val(),
+                    'nama': $('#nama').val(),
                     'nbm': $('#nbm').val(),
                     'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
                     'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
