@@ -25,7 +25,7 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="nama" id="listnama">
+                        <select class="form-control" name="nama" id="nama">
                             <option value="">Your name *</option>
                         </select>
                         <p class="help-block text-danger"></p>
