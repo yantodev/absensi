@@ -51,8 +51,8 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group mb-md-0">
-                        <input class="form-control" id="alasan" name="alasan" placeholder="Masukan alasan Anda" />
-                        <small style="color: red;"><i>*Diisi ketika anda izin saja apabila masuk silahkan dikosongkan</i></small>
+                        <input class="form-control" id="alasan" name="alasan" value="-" />
+                        <small style="color: red;"><i>*Diisi ketika anda izin saja, apabila masuk silahkan dikosongkan</i></small>
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
