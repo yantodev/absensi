@@ -51,7 +51,7 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group mb-md-0">
-                        <input class="form-control" id="alasan" name="alasan" value="-" />
+                        <input class="form-control" id="alasan" name="alasan" value="-" placeholder="Masukan alasan Anda" />
                         <small style="color: red;"><i>*Diisi ketika anda izin saja, apabila masuk silahkan dikosongkan</i></small>
                         <p class="help-block text-danger"></p>
                     </div>
@@ -143,7 +143,7 @@
                     'tp': $('#tp').val(),
                     'semester': $('#semester').val(),
                     'nbm': $('#nbm').val(),
-                    'nama': $('#listnama').val(),
+                    'nama': $('#nama').val(),
                     'email': $('#email').val(),
                     'bulan': (today.getMonth() + 1),
                     'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
