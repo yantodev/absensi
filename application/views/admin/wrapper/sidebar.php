@@ -63,6 +63,8 @@
                         <a class="collapse-item" href="<?= base_url('admin/gukar'); ?>">Data Guru & Karyawan</a>
                         <a class="collapse-item" href="<?= base_url('admin/siswa'); ?>">Data Siswa</a>
                         <a class="collapse-item" href="<?= base_url('admin/kegiatan?owner=' . $user['name']); ?>">Data Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/fl_keg?owner=' . $user['name']); ?>">File Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/ft_keg?owner=' . $user['name']); ?>">Foto Kegiatan</a>
                         <a class="collapse-item" href="<?= base_url('admin/hr_efektif'); ?>">Hari Efektif</a>
                     </div>
                 </div>

@@ -454,7 +454,171 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
         redirect('admin/kegiatan');
     }
+    public function file_kegiatan()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id = $this->input->get('id');
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
 
+        $this->form_validation->set_rules('id', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/upload-file', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $judul = $this->input->post('judul');
+            $owner = $this->input->post('owner');
+            $config['allowed_types'] = 'jpeg|jpg|png|jpeg|pdf|doc|docx';
+            $config['max_size']     = '10240';
+            $config['upload_path']  = './image/kegiatan/file';
+            $config['file_name']  = $judul;
+
+            $this->load->library('upload', $config);
+            if ($_FILES['file']['name'] != null) {
+                if ($this->upload->do_upload('file')) {
+                    $file = $this->upload->data('file_name');
+                    $id = $this->input->post('id');
+                    $data = array(
+                        'id_kegiatan' => $id,
+                        'file' => $file
+                    );
+
+                    $this->db->insert('file', $data);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data berhasil diupdate!</div>');
+                    redirect('admin/kegiatan?owner=' . $owner);
+                } else {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->load->view('admin/wrapper/header', $data);
+                    $this->load->view('admin/wrapper/sidebar', $data);
+                    $this->load->view('admin/wrapper/topbar', $data);
+                    $this->load->view('admin/error', $error);
+                    $this->load->view('wrapper/footer');
+                }
+            }
+        }
+    }
+    public function foto_kegiatan()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id = $this->input->get('id');
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/upload-foto', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function upload_foto_kegiatan()
+    {
+        $owner = $this->input->post('owner');
+        $data = [];
+
+        $count = count($_FILES['foto']['name']);
+
+        for ($i = 0; $i < $count; $i++) {
+
+            if (!empty($_FILES['foto']['name'][$i])) {
+
+                $_FILES['file']['name'] = $_FILES['foto']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['foto']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['foto']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['foto']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['foto']['size'][$i];
+
+                $config['upload_path'] = './image/kegiatan/foto';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['max_size'] = '20000';
+                $config['file_name'] = $_FILES['foto']['name'][$i];
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('file')) {
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+                    foreach ($_POST['id'] as $key => $val) {
+                        $data[] = array(
+                            'id_kegiatan' => $_POST['id'][$key],
+                            'foto' => $filename
+                        );
+                    }
+                    $this->db->insert_batch('foto', $data);
+                }
+            }
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data berhasil diupdate!</div>');
+        redirect('admin/kegiatan?owner=' . $owner);
+    }
+    public function fl_keg()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $owner = $this->input->get('owner');
+        $id = $this->input->get('id');
+        $data['dt'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
+        $data['dt2'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->row_array();
+        $data['data'] = $this->db->get_where('file', ['id_kegiatan' => $id])->result_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/file-kegiatan', $data);
+        $this->load->view('wrapper/footer');
+    }
+    function file($name = NULL)
+    {
+        $this->load->helper('download');
+        // $name = $this->uri->segment(4);
+        $data = file_get_contents(base_url('/image/kegiatan/file/' . $name));
+        force_download($name, $data);
+    }
+    function hapus_file()
+    {
+        $owner = $this->input->get('owner');
+        $id_keg = $this->input->get('id_keg');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('file');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('admin/fl_keg?id=' . $id_keg . '&owner=' . $owner);
+    }
+    public function ft_keg()
+    {
+        $data['title'] = 'Upload Dokumentasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $owner = $this->input->get('owner');
+        $id = $this->input->get('id');
+        $data['dt'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
+        $data['dt2'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->row_array();
+        $data['data'] = $this->db->get_where('foto', ['id_kegiatan' => $id])->result_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/foto-kegiatan', $data);
+        $this->load->view('wrapper/footer');
+    }
+    function foto($name = NULL)
+    {
+        $this->load->helper('download');
+        // $name = $this->uri->segment(4);
+        $data = file_get_contents(base_url('/image/kegiatan/foto/' . $name));
+        force_download($name, $data);
+    }
+    function hapus_foto()
+    {
+        $owner = $this->input->get('owner');
+        $id_keg = $this->input->get('id_keg');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('foto');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('admin/ft_keg?id=' . $id_keg . '&owner=' . $owner);
+    }
     public function hr_efektif()
     {
         $data['title'] = 'Hari Efektif';

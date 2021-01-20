@@ -3,28 +3,29 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-uppercase">DAFTAR kegiatann</h6>
         <small>Keterangan <br />
-            <i class="fa fa-edit"></i> Edit |
-            <i class="fa fa-eye"></i> Detail |
-            <i class="fa fa-trash"></i> Hapus
+            <i class="fa fa-trash"></i> Hapus |
+            <i class="fa fa-download"></i> Hapus
         </small>
     </div>
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
-        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#EditModal">
-            Tambah Kegiatan
-        </button>
+        <form action="" method="get">
+            <select class="form-control mb-3 col-8" name="id" id="id">
+                <option value="">Pilih Kegiatan</option>
+                <?php foreach ($dt as $dt) : ?>
+                    <option value="<?= $dt['id']; ?>"><?= $dt['kegiatan']; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <input type="hidden" name="owner" value="<?= $dt2['owner']; ?>">
+            <button class="btn btn-facebook mb-3">VIEWS</button>
+        </form>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th width="180px">Tanggal</th>
-                        <th>Waktu</th>
-                        <th>Kegiatan</th>
-                        <th>Keterangan</th>
-                        <th>Peserta</th>
-                        <th>Upload</th>
-                        <th>Action</th>
+                        <th width="25px">#</th>
+                        <th>FOTO</th>
+                        <th width="50px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,24 +33,10 @@
                     <?php foreach ($data as $d) : ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td><?= tanggal($d['tgl']); ?></td>
-                            <td><?= $d['time']; ?></td>
-                            <td><?= $d['kegiatan']; ?></td>
-                            <td><?= $d['keterangan']; ?></td>
+                            <td><img src="<?= base_url('image/kegiatan/foto/' . $d['foto']); ?>" width="160px" height="160px"></td>
                             <td>
-                                <?php
-                                $count = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $d['id']])->result_array();
-                                echo count($count);
-                                ?>
-                            </td>
-                            <td>
-                                <a href="<?= base_url('admin/foto_kegiatan?id=') . $d['id']; ?>"><i class="fa fa-image fa-fw" alt="detail" title="Upload Dokumentasi"></i></a>
-                                <a href="<?= base_url('admin/file_kegiatan?id=') . $d['id']; ?>"><i class="fa fa-file fa-fw" alt="detail" title="Upload File"></i></a>
-                            </td>
-                            <td>
-                                <a href="<?= base_url('admin/edit_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
-                                <a href="<?= base_url('admin/detail_kegiatan/') . $d['id']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="Detail"></i></a>
-                                <a href="<?= base_url(); ?>admin/hapus_kegiatan/<?= $d['id']; ?>" target="_blank"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
+                                <a href="<?= base_url('home/foto/' . $d['foto']); ?>"><i class="fa fa-download fa-fw"></i></a>
+                                <a href="<?= base_url('guru/hapus_foto?id=' . $d['id'] . '&owner=' . $dt2['owner'] . '&id_keg=' . $dt['id']); ?>"><i class="fa fa-trash fa-fw" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -70,7 +57,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/kegiatan'); ?>" method="POST">
+            <form action="<?= base_url('guru/kegiatan'); ?>" method="POST">
                 <div class="form-group">
                     <label class="form-group col-lg">Tanggal</label>
                     <div class="col-lg">
