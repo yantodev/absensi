@@ -17,13 +17,13 @@ class Home_model extends CI_Model
 
     function getNBM()
     {
-        $this->db->order_by('no_reg', 'ASC');
-        return $this->db->get_where('user')->result_array();
+        $this->db->order_by('nbm', 'ASC');
+        return $this->db->get_where('tbl_gukar')->result_array();
     }
     function nama($nbm)
     {
-        $this->db->where('no_reg', $nbm);
-        $result = $this->db->get('user')->result();
+        $this->db->where('nbm', $nbm);
+        $result = $this->db->get('tbl_gukar')->result();
         return $result;
     }
 

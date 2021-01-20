@@ -19,7 +19,7 @@
                         <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NIP/NBM *" data-validation-required-message="Please enter your NBM." />
                         <datalist id="datalistOptions">
                             <?php foreach ($nbm as $n) : ?>
-                                <option value="<?= $n['no_reg']; ?>">
+                                <option value="<?= $n['nbm']; ?>">
                                 <?php endforeach; ?>
                         </datalist>
                         <p class="help-block text-danger"></p>
