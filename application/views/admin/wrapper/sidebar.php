@@ -53,18 +53,29 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#DataKegiatan" aria-expanded="true" aria-controls="DataKegiatan">
+                    <i class="fas fa-database"></i>
+                    <span>Data Kegiatan</span>
+                </a>
+                <div id="DataKegiatan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Daftar Menu</h6>
+                        <a class="collapse-item" href="<?= base_url('admin/kegiatan?owner=' . $user['name']); ?>">Data Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/fl_keg?owner=' . $user['name']); ?>">File Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/ft_keg?owner=' . $user['name']); ?>">Foto Kegiatan</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#MasterData" aria-expanded="true" aria-controls="MasterData">
                     <i class="fas fa-database"></i>
                     <span>Master Data</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="MasterData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
                         <a class="collapse-item" href="<?= base_url('admin/gukar'); ?>">Data Guru & Karyawan</a>
                         <a class="collapse-item" href="<?= base_url('admin/siswa'); ?>">Data Siswa</a>
-                        <a class="collapse-item" href="<?= base_url('admin/kegiatan?owner=' . $user['name']); ?>">Data Kegiatan</a>
-                        <a class="collapse-item" href="<?= base_url('admin/fl_keg?owner=' . $user['name']); ?>">File Kegiatan</a>
-                        <a class="collapse-item" href="<?= base_url('admin/ft_keg?owner=' . $user['name']); ?>">Foto Kegiatan</a>
                         <a class="collapse-item" href="<?= base_url('admin/hr_efektif'); ?>">Hari Efektif</a>
                     </div>
                 </div>
