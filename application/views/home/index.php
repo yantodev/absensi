@@ -1,7 +1,9 @@
    <!-- Masthead-->
    <header class="masthead">
        <div class="container">
-           <marquee bgcolor="blue">Jangan Lupa Mengisi Absensi Masuk dan Pulang.</marquee>
+           <marquee bgcolor="blue">
+               <h3>Jangan Lupa Mengisi Absensi Masuk dan Pulang.</h3>
+           </marquee>
            <?= $this->session->flashdata('message'); ?>
            <!-- <div class="masthead-subheading">Selamat datang di Aplikasi Absensi Online SMK Muh Karangmojo!</div> -->
            <div class="masthead-heading text-uppercase">
