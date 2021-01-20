@@ -13,6 +13,11 @@ class Bk_model extends CI_Model
         $this->db->order_by('id', 'DESC');
         return $this->db->get_where('tbl_dh', ['level' => $level, 'date_in' => $date, 'kelas' => $kelas])->result_array();
     }
+    public function absen_hr_kelas($kelas)
+    {
+        $this->db->order_by('nama', 'ASC');
+        return $this->db->get_where('tbl_siswa', ['kelas' => $kelas])->result_array();
+    }
     public function absen_bln($kelas)
     {
         $this->db->order_by('nama', 'ASC');

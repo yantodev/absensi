@@ -94,6 +94,44 @@ class Bk extends CI_Controller
         $this->load->view('bk/absen-harian', $data);
         $this->load->view('wrapper/footer');
     }
+    public function hr_kelas()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar Absensi Harian';
+        $data['kls'] = $this->db->get_where('tbl_kelas')->result_array();
+        $date = $this->input->get('date');
+        $kelas = $this->input->get('kelas');
+        $data['data'] = $this->bk->absen_hr_kelas($kelas);
+        $data['kelas'] = $kelas;
+        $data['date'] = $date;
+        $this->load->view('bk/wrapper/header', $data);
+        $this->load->view('bk/wrapper/sidebar', $data);
+        $this->load->view('bk/wrapper/topbar', $data);
+        $this->load->view('bk/absen-harian-kelas', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function detail_hr_kelas()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Daftar Absensi Harian';
+        $data['kls'] = $this->db->get_where('tbl_kelas')->result_array();
+        $id = $this->input->get('id');
+        $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $id])->result_array();
+        $this->load->view('bk/wrapper/header', $data);
+        $this->load->view('bk/wrapper/sidebar', $data);
+        $this->load->view('bk/wrapper/topbar', $data);
+        $this->load->view('bk/detail-absen-harian', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function hapus_hr_kls()
+    {
+        $nbm = $this->input->get('nbm');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_dh');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('bk/detail_hr_kelas?id=' . $nbm);
+    }
     public function edit_hr($id)
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();

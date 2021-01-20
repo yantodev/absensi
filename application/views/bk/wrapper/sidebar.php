@@ -33,6 +33,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
                         <a class="collapse-item" href="<?= base_url('bk/hr'); ?>">Rekap Harian</a>
+                        <a class="collapse-item" href="<?= base_url('bk/hr_kelas'); ?>">Rekap Per Kelas</a>
                         <a class="collapse-item" href="<?= base_url('bk/bln'); ?>">Rekap Bulanan</a>
                         <a class="collapse-item" href="<?= base_url('bk/smstr'); ?>">Rekap Semester</a>
                     </div>

@@ -647,4 +647,44 @@ class Admin extends CI_Controller
             redirect('admin/hr_efektif');
         }
     }
+    public function jam_kerja()
+    {
+        $data['title'] = 'Jam Kerja';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $status = $this->input->get('status_id');
+        $data['sts'] = $status;
+        $data['gukar'] = $this->db->get_where('tbl_gukar', ['status' => $status])->result_array();
+        $data['data'] = $this->db->get_where('jam_kerja', ['status' => $status])->result_array();
+
+        $this->form_validation->set_rules('id[]', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/jam-kerja', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $id = $this->input->post('id[]');
+            $senin = $this->input->post('senin[]');
+            $selasa = $this->input->post('selasa[]');
+            $rabu = $this->input->post('rabu[]');
+            $kamis = $this->input->post('kamis[]');
+            $jumat = $this->input->post('jumat[]');
+            $status = $this->input->post('status');
+            $result = array();
+            foreach ($id as $key => $val) {
+                $result[] = array(
+                    'id'    => $id[$key],
+                    'senin'    => $senin[$key],
+                    'selasa'    => $selasa[$key],
+                    'rabu'    => $rabu[$key],
+                    'kamis'    => $kamis[$key],
+                    'jumat'    => $jumat[$key]
+                );
+            }
+            $this->db->update_batch('jam_kerja', $result, 'id');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!!!</div>');
+            redirect('admin/jam_kerja?status_id=' . $status);
+        }
+    }
 }

@@ -39,7 +39,39 @@
      <script src="<?= base_url(); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
      <!-- Page level custom scripts -->
-     <script src="<?= base_url(); ?>/assets/js/demo/datatables-demo.js"></script>
+     <!-- <script src="<?= base_url(); ?>/assets/js/demo/datatables-demo.js"></script>
+     <script>
+         $(document).ready(function() {
+             $("#loading").hide();
+
+             $("#status").change(function() {
+                 $("#nama").hide();
+                 $("#loading").show();
+
+                 $.ajax({
+                     type: "GET",
+                     url: "<?php echo base_url("js/nm_pgw"); ?>",
+                     data: {
+                         status: $("#status").val()
+                     },
+                     dataType: "json",
+                     beforeSend: function(e) {
+                         if (e && e.overrideMimeType) {
+                             e.overrideMimeType("application/json;charset=UTF-8");
+                         }
+                     },
+                     success: function(response) {
+                         $("#loading").hide();
+                         $("#nama").html(response.list_nama).show();
+                     },
+                     error: function(xhr, ajaxOptions, thrownError) {
+                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                     }
+                 });
+             });
+         });
+     </script> -->
+
      <script>
          $('.custom-file-input').on('change', function() {
              let fileName = $(this).val().split('\\').pop();
@@ -66,42 +98,6 @@
          });
      </script>
 
-     <!-- get iduka by jurusan -->
-     <script>
-         $(document).ready(function() { // Ketika halaman sudah siap (sudah selesai di load)
-             // Kita sembunyikan dulu untuk loadingnya
-             $("#loading").hide();
-
-             $("#jurusan").change(function() { // Ketika user mengganti atau memilih data jurusan
-                 $("#nama_instansi").hide(); // Sembunyikan dulu combobox kota nya
-                 $("#loading").show(); // Tampilkan loadingnya
-
-                 $.ajax({
-                     type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                     url: "<?php echo base_url("admin/listIduka"); ?>", // Isi dengan url/path file php yang dituju
-                     data: {
-                         jurusan: $("#jurusan").val()
-                     }, // data yang akan dikirim ke file yang dituju
-                     dataType: "json",
-                     beforeSend: function(e) {
-                         if (e && e.overrideMimeType) {
-                             e.overrideMimeType("application/json;charset=UTF-8");
-                         }
-                     },
-                     success: function(response) { // Ketika proses pengiriman berhasil
-                         $("#loading").hide(); // Sembunyikan loadingnya
-                         // set isi dari combobox kota
-                         // lalu munculkan kembali combobox kotanya
-                         $("#nama_instansi").html(response.list_iduka).show();
-                     },
-                     error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
-                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-                     }
-                 });
-             });
-         });
-     </script>
-     </script>
      <script type="text/javascript" src="<?= base_url(); ?>assets/ckeditor/ckeditor.js"></script>
      <script>
          var ckeditor = CKEDITOR.replace('jurnal', {
