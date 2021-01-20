@@ -2,8 +2,8 @@
 <section class="page-section">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Form Absensi Kegiatan</h2>
-            <h2 class="section-subheading mb-3">"<?= $kegiatan['kegiatan']; ?>"</h2>
+            <h2 class="section-heading text-uppercase">Form Absensi Kegiatan<br />
+                <?= $kegiatan['kegiatan']; ?>"</h2>
         </div>
         <form id="absenForm" name="sentMessage" novalidate="novalidate">
             <input type="hidden" name="id_keg" id="id_keg" value="<?= $kegiatan['id']; ?>">
