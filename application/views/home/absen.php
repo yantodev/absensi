@@ -4,7 +4,9 @@ $tgl = date('Y-m-d');
 ?>
 <section class="page-section " id="absen">
     <div class="container">
-        <marquee bgcolor="blue">Jangan Lupa Mengisi Absensi Masuk dan Pulang.</marquee>
+        <marquee bgcolor="blue">
+            <h3>Jangan Lupa Mengisi Absensi Masuk dan Pulang.</h3>
+        </marquee>
         <div class="text-center">
             <h2 class="section-heading text-uppercase">FORM DAFTAR HADIR</h2>
             <h2 class="section-subheading">SMK Muh Karangmojo</h2>
