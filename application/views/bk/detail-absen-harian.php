@@ -1,9 +1,8 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-uppercase">REKAP DAFTAR HADIR HARIAN KELAS</h6>
+        <h6 class="m-0 font-weight-bold text-uppercase">REKAP DAFTAR HADIR HARIAN SISWA</h6>
         <small>Keterangan <br />
-            <i class="fa fa-edit"></i> Edit Data |
             <i class="fa fa-trash"></i> Hapus Data
         </small>
     </div>
@@ -31,7 +30,10 @@
                             <td><?= $i; ?></td>
                             <td><?= tgl($d['date_in']); ?></td>
                             <td><?= $d['nbm']; ?></td>
-                            <td><?= $d['nama']; ?></td>
+                            <td><?php
+                                $nama = $this->db->get_where('tbl_siswa', ['nis' => $d['nbm']])->row_array();
+                                echo ucwords(strtolower($nama['nama']));
+                                ?></td>
                             <td><?= $d['time_in']; ?></td>
                             <td><img src="<?= base_url() . $d['ttd_in']; ?>" width="50px" height="50px"></td>
                             <td><?= $d['time_out']; ?></td>

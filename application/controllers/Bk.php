@@ -110,6 +110,30 @@ class Bk extends CI_Controller
         $this->load->view('bk/absen-harian-kelas', $data);
         $this->load->view('wrapper/footer');
     }
+    public function tbh_absn()
+    {
+        $data['title'] = 'Tambah Absen Siswa';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $nis = $this->input->get('nis');
+        $data['tgl'] = $this->input->get('tgl');
+        $data['kelas'] = $this->db->get_where('tbl_kelas')->result_array();
+        $data['data'] = $this->db->get_where('tbl_siswa', ['nis' => $nis])->row_array();
+        $kelas = $this->input->post('kelas');
+        $tgl = $this->input->post('tgl');
+
+        $this->form_validation->set_rules('nis', 'NIS', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('bk/wrapper/header', $data);
+            $this->load->view('bk/wrapper/sidebar', $data);
+            $this->load->view('bk/wrapper/topbar', $data);
+            $this->load->view('bk/tambah-absen', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->bk->tbh_siswa();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil ditambahakan!!!</div>');
+            redirect('bk/hr_kelas?kelas=' . $kelas . '&level=5&date=' . $tgl);
+        }
+    }
     public function detail_hr_kelas()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();

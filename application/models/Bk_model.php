@@ -46,4 +46,25 @@ class Bk_model extends CI_Model
         ];
         $this->db->insert('aktivitas', $master);
     }
+    public function tbh_siswa()
+    {
+        $data = [
+            'nbm' => htmlspecialchars($this->input->post('nis', true)),
+            'date_in' => htmlspecialchars($this->input->post('tgl', true)),
+            'time_in' => htmlspecialchars($this->input->post('time', true)),
+            'time_out' => htmlspecialchars($this->input->post('time', true)),
+            'alasan' => htmlspecialchars($this->input->post('alasan', true)),
+            'ttd_in' => 'signature-image/daftar-hadir/siswa/masuk/ttd-bk.png',
+            'ttd_out' => 'signature-image/daftar-hadir/siswa/pulang/ttd-bk.png'
+
+        ];
+        $this->db->insert('tbl_dh', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('user', true)),
+            'kegiatan' => 'Menambah absensi harian ' . $this->input->post('nama') . '</br>jam masuk ' .
+                $this->input->post('time') . '</br>jam pulang ' . $this->input->post('time'),
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
 }

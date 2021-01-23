@@ -278,4 +278,15 @@ class Js extends CI_Controller
         );
         $this->db->insert('aktivitas', $master);
     }
+    //BK
+    // public function tbh_siswa()
+    // {
+    //     $kelas = $this->input->get('kelas');
+    //     $result = $this->Home_model->tbh_siswa($kelas);
+    //     foreach ($result as $data) {
+    //         $lists = "<option value='" . $data->nama . "'>" . $data->nama . "</option>";
+    //     }
+    //     $callback = array('list_nama' => $lists);
+    //     echo json_encode($callback);
+    // }
 }

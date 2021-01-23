@@ -32,4 +32,10 @@ class Home_model extends CI_Model
         $this->db->order_by('id', 'DESC');
         return $this->db->get_where('tbl_kegiatan')->result_array();
     }
+    // function tbh_siswa($kelas)
+    // {
+    //     $this->db->where('kelas', $kelas);
+    //     $result = $this->db->get('tbl_siswa')->result();
+    //     return $result;
+    // }
 }

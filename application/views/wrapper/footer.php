@@ -44,15 +44,15 @@
          $(document).ready(function() {
              $("#loading").hide();
 
-             $("#status").change(function() {
+             $("#kelas").change(function() {
                  $("#nama").hide();
                  $("#loading").show();
 
                  $.ajax({
                      type: "GET",
-                     url: "<?php echo base_url("js/nm_pgw"); ?>",
+                     url: "<?php echo base_url("js/tbh_siswa"); ?>",
                      data: {
-                         status: $("#status").val()
+                         kelas: $("#kelas").val()
                      },
                      dataType: "json",
                      beforeSend: function(e) {
@@ -65,7 +65,7 @@
                          $("#nama").html(response.list_nama).show();
                      },
                      error: function(xhr, ajaxOptions, thrownError) {
-                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                         alert(xhr.kelas + "\n" + xhr.responseText + "\n" + thrownError);
                      }
                  });
              });

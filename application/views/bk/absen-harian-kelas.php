@@ -3,8 +3,8 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-uppercase">REKAP DAFTAR HADIR HARIAN KELAS <?= $kelas; ?></h6>
         <small>Keterangan <br />
-            <i class="fa fa-edit"></i> Edit Data |
-            <i class="fa fa-trash"></i> Hapus Data
+            <i class="fa fa-edit"></i> Tambah Data Absensi |
+            <i class="fa fa-eye"></i> Detail Data
         </small>
     </div>
     <div class="card-body">
@@ -37,14 +37,28 @@
                         <tr>
                             <td><?= $i; ?></td>
                             <td><?= $d['nis']; ?></td>
-                            <td><?= $d['nama']; ?></td>
                             <td>
                                 <?php
-                                $result = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'date_in' => $date])->result_array();
-                                echo count($result)
+                                $nama = $this->db->get_where('tbl_siswa', ['nis' => $d['nis']])->row_array();
+                                echo ucwords(strtolower($nama['nama']));
                                 ?>
                             </td>
                             <td>
+                                <?php
+                                $hadir = $this->db->get_where('tbl_dh', ['nbm' => $d['nis'], 'date_in' => $date])->result_array();
+                                $result = count($hadir);
+                                // echo $result;
+                                if ($result < 1) {
+                                    echo "Belum Absensi";
+                                } elseif ($result <= 1) {
+                                    echo "Sudah Absensi";
+                                } elseif ($result > 2) {
+                                    echo "Absensi Lebih dari 1x";
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <a href="<?= base_url('bk/tbh_absn?nis=') . $d['nis'] . '&tgl=' . $date; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Tambah Absensi"></i></a>
                                 <a href="<?= base_url('bk/detail_hr_kelas?id=') . $d['nis']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="Detail Absensi"></i></a>
                             </td>
                         </tr>
@@ -55,23 +69,3 @@
         </div>
     </div>
 </div>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Yakin ingin menghapus siswa ini?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Setelah data dihapus data tidak bisa dikembalikan!!!</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="<?= base_url('admin/hapus/') . $d['id']; ?>">Hapus</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Begin Page Content -->

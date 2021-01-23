@@ -2,10 +2,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-uppercase">REKAP DAFTAR HADIR SEMESTER <?= $semester; ?> </h6>
-        <small>Keterangan <br />
-            <i class="fa fa-edit"></i> Edit Data |
-            <i class="fa fa-trash"></i> Hapus Data
-        </small>
     </div>
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>

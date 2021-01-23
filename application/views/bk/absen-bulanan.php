@@ -55,7 +55,10 @@
                         <tr>
                             <td><?= $i; ?></td>
                             <td><?= $d['nis']; ?></td>
-                            <td><?= ucwords(strtolower($d['nama'])); ?></td>
+                            <td><?php
+                                $nama = $this->db->get_where('tbl_siswa', ['nis' => $d['nis']])->row_array();
+                                echo ucwords(strtolower($nama['nama']));
+                                ?></td>
                             <td><?= $d['jk']; ?></td>
                             <td align="center">
                                 <?php
