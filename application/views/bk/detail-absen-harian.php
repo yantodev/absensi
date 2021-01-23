@@ -39,7 +39,7 @@
                             <td><?= $d['time_out']; ?></td>
                             <td><img src="<?= base_url() . $d['ttd_out']; ?>" width="50px" height="50px"></td>
                             <td>
-                                <a href="<?= base_url('bk/hapus_hr_kls?id=' . $d['id'] . '&nbm=' . $d['nbm']); ?>"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
+                                <a href="<?= base_url('bk/hapus_hr_kls?id=' . $d['id'] . '&nbm=' . $d['nbm'] . '&tgl=' . $tgl); ?>"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>

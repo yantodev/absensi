@@ -139,8 +139,10 @@ class Bk extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Daftar Absensi Harian';
         $data['kls'] = $this->db->get_where('tbl_kelas')->result_array();
-        $id = $this->input->get('id');
-        $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $id])->result_array();
+        $nis = $this->input->get('nis');
+        $date = $this->input->get('tgl');
+        $data['tgl'] = $date;
+        $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $nis, 'date_in' => $date])->result_array();
         $this->load->view('bk/wrapper/header', $data);
         $this->load->view('bk/wrapper/sidebar', $data);
         $this->load->view('bk/wrapper/topbar', $data);
@@ -151,10 +153,11 @@ class Bk extends CI_Controller
     {
         $nbm = $this->input->get('nbm');
         $id = $this->input->get('id');
+        $tgl = $this->input->get('tgl');
         $this->db->where('id', $id);
         $this->db->delete('tbl_dh');
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
-        redirect('bk/detail_hr_kelas?id=' . $nbm);
+        redirect('bk/detail_hr_kelas?nis=' . $nbm . '&tgl=' . $tgl);
     }
     public function edit_hr($id)
     {

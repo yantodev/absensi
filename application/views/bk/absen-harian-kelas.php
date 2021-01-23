@@ -52,7 +52,7 @@
                                     echo "<button class='btn btn-danger'>Belum</button>";
                                 } elseif ($result <= 1) {
                                     echo "<button class='btn btn-success'>Sudah</button>";
-                                } elseif ($result > 2) {
+                                } else {
                                     echo "<button class='btn btn-warning'>Lebih 1x</button>";
                                 }
                                 ?>
@@ -60,7 +60,7 @@
 
                             <td>
                                 <a href="<?= base_url('bk/tbh_absn?nis=') . $d['nis'] . '&tgl=' . $date; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Tambah Absensi"></i></a>
-                                <a href="<?= base_url('bk/detail_hr_kelas?id=') . $d['nis']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="Detail Absensi"></i></a>
+                                <a href="<?= base_url('bk/detail_hr_kelas?nis=') . $d['nis'] . '&tgl=' . $date; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="Detail Absensi"></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>
