@@ -10,12 +10,12 @@
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
         <form action="<?= base_url('admin/siswa'); ?> " method="get">
-            <select class="mb-1" name="jurusan" id="jurusan" required>
+            <!-- <select class="mb-1" name="jurusan" id="jurusan" required>
                 <option value="">Pilih Jurusan</option>
                 <?php foreach ($jurusan as $j) : ?>
                     <option value="<?= $j['id']; ?>"><?= $j['jurusan']; ?></option>
                 <?php endforeach; ?>
-            </select>
+            </select> -->
             <select class="mb-1" name="kelas" id="kelas">
                 <option value="">Pilih Kelas</option>
                 <?php foreach ($kelas as $k) : ?>
