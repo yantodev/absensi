@@ -82,7 +82,8 @@ class Admin_model extends CI_Model
             'email' => htmlspecialchars($this->input->post('email', true)),
             'jk' => htmlspecialchars($this->input->post('jk', true)),
             'kelas' => htmlspecialchars($this->input->post('kelas', true)),
-            'level' => '5'
+            'level' => '5',
+            'jurusan' => $this->input->post('jurusan')
         ];
         $this->db->insert('tbl_siswa', $data);
 
@@ -91,7 +92,9 @@ class Admin_model extends CI_Model
             'kegiatan' => 'Menambah siswa' . $this->input->post('nama') . '</br>' .
                 'NIS ' . $this->input->post('nis') . '</br>' .
                 'email ' . $this->input->post('email') . '</br>' .
-                'Jenis Kelamin ' . $this->input->post('jk')
+                'Jenis Kelamin ' . $this->input->post('jk') . '</br>' .
+                'Kelas ' . $this->input->post('kelas') . '</br>' .
+                'Jurusan ' . jurusan($this->input->post('jurusan'))
         ];
         $this->db->insert('aktivitas', $master);
     }

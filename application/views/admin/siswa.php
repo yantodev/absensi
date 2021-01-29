@@ -88,9 +88,9 @@
                     <div class="col-lg">
                         <select class="form-control mb-1" name="kelas" id="kelas" required>
                             <option value="">Pilih Kelas</option>
-                            <!-- <?php foreach ($kelas as $k) : ?>
+                            <?php foreach ($kelas as $k) : ?>
                                 <option value="<?= $k['kelas']; ?>"><?= $k['kelas']; ?></option>
-                            <?php endforeach; ?> -->
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
