@@ -9,6 +9,7 @@ class Js extends CI_Controller
         $this->load->model('Admin_model');
         $this->load->model('Home_model');
         $this->load->model('Count_model');
+        $this->load->model('Js_model');
     }
     public function nama_siswa()
     {
@@ -277,6 +278,18 @@ class Js extends CI_Controller
                 'Alasan :' . $alasan,
         );
         $this->db->insert('aktivitas', $master);
+    }
+
+    // kelas
+    function getKelas()
+    {
+        $jurusan = $this->input->get('jurusan');
+        $result = $this->Js_model->getKelas($jurusan);
+        foreach ($result as $data) {
+            $lists = "<option value='" . $data->kelas . "'>" . $data->kelas . "</option>";
+        };
+        $callback = array('list_kelas' => $lists);
+        echo json_encode($callback);
     }
     //BK
     // public function tbh_siswa()

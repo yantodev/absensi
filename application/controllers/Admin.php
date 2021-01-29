@@ -225,18 +225,32 @@ class Admin extends CI_Controller
 
 
     //siswa
+
     public function siswa()
     {
-        $data['title'] = 'Guru dan Karyawan';
+        $data['title'] = 'Siswa';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['kelas'] = $this->Admin_model->getKelas();
+        $data['jurusan'] = $this->Admin_model->getJurusan();
         $kelas = $this->input->get('kelas');
+        $kls = $this->input->post('kelas');
+        $data['kls'] = $kelas;
         $data['data'] = $this->db->get_where('tbl_siswa', ['kelas' => $kelas])->result_array();
-        $this->load->view('admin/wrapper/header', $data);
-        $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('admin/wrapper/topbar', $data);
-        $this->load->view('admin/siswa', $data);
-        $this->load->view('wrapper/footer');
+
+        $this->form_validation->set_rules('nis', 'NIS', 'required|trim|is_unique[tbl_siswa.nis]', [
+            'is_unique' => 'NIS Sudah digunakan!'
+        ]);
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/siswa', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->tambah_siswa();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('admin/siswa?kelas=' . $kls);
+        }
     }
     public function edit_siswa($id)
     {
@@ -256,6 +270,15 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
             redirect('admin/edit_siswa/' . $id);
         }
+    }
+    public function hapus_siswa()
+    {
+        $id = $this->input->get('id');
+        $kelas = $this->input->get('kelas');
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_siswa');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
+        redirect('admin/siswa?kelas=' . $kelas);
     }
 
     public function hr_siswa()

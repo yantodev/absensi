@@ -4,6 +4,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Admin_model extends CI_Model
 {
 
+    function getjurusan()
+    {
+        $this->db->order_by('jurusan', 'ASC');
+        return $this->db->get_where('tbl_jurusan')->result_array();
+    }
     public function aktivitas()
     {
         $this->db->order_by('id', 'DESC');
@@ -66,6 +71,27 @@ class Admin_model extends CI_Model
                 'email ' . $this->input->post('email') . '</br>' .
                 'jabatan ' . $this->input->post('jabatan') . '</br>' .
                 'hp ' . $this->input->post('hp')
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
+    public function tambah_siswa()
+    {
+        $data = [
+            'nis' => htmlspecialchars($this->input->post('nis', true)),
+            'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'email' => htmlspecialchars($this->input->post('email', true)),
+            'jk' => htmlspecialchars($this->input->post('jk', true)),
+            'kelas' => htmlspecialchars($this->input->post('kelas', true)),
+            'level' => '5'
+        ];
+        $this->db->insert('tbl_siswa', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('owner', true)),
+            'kegiatan' => 'Menambah siswa' . $this->input->post('nama') . '</br>' .
+                'NIS ' . $this->input->post('nis') . '</br>' .
+                'email ' . $this->input->post('email') . '</br>' .
+                'Jenis Kelamin ' . $this->input->post('jk')
         ];
         $this->db->insert('aktivitas', $master);
     }
