@@ -120,11 +120,3 @@
         </div>
     </div>
 </div>
-
-<!-- <script type="text/javascript">
-    function copy_text() {
-        document.getElementById("pilih").select();
-        document.execCommand("copy");
-        alert("Text berhasil dicopy");
-    }
-</script> -->

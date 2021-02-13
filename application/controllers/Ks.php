@@ -210,4 +210,92 @@ class Ks extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
         redirect('admin');
     }
+
+    public function jurnal()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['guru'] = $this->Admin_model->getGuru();
+        $nbm = $this->input->get('nbm');
+        $data['data'] = $this->Admin_model->getJurnal($nbm);
+        $data['data2'] = $nbm;
+        $data['data3'] = $this->db->get_where('tbl_hari_efektif')->result_array();
+        $this->load->view('ks/wrapper/header', $data);
+        $this->load->view('ks/wrapper/sidebar', $data);
+        $this->load->view('ks/wrapper/topbar', $data);
+        $this->load->view('ks/jurnal', $data);
+        $this->load->view('wrapper/footer');
+    }
+    public function jurnal_harian()
+    {
+        $data['title'] = 'Cetak PDF Jurnal';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $tgl = $this->input->post('tgl');
+        $nbm = $this->input->post('nbm');
+        $data['nbm'] = $this->input->post('nbm');
+        $data['data'] = $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->row_array();
+        $data['data2'] = $this->Admin_model->getJurnal2($tgl, $nbm);
+        $this->load->view('ks/wrapper/header', $data);
+        $this->load->view('ks/wrapper/sidebar', $data);
+        $this->load->view('ks/wrapper/topbar', $data);
+        $this->load->view('ks/cetak-pdf-jurnal', $data);
+        $this->load->view('wrapper/footer');
+
+
+        $mpdf = new \Mpdf\Mpdf(
+            [
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'setAutoTopMargin' => 'stretch'
+            ]
+        );
+
+        $mpdf->SetHTMLHeader('
+        <div style="text-align: center; font-weight: bold;">
+          <img src="assets/img/kop.png" width="100%" />
+        </div>');
+
+        $nama = $this->input->post('nama');
+
+        $html = $this->load->view('ks/cetak-pdf-jurnal', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Jurnal Harian ' . $nama . '.pdf', \Mpdf\Output\Destination::INLINE);
+    }
+    public function jurnal_bulanan()
+    {
+        $data['title'] = 'Cetak PDF Jurnal';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $bulan = $this->input->post('bulan');
+        $data['bulan'] = $this->input->post('bulan');
+        $nbm = $this->input->post('nbm');
+        $data['nbm'] = $this->input->post('nbm');
+        $data['data'] = $this->Admin_model->getJurnal3($bulan, $nbm);
+        $this->load->view('ks/wrapper/header', $data);
+        $this->load->view('ks/wrapper/sidebar', $data);
+        $this->load->view('ks/wrapper/topbar', $data);
+        $this->load->view('ks/cetak-pdf-jurnal-bulanan', $data);
+        $this->load->view('wrapper/footer');
+
+
+        $mpdf = new \Mpdf\Mpdf(
+            [
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'setAutoTopMargin' => 'stretch'
+            ]
+        );
+
+        $mpdf->SetHTMLHeader('
+        <div style="text-align: center; font-weight: bold;">
+          <img src="assets/img/kop.png" width="100%" />
+        </div>');
+
+        $nama = $this->input->post('nama');
+
+        $html = $this->load->view('ks/cetak-pdf-jurnal-bulanan', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Jurnal Bulanan ' . $nama . '.pdf', \Mpdf\Output\Destination::INLINE);
+    }
 }

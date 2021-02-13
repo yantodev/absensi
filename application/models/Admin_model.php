@@ -1,4 +1,7 @@
 <?php
+
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_Model
@@ -9,10 +12,15 @@ class Admin_model extends CI_Model
         $this->db->order_by('jurusan', 'ASC');
         return $this->db->get_where('tbl_jurusan')->result_array();
     }
+    function getGuru()
+    {
+        $this->db->order_by('nama', 'ASC');
+        return $this->db->get_where('tbl_gukar', ['status' => '3'])->result_array();
+    }
     public function aktivitas()
     {
         $this->db->order_by('id', 'DESC');
-        return $this->db->get_where('aktivitas',)->result_array();
+        return $this->db->get_where('aktivitas')->result_array();
     }
     public function absen_hr($id, $date)
     {
@@ -162,7 +170,9 @@ class Admin_model extends CI_Model
 
     function tambah_jurnal()
     {
+
         $data = [
+            'bulan' => date("m", strtotime($this->input->post('tgl'))),
             'tgl' => htmlspecialchars($this->input->post('tgl', true)),
             'time' => htmlspecialchars($this->input->post('time', true)),
             'nbm' => htmlspecialchars($this->input->post('nbm', true)),
@@ -193,5 +203,20 @@ class Admin_model extends CI_Model
             'kegiatan' => 'Mengedit jurnal ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
         ];
         $this->db->insert('aktivitas', $master);
+    }
+    function getJurnal($nbm)
+    {
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get_where('tbl_jurnal', ['nbm' => $nbm])->result_array();
+    }
+    function getJurnal2($tgl, $nbm)
+    {
+        $this->db->order_by('time', 'ASC');
+        return $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->result_array();
+    }
+    function getJurnal3($bulan, $nbm)
+    {
+        $this->db->order_by('time', 'ASC');
+        return $this->db->get_where('tbl_jurnal', ['bulan' => $bulan, 'nbm' => $nbm])->result_array();
     }
 }

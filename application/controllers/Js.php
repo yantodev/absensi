@@ -180,6 +180,8 @@ class Js extends CI_Controller
         $status = $_POST['status'];
         $alasan = $_POST['alasan'];
         $level = $_POST['level'];
+        $latitude = $_POST['latitude'];
+        $longitude = $_POST['longitude'];
         $data = array(
             'ttd_in' => $image,
             'nbm' => $nbm,
@@ -192,7 +194,9 @@ class Js extends CI_Controller
             'alasan' => $alasan,
             'level' => $level,
             'tp' => $tp,
-            'semester' => $semester
+            'semester' => $semester,
+            'latitude' => $latitude,
+            'longitude' => $longitude
         );
         $this->db->insert('tbl_dh', $data);
 

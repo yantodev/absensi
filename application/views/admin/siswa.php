@@ -150,7 +150,7 @@
                     $("#kelas").html(response.list_kelas).show();
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.kelas + "\n" + xhr.responseText + "\n" + thrownError);
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
         });

@@ -10,6 +10,12 @@
             <div class="align-items-center mb-5">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <input class="form-control" type="text" name="browser" id="browser" value="<?= $browser . '-' . $browser_version; ?>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="os" id="os" value="<?= $os; ?>" readonly>
+                    </div>
+                    <div class="form-group">
                         <input class="form-control" type="text" name="tp" id="tp" value="<?= $data['tp']; ?>" readonly>
                     </div>
                     <div class="form-group">

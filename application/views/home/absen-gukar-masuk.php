@@ -1,3 +1,13 @@
+<!-- <script>
+    function myMap() {
+        var mapProp = {
+            center: new google.maps.LatLng(-7.953393799999999, 110.6808909),
+            zoom: 25,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMaps"), mapProp);
+    }
+</script> -->
+
 <!-- Contact-->
 <section class="page-section" id="absen">
     <div class="container">
@@ -9,6 +19,9 @@
         <form id="absenForm" name="sentMessage" novalidate="novalidate">
             <div class="align-items-center mb-5">
                 <div class="col-md-6">
+                    <!-- <div id="googleMaps" style="width:100%;height:400px;"></div> -->
+                    <div class="form-group" id="demo">
+                    </div>
                     <div class="form-group">
                         <input class="form-control" type="text" name="tp" id="tp" value="<?= $data['tp']; ?>" readonly>
                     </div>
@@ -107,6 +120,43 @@
     </div>
 </div>
 
+<!-- //lokasi -->
+<script>
+    var x = document.getElementById("demo");
+
+    window.onload = function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation tidak didukung oleh browser ini.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML =
+            "<input class='form-control' type='text' name='latitude' id='latitude' value='" +
+            position.coords.latitude + "' readonly>" +
+            "<br/><input class='form-control' type='text' name='longitude' id='longitude' value='" +
+            position.coords.longitude + "' readonly>";
+    }
+
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                x.innerHTML = "User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML = "Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML = "The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML = "An unknown error occurred."
+                break;
+        }
+    }
+</script>
 <!-- //tanda tangan -->
 <script src="<?= base_url(); ?>/assets/frontend/js/signature-pad.js"></script>
 <script>
@@ -150,7 +200,9 @@
                     'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
                     'status': $('#status').val(),
                     'level': $('#level').val(),
-                    'alasan': $('#alasan').val()
+                    'alasan': $('#alasan').val(),
+                    'latitude': $('#latitude').val(),
+                    'longitude': $('#longitude').val()
                 },
                 success: function(datas1) {
                     signaturePad.clear();
@@ -164,7 +216,7 @@
         }
     });
 </script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhqJLsq-fGh7bUPtizrau0GCfU7XyUgsE&callback=myMap"></script>
 </body>
 
 </html>

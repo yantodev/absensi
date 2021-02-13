@@ -9,36 +9,50 @@ class Home extends CI_Controller
         $this->load->model('Admin_model');
         $this->load->model('Home_model');
         $this->load->model('Count_model');
+        $this->load->library('user_agent');
     }
 
     public function lokasi()
     {
         // $ip = $this->input->ip_address();
-        $ip = '180.245.196.93';
-        $this->load->library('Geolocation');
-        $this->load->config('geolocation', true);
+        // $ip = '180.245.196.93';
+        // $this->load->library('Geolocation');
+        // $this->load->config('geolocation', true);
 
-        $config = $this->config->config['geolocation'];
+        // $config = $this->config->config['geolocation'];
 
-        $this->geolocation->initialize($config);
-        $this->geolocation->set_ip_address($ip); // IP to locate
-        $this->geolocation->set_format('json');
+        // $this->geolocation->initialize($config);
+        // $this->geolocation->set_ip_address($ip); // IP to locate
+        // $this->geolocation->set_format('json');
         // OR you can change the format within `config/geolocation.php` config file
         // $country = $this->geolocation->get_country();
         // var_dump($country);
 
         // For more precision
-        $data['city'] = $this->geolocation->get_city();
+        // $data['city'] = $this->geolocation->get_city();
 
         // if ($city === FALSE)
         //     var_dump($this->geolocation->get_error());
         // else
         //     $data['city'] = $city;
-        $this->load->library('user_agent');
-        $data['browser'] = $this->agent->browser();
-        $data['browser_version'] = $this->agent->version();
-        $data['os'] = $this->agent->platform();
-        $data['ip_address'] = $this->input->ip_address();
+        // $this->load->library('user_agent');
+        // $data['browser'] = $this->agent->browser();
+        // $data['browser_version'] = $this->agent->version();
+        // $data['os'] = $this->agent->platform();
+        // $data['ip_address'] = $this->input->ip_address();
+        // $this->load->view('home/lokasi', $data);
+        $this->load->library('googlemaps');
+
+        $config['center'] = '-7.9533793, 110.6809057'; //Coordinate tengah peta
+        $config['zoom'] = '20';
+        $this->googlemaps->initialize($config);
+
+        $marker = array();
+        $marker['position'] = '-7.9533793, 110.6809057'; //Posisi marker (itu tuh yang merah2 lancip itu loh :-p)
+        $this->googlemaps->add_marker($marker);
+
+        $data['map'] = $this->googlemaps->create_map();
+
         $this->load->view('home/lokasi', $data);
     }
     public function index()
@@ -61,6 +75,10 @@ class Home extends CI_Controller
     }
     public function siswa_masuk()
     {
+        $data['browser'] = $this->agent->browser();
+        $data['browser_version'] = $this->agent->version();
+        $data['os'] = $this->agent->platform();
+        $data['ip_address'] = $this->input->ip_address();
         $data['title'] = 'Form Absen';
         $data['nis'] = $this->Home_model->getNIS();
         $nbm = $this->input->get('nbm');

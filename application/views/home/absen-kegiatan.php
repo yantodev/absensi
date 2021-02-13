@@ -136,7 +136,7 @@
                     'image': signaturePad.toDataURL(),
                     'id_keg': $('#id_keg').val(),
                     'nbm': $('#nbm').val(),
-                    'nama': $('#listnama').val(),
+                    'nama': $('#nama').val(),
                     'email': $('#email').val(),
                     'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
                     'status': $('#status').val(),
