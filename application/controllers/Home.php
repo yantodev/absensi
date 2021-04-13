@@ -84,8 +84,8 @@ class Home extends CI_Controller
         $nbm = $this->input->get('nbm');
         $date = $this->input->get('date');
         $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'date_in' => $date])->result_array();
-        $tgl = date('Y-m-d');
-        $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['tgl' => $tgl])->row_array();
+        $tgl = date('d');
+        $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['id' => $tgl])->row_array();
         $data['data'] = $this->db->get_where('home', ['id' => 1])->row_array();
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
@@ -105,8 +105,8 @@ class Home extends CI_Controller
     {
         $data['title'] = 'Form Absen';
         $data['nbm'] = $this->Home_model->getNBM();
-        $tgl = date('Y-m-d');
-        $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['tgl' => $tgl])->row_array();
+        $tgl = date('d');
+        $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['id' => $tgl])->row_array();
         $data['data'] = $this->db->get_where('home', ['id' => 1])->row_array();
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
@@ -123,7 +123,7 @@ class Home extends CI_Controller
         $this->load->view('home/wrapper/footer', $data);
     }
 
-    public function kegiatan()
+    public function keg()
     {
         $data['title'] = 'Home';
         $data['data'] = $this->Home_model->getKegiatan();
@@ -132,6 +132,7 @@ class Home extends CI_Controller
         $this->load->view('home/kegiatan', $data);
         $this->load->view('home/wrapper/footer', $data);
     }
+
     public function detail_kegiatan($id)
     {
         $data['title'] = 'Home';
@@ -160,14 +161,27 @@ class Home extends CI_Controller
         force_download($name, $data);
     }
 
-    public function absen_kegiatan($id)
+    public function absn_keg()
     {
         $data['title'] = 'Home';
+        $id = $this->input->get('id');
+        $status = $this->input->get('status');
+        $data['status'] = $status;
         $data['kegiatan'] = $this->db->get_where('tbl_kegiatan', ['id' => $id])->row_array();
-        $data['data'] = $this->Home_model->getKegiatan();
+        $data['data'] = $this->Home_model->getKegiatan($status);
         $this->load->view('home/wrapper/header', $data);
         $this->load->view('home/wrapper/navbar', $data);
         $this->load->view('home/absen-kegiatan', $data);
+        $this->load->view('home/wrapper/footer', $data);
+    }
+    public function keg_siswa()
+    {
+        $data['title'] = 'Home';
+        $status = 2;
+        $data['data'] = $this->Home_model->getKegiatan($status);
+        $this->load->view('home/wrapper/header', $data);
+        $this->load->view('home/wrapper/navbar', $data);
+        $this->load->view('home/keg-siswa', $data);
         $this->load->view('home/wrapper/footer', $data);
     }
 
@@ -345,5 +359,80 @@ class Home extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kritik dan saran anda berhasil dikirm ke email developer!!!</div>');
         redirect('home');
+    }
+
+    public function surat()
+    {
+        $data['title'] = 'Form Surat Pernyataan';
+        $data['nis'] = $this->Home_model->getNIS();
+        $nbm = $this->input->get('nbm');
+        $date = $this->input->get('date');
+        $data['data'] = $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'date_in' => $date])->result_array();
+        $tgl = date('d');
+        $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['id' => $tgl])->row_array();
+        $data['data'] = $this->db->get_where('home', ['id' => 1])->row_array();
+        $this->load->view('home/wrapper/header', $data);
+        $this->load->view('home/wrapper/navbar', $data);
+        $this->load->view('home/surat-pernyataan', $data);
+        $this->load->view('home/wrapper/footer', $data);
+    }
+    public function surat_pernyataan()
+    {
+        $data['title'] = 'Form Surat Pernyataan';
+        $data['kelas'] = $this->Home_model->getKelas();
+        $kelas = $this->input->get('kelas');
+        $data['dt'] = $kelas;
+        $data['data'] = $this->Home_model->getSiswa($kelas);
+        $this->load->view('home/wrapper/header', $data);
+        $this->load->view('home/wrapper/navbar', $data);
+        $this->load->view('home/detail-pernyataan', $data);
+        $this->load->view('home/wrapper/footer', $data);
+    }
+
+    public function detail_pernyataan_siswa($nis)
+    {
+        $data['title'] = 'Form Surat Pernyataan';
+        $data['data'] = $this->db->get_where('tbl_surat_pernyataan', ['nis' => $nis])->result_array();
+        $this->load->view('home/wrapper/header', $data);
+        $this->load->view('home/wrapper/navbar', $data);
+        $this->load->view('home/detail-pernyataan-siswa', $data);
+        $this->load->view('home/wrapper/footer', $data);
+    }
+    public function cetak_pernyataan_siswa($id)
+    {
+        $data['title'] = 'Cetak Surat Pernyataan Siswa';
+        $data['data'] = $this->db->get_where('tbl_surat_pernyataan', ['id' => $id])->row_array();
+
+        $this->load->view('home/cetak-pernyataan-siswa', $data);
+        $mpdf = new \Mpdf\Mpdf(
+            [
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'setAutoTopMargin' => false
+            ]
+        );
+        $html = $this->load->view('home/cetak-pernyataan-siswa', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Surat Pernytaan Siswa.pdf', \Mpdf\Output\Destination::INLINE);
+    }
+    public function cetak_pernyataan_kelas()
+    {
+        $data['title'] = 'Cetak Surat Pernyataan Siswa';
+        $kelas = $this->input->get('kelas');
+        $data['data'] = $this->Home_model->getSiswa($kelas);
+
+        $this->load->view('home/cetak-pernyataan-kelas', $data);
+        $mpdf = new \Mpdf\Mpdf(
+            [
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'setAutoTopMargin' => false
+            ]
+        );
+        $html = $this->load->view('home/cetak-pernyataan-kelas', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Surat Pernytaan Siswa.pdf', \Mpdf\Output\Destination::INLINE);
     }
 }

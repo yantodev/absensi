@@ -82,7 +82,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/tbm_pgw'); ?>" method="POST">
+            <form action="<?= base_url('admin/tbh_pgw'); ?>" method="POST">
                 <div class="form-group">
                     <label class="form-group col-lg">Status Pegawai</label>
                     <div class="col-lg">

@@ -6,7 +6,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_Model
 {
-
+    function getDH()
+    {
+        $bulan = date('n');
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get_where('tbl_dh', ['bulan' => $bulan])->result_array();
+    }
     function getjurusan()
     {
         $this->db->order_by('jurusan', 'ASC');
@@ -56,6 +61,29 @@ class Admin_model extends CI_Model
             'nama' =>  htmlspecialchars($this->input->post('name', true)),
             'kegiatan' => 'Merubah absensi harian ' . $this->input->post('nama') . '</br>jam masuk ' .
                 $this->input->post('time_in') . '</br>jam pulang ' . $this->input->post('time_out'),
+        ];
+        $this->db->insert('aktivitas', $master);
+    }
+    public function tambah_gukar()
+    {
+        $data = [
+            'status' => htmlspecialchars($this->input->post('status', true)),
+            'nbm' => htmlspecialchars($this->input->post('nbm', true)),
+            'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'email' => htmlspecialchars($this->input->post('email', true)),
+            'jabatan' => htmlspecialchars($this->input->post('jabatan', true)),
+            'hp' => htmlspecialchars($this->input->post('hp', true))
+
+        ];
+        $this->db->insert('tbl_gukar', $data);
+
+        $master = [
+            'nama' =>  htmlspecialchars($this->input->post('user', true)),
+            'kegiatan' => 'Menambah data ' . $this->input->post('nama') . '</br>' .
+                'NBM ' . $this->input->post('nbm') . '</br>' .
+                'email ' . $this->input->post('email') . '</br>' .
+                'jabatan ' . $this->input->post('jabatan') . '</br>' .
+                'hp ' . $this->input->post('hp')
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -140,7 +168,8 @@ class Admin_model extends CI_Model
             'time' => htmlspecialchars($this->input->post('time', true)),
             'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
             'keterangan' => htmlspecialchars($this->input->post('keterangan', true)),
-            'owner' => htmlspecialchars($this->input->post('owner', true))
+            'owner' => htmlspecialchars($this->input->post('owner', true)),
+            'status_id' => $this->input->post('status_id', true)
         ];
         $this->db->insert('tbl_kegiatan', $data);
 
@@ -168,6 +197,13 @@ class Admin_model extends CI_Model
         $this->db->insert('aktivitas', $master);
     }
 
+    function edit_dhkeg()
+    {
+        $data = [
+            'status' => $this->input->post('status')
+        ];
+        $this->db->update('tbl_dh_kegiatan', ['id' => $this->input->post('id')]);
+    }
     function tambah_jurnal()
     {
 

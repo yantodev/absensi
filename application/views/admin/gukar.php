@@ -47,6 +47,71 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <button type="button" class="btn btn-info mb-3" data-toggle="modal" data-target="#tambah">Tambah Pegawai</button>
         </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="tambah" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Pegawai</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('admin/gukar'); ?>" method="post">
+                    <div class="form-group row">
+                        <label class="col-3 form-label">Status</label>
+                        <div class="col">
+                            <select class="form-control" name="status" id="status" required>
+                                <option value="">Pilih Status</option>
+                                <option value="3">Guru</option>
+                                <option value="4">Karyawan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3 form-label">NIP/NBM</label>
+                        <div class="col">
+                            <input class="form-control" type="text" id="nbm" name="nbm" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3 form-label">Nama</label>
+                        <div class="col">
+                            <input class="form-control" type="text" id="nama" name="nama" required>
+                            <small>Nama lengkap dan gelar</small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3 form-label">Email</label>
+                        <div class="col">
+                            <input class="form-control" type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3 form-label">No. HP</label>
+                        <div class="col">
+                            <input class="form-control" type="number" id="hp" name="hp" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3 form-label">Jabatan</label>
+                        <div class="col">
+                            <input class="form-control" type="text" id="jabatan" name="jabatan" required>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="user" id="user" value="<?= $user['name']; ?>">
+                <button type="submit" class="btn btn-info">Tambah</button>
+                <!-- <button type=" button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+            </div>
+            </form>
+        </div>
+
     </div>
 </div>

@@ -49,7 +49,7 @@
                             <td>
                                 <a href="<?= base_url('admin/edit_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
                                 <a href="<?= base_url('admin/detail_kegiatan/') . $d['id']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="Detail"></i></a>
-                                <a href="<?= base_url(); ?>admin/hapus_kegiatan/<?= $d['id']; ?>" target="_blank"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
+                                <a href="<?= base_url(); ?>admin/hapus_kegiatan/<?= $d['id']; ?>"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>

@@ -19,7 +19,7 @@
                                 <thead>
                                     <tr>
                                         <th width="50px">#</th>
-                                        <th width="100px">NBM</th>
+                                        <th width="100px">NO ID</th>
                                         <th>NAMA</th>
                                         <th>JABATAN</th>
                                         <th>STATUS</th>
@@ -32,12 +32,23 @@
                                     <?php foreach ($data as $d) : ?>
                                         <tr>
                                             <td scope="row"><?= $i; ?></td>
-                                            <td><?= $d['nbm']; ?></td>
-                                            <td><?= $d['nama']; ?></td>
+                                            <td><?= $d['no_id']; ?></td>
                                             <td>
                                                 <?php
-                                                $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['nbm']])->row_array();
+                                                $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['no_id']])->row_array();
+                                                $data2 = $this->db->get_where('tbl_siswa', ['nis' => $d['no_id']])->row_array();
+                                                echo $data['nama'];
+                                                echo $data2['nama'];
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['no_id']])->row_array();
+                                                $data2 = $this->db->get_where('tbl_siswa', ['nis' => $d['no_id']])->row_array();
                                                 echo $data['jabatan'];
+                                                if ($data2['level'] == 5) {
+                                                    echo "Siswa";
+                                                }
                                                 ?>
                                             </td>
                                             <td><?= $d['status']; ?></td>
@@ -83,32 +94,3 @@
         </div>
     </div>
 </section>
-
-<!-- modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Warning!</h4>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-danger">
-                    Sign before you submit!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="alert alert-success">
-                    Absensi berhasil, Terima Kasih!!!!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

@@ -166,7 +166,6 @@
         canvas = wrapper.querySelector("canvas"),
         signaturePad;
     var today = new Date();
-    // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
     function resizeCanvas() {
         var ratio = window.devicePixelRatio || 1;

@@ -24,6 +24,7 @@
                         <th>Waktu</th>
                         <th>Kegiatan</th>
                         <th>Keterangan</th>
+                        <th>Kategori</th>
                         <th>Peserta</th>
                         <th>Upload</th>
                         <th>Action</th>
@@ -38,6 +39,12 @@
                             <td><?= $d['time']; ?></td>
                             <td><?= $d['kegiatan']; ?></td>
                             <td><?= $d['keterangan']; ?></td>
+                            <td>
+                                <?php
+                                $ktg = $this->db->get_where('tbl_kategori', ['id' => $d['status_id']])->row_array();
+                                echo $ktg['nama'];
+                                ?>
+                            </td>
                             <td>
                                 <?php
                                 $count = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $d['id']])->result_array();
@@ -73,6 +80,17 @@
                 </button>
             </div>
             <form action="<?= base_url('guru/kegiatan'); ?>" method="POST">
+                <div class="form-group">
+                    <label class="form-group col-lg">Kategori</label>
+                    <div class="col-lg">
+                        <select class="form-control" name="status_id" id="status_id">
+                            <option value="">Pilih Kategori</option>
+                            <?php foreach ($status as $s) : ?>
+                                <option value="<?= $s['id']; ?>"><?= $s['nama']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="form-group col-lg">Tanggal</label>
                     <div class="col-lg">

@@ -8,6 +8,16 @@ class Home_model extends CI_Model
         $this->db->order_by('nis', 'ASC');
         return $this->db->get_where('tbl_siswa')->result_array();
     }
+    function getKelas()
+    {
+        $this->db->order_by('id', 'ASC');
+        return $this->db->get_where('tbl_kelas')->result_array();
+    }
+    function getSiswa($kelas)
+    {
+        $this->db->order_by('nis', 'ASC');
+        return $this->db->get_where('tbl_siswa', ['kelas' => $kelas])->result_array();
+    }
     function nama_siswa($nis)
     {
         $this->db->where('nis', $nis);
@@ -32,6 +42,7 @@ class Home_model extends CI_Model
         $this->db->order_by('id', 'DESC');
         return $this->db->get_where('tbl_kegiatan')->result_array();
     }
+
     // function tbh_siswa($kelas)
     // {
     //     $this->db->where('kelas', $kelas);

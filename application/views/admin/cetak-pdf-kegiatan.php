@@ -29,7 +29,12 @@
             <tr>
                 <td align="center"><?= $i; ?></td>
                 <td><?= $d['nbm']; ?></td>
-                <td><?= $d['nama']; ?></td>
+                <td>
+                    <?php
+                    $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['nbm']])->row_array();
+                    echo $data['nama'];
+                    ?>
+                </td>
                 <td>
                     <?php
                     $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['nbm']])->row_array();

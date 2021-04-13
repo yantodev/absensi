@@ -254,22 +254,21 @@ class Js extends CI_Controller
         $image = str_replace('./', '', $file);
 
         $id_keg = $_POST['id_keg'];
-        $nbm = $_POST['nbm'];
+        $no_id = $_POST['no_id'];
         $nama = $_POST['nama'];
-        $email = $_POST['email'];
         $tgl = $_POST['date'];
         $status = $_POST['status'];
         $alasan = $_POST['alasan'];
-        $kegiatan = $_POST['kegiatan'];
+        $status_id = $_POST['status_id'];
         $data = array(
             'id_kegiatan' => $id_keg,
-            'nbm' => $nbm,
+            'no_id' => $no_id,
             'nama' => $nama,
-            'email' => $email,
             'tgl' => $tgl,
             'status' => $status,
             'alasan' => $alasan,
-            'ttd' => $image
+            'ttd' => $image,
+            'status_id' => $status_id
         );
         $this->db->insert('tbl_dh_kegiatan', $data);
 
@@ -306,4 +305,35 @@ class Js extends CI_Controller
     //     $callback = array('list_nama' => $lists);
     //     echo json_encode($callback);
     // }
+    public function insert_surat()
+    {
+        $img = $_POST['image'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+        $data = base64_decode($img);
+        $file = './signature-image/surat-pernyataan/' . uniqid() . '.png';
+        $success = file_put_contents($file, $data);
+        $image = str_replace('./', '', $file);
+
+        $nis = $_POST['nis'];
+        $nama = $_POST['nama'];
+        $hp_siswa = $_POST['hp_siswa'];
+        $kelas = $_POST['kelas'];
+        $nama_ortu = $_POST['nama_ortu'];
+        $alamat_ortu = $_POST['alamat_ortu'];
+        $hp_ortu = $_POST['hp_ortu'];
+        $date = $_POST['date'];
+        $data = array(
+            'ttd' => $image,
+            'nis' => $nis,
+            'nama_siswa' => $nama,
+            'hp_siswa' => $hp_siswa,
+            'kelas' => $kelas,
+            'nama_ortu' => $nama_ortu,
+            'alamat_ortu' => $alamat_ortu,
+            'hp_ortu' => $hp_ortu,
+            'date' => $date
+        );
+        $this->db->insert('tbl_surat_pernyataan', $data);
+    }
 }

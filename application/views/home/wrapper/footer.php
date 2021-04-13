@@ -218,6 +218,128 @@
            });
        </script>
 
+       <!-- absen kegiatan gukar -->
+       <script>
+           $(document).ready(function() {
+               $("#loading").hide();
+
+               $("#no_id").change(function() {
+                   $("#nama").hide();
+                   $("#loading").show();
+
+                   $.ajax({
+                       type: "GET",
+                       url: "<?php echo base_url("js/nama"); ?>",
+                       data: {
+                           nbm: $("#no_id").val()
+                       },
+                       dataType: "json",
+                       beforeSend: function(e) {
+                           if (e && e.overrideMimeType) {
+                               e.overrideMimeType("application/json;charset=UTF-8");
+                           }
+                       },
+                       success: function(response) {
+                           $("#loading").hide();
+                           $("#nama").html(response.list_nama).show();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {
+                           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                       }
+                   });
+               });
+           });
+       </script>
+       <script>
+           $(document).ready(function() {
+               $("#loading").hide();
+
+               $("#no_id").change(function() {
+                   $("#level").hide();
+                   $("#loading").show();
+
+                   $.ajax({
+                       type: "GET",
+                       url: "<?php echo base_url("js/status"); ?>",
+                       data: {
+                           nbm: $("#no_id").val()
+                       },
+                       dataType: "json",
+                       beforeSend: function(e) {
+                           if (e && e.overrideMimeType) {
+                               e.overrideMimeType("application/json;charset=UTF-8");
+                           }
+                       },
+                       success: function(response) {
+                           $("#loading").hide();
+                           $("#level").html(response.list_level).show();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {
+                           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                       }
+                   });
+               });
+           });
+       </script>
+       <!-- Absen Kegiatan Siswa -->
+       <script>
+           $(document).ready(function() {
+               $("#loading").hide();
+               $("#no_id").change(function() {
+                   $("#nama").hide();
+                   $("#loading").show();
+                   $.ajax({
+                       type: "GET",
+                       url: "<?php echo base_url("js/nama_siswa"); ?>",
+                       data: {
+                           nis: $("#no_id").val()
+                       },
+                       dataType: "json",
+                       beforeSend: function(e) {
+                           if (e && e.overrideMimeType) {
+                               e.overrideMimeType("application/json;charset=UTF-8");
+                           }
+                       },
+                       success: function(response) {
+                           $("#loading").hide();
+                           $("#nama").html(response.list_nama).show();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {
+                           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                       }
+                   });
+               });
+           });
+       </script>
+       <script>
+           $(document).ready(function() {
+               $("#loading").hide();
+               $("#no_id").change(function() {
+                   $("#level").hide();
+                   $("#loading").show();
+                   $.ajax({
+                       type: "GET",
+                       url: "<?php echo base_url("js/level_siswa"); ?>",
+                       data: {
+                           nis: $("#no_id").val()
+                       },
+                       dataType: "json",
+                       beforeSend: function(e) {
+                           if (e && e.overrideMimeType) {
+                               e.overrideMimeType("application/json;charset=UTF-8");
+                           }
+                       },
+                       success: function(response) {
+                           $("#loading").hide();
+                           $("#level").html(response.list_nama).show();
+                       },
+                       error: function(xhr, ajaxOptions, thrownError) {
+                           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                       }
+                   });
+               });
+           });
+       </script>
        </body>
 
        </html>

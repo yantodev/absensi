@@ -116,6 +116,7 @@ class Guru extends CI_Controller
         $owner = $this->input->get('owner');
         $owner2 = $this->input->post('owner');
         $data['data'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
+        $data['status'] = $this->db->get_where('tbl_kategori')->result_array();
 
         $this->form_validation->set_rules('tgl', 'Tanggal', 'required');
         $this->form_validation->set_rules('time', 'Waktu', 'required');

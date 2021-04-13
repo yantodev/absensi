@@ -22,9 +22,10 @@
                                 <th width="230px">TANGGAL</th>
                                 <th width="100px">JAM</th>
                                 <th>KEGIATAN</th>
+                                <th>KATEGORI</th>
                                 <th>PEMBUAT</th>
                                 <th width="150px">PESERTA</th>
-                                <th width="120px">Action</th>
+                                <th width="150px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,6 +36,12 @@
                                     <td><?= tgl($d['tgl']); ?></td>
                                     <td><?= $d['time']; ?></td>
                                     <td><?= $d['kegiatan']; ?></td>
+                                    <td>
+                                        <?php
+                                        $ktg = $this->db->get_where('tbl_kategori', ['id' => $d['status_id']])->row_array();
+                                        echo $ktg['nama'];
+                                        ?>
+                                    </td>
                                     <td><?= $d['owner']; ?></td>
                                     <td align="center">
                                         <?php
@@ -43,8 +50,8 @@
                                         ?> Orang
                                     </td>
                                     <td>
-                                        <a href="<?= base_url('home/absen_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Absen Sekarang"></i></a>
-                                        <a href="<?= base_url('home/detail_kegiatan/') . $d['id']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="View Detail"></i></a>
+                                        <a href="<?= base_url('home/absn_keg?id=') . $d['id'] . "&status=" . $d['status_id']; ?>"><button class="btn btn-primary mb-3"><i class="fa fa-edit fa-fw" alt="detail" title="Absen Sekarang"></i> Absen</button></a><br />
+                                        <a href="<?= base_url('home/detail_kegiatan/') . $d['id']; ?>"><button class="btn btn-success"><i class="fa fa-eye fa-fw" alt="detail" title="View Detail"></i> Detail</button></a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

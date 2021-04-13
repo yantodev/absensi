@@ -12,8 +12,8 @@ class Admin extends CI_Controller
         // is_logged_in();
         $this->load->model('Admin_model');
         $this->load->model('Home_model');
-        $this->load->model('BK_model', 'bk');
-        $this->load->model('Count_model', 'count');
+        $this->load->model('Bk_model');
+        $this->load->model('Count_model');
     }
 
     public function aktivitas()
@@ -31,6 +31,7 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->Admin_model->getDH();
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
         $this->load->view('admin/wrapper/topbar', $data);
@@ -196,11 +197,19 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $id = $this->input->get('status_id');
         $data['data'] = $this->db->get_where('tbl_gukar', ['status' => $id])->result_array();
-        $this->load->view('admin/wrapper/header', $data);
-        $this->load->view('admin/wrapper/sidebar', $data);
-        $this->load->view('admin/wrapper/topbar', $data);
-        $this->load->view('admin/gukar', $data);
-        $this->load->view('wrapper/footer');
+
+        $this->form_validation->set_rules('status', 'Status', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('admin/wrapper/header', $data);
+            $this->load->view('admin/wrapper/sidebar', $data);
+            $this->load->view('admin/wrapper/topbar', $data);
+            $this->load->view('admin/gukar', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $this->Admin_model->tambah_gukar();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+            redirect('admin/gukar');
+        }
     }
 
     public function edit_gukar($id)
@@ -222,10 +231,19 @@ class Admin extends CI_Controller
             redirect('admin/edit_gukar/' . $id);
         }
     }
+    public function tbh_pgw()
+    {
+        $data = [
+            'status' => $this->input->post('status'),
+            'nbm' => $this->input->post('nama')
+        ];
+        $this->db->insert('jam_kerja', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
+        redirect('admin/jam_kerja');
+    }
 
 
     //siswa
-
     public function siswa()
     {
         $data['title'] = 'Siswa';
@@ -289,7 +307,7 @@ class Admin extends CI_Controller
         $level = $this->input->get('level');
         $date = $this->input->get('date');
         $kelas = $this->input->get('kelas');
-        $data['data'] = $this->bk->absen_hr($level, $date, $kelas);
+        $data['data'] = $this->BK_model->absen_hr($level, $date, $kelas);
         $data['kelas'] = $kelas;
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -311,7 +329,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/edit-harian-siswa', $data);
             $this->load->view('wrapper/footer');
         } else {
-            $this->bk->edit_absen();
+            $this->BK_model->edit_absen();
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>');
             redirect('admin/edit_hr/' . $id);
         }
@@ -324,7 +342,7 @@ class Admin extends CI_Controller
         $kelas = $this->input->get('kelas');
         $bulan = $this->input->get('bulan');
         $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
-        $data['data'] = $this->bk->absen_bln($kelas);
+        $data['data'] = $this->BK_model->absen_bln($kelas);
 
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -340,7 +358,7 @@ class Admin extends CI_Controller
         $data['id'] = $this->db->get_where('tbl_siswa', ['nis' => $nis])->row_array();
         $bulan = $this->input->get('bulan');
         $data['bulan'] = $bulan;
-        $data['data'] = $this->bk->detail_absen_bln($nis, $bulan);
+        $data['data'] = $this->BK_model->detail_absen_bln($nis, $bulan);
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
         $this->load->view('admin/wrapper/topbar', $data);
@@ -356,8 +374,8 @@ class Admin extends CI_Controller
         $data['id'] = $this->db->get_where('tbl_siswa', ['nis' => $nis])->row_array();
         $bulan = $this->input->get('bulan');
         $data['bulan'] = $bulan;
-        $data['data'] = $this->bk->detail_absen_bln($nis, $bulan);
-        $data['count'] = $this->count->bulan($bulan, $nis);
+        $data['data'] = $this->BK_model->detail_absen_bln($nis, $bulan);
+        $data['count'] = $this->Count_model->bulan($bulan, $nis);
         $data['efektif'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
         $this->load->view('admin/cetak-pdf-bulanan-siswa', $data);
 
@@ -669,6 +687,27 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!!!</div>');
             redirect('admin/hr_efektif');
         }
+    }
+
+    public function edit_dhkeg()
+    {
+        $id = $this->input->post('owner');
+        $data = [
+            'status' => $this->input->post('status')
+        ];
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('tbl_dh_kegiatan', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!!!</div>');
+        redirect('admin/detail_kegiatan/' . $id);
+    }
+    public function hapus_dhkeg()
+    {
+        $idkeg = $this->input->get('idkeg');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_dh_kegiatan');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!!!</div>');
+        redirect('admin/detail_kegiatan/' . $idkeg);
     }
     public function jam_kerja()
     {

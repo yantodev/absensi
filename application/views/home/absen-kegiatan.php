@@ -1,16 +1,19 @@
 <!-- Contact-->
+<?php
+$s = $this->db->get_where('tbl_kategori', ['id' => $status])->row_array();
+?>
 <section class="page-section">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Form Absensi Kegiatan<br />
-                <?= $kegiatan['kegiatan']; ?>"</h2>
+            <h2 class="section-heading text-uppercase">Form Absensi Kegiatan <?= $s['nama']; ?><br />
+                "<?= $kegiatan['kegiatan']; ?>"</h2>
         </div>
         <form id="absenForm" name="sentMessage" novalidate="novalidate">
             <input type="hidden" name="id_keg" id="id_keg" value="<?= $kegiatan['id']; ?>">
             <div class="align-items-center mb-5">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NBM *" data-validation-required-message="Please enter your NBM." />
+                        <input class="form-control" list="datalistOptions" id="no_id" name="no_id" placeholder="Masukan nomor Identitas (NIP/NBM/NIS) *" data-validation-required-message="Please enter your NBM." />
                         <datalist id="datalistOptions">
                             <?php foreach ($nbm as $n) : ?>
                                 <option value="<?= $n['nbm']; ?>">
@@ -25,14 +28,8 @@
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="email" id="email">
-                            <option value="">Your email *</option>
-                        </select>
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
                         <select class="form-control" name="level" id="level">
-                            <option value="">Status Kepegawaian</option>
+                            <option value="">Status</option>
                         </select>
                         <p class="help-block text-danger"></p>
                     </div>
@@ -51,6 +48,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="kegiatan" id="kegiatan" value="<?= $kegiatan['kegiatan']; ?>">
+                <input type="hidden" name="status_id" id="status_id" value="<?= $status; ?>">
                 <!-- <input type="hidden" name="time" id="time" value="<?= time(); ?>"> -->
                 <div class="container">
                     <div class="m-signature-pad-body mb-3">
@@ -95,7 +93,6 @@
                 <div class="alert alert-success">
                     <p style="text-align: center;">Absensi berhasil, Terima Kasih!!!!</p>
                 </div>
-                <p style="text-align: center;"><?= $motivasi['motivasi']; ?></p>
             </div>
         </div>
     </div>
@@ -135,13 +132,12 @@
                 data: {
                     'image': signaturePad.toDataURL(),
                     'id_keg': $('#id_keg').val(),
-                    'nbm': $('#nbm').val(),
+                    'no_id': $('#no_id').val(),
                     'nama': $('#nama').val(),
-                    'email': $('#email').val(),
                     'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
                     'status': $('#status').val(),
                     'alasan': $('#alasan').val(),
-                    'kegiatan': $('#kegiatan').val()
+                    'status_id': $('#status_id').val()
                 },
                 success: function(datas1) {
                     signaturePad.clear();

@@ -18,7 +18,8 @@
                                         <b>Absensi Online</b><br />
                                         <b>"SMK Muh Karangmojo"</b>
                                     </h1>
-                                </div> <?= $this->session->flashdata('message'); ?> <form class="user" method="POST" action="<?= base_url('auth'); ?>">
+                                </div> <?= $this->session->flashdata('message'); ?>
+                                <form class="user" method="POST" action="<?= base_url('auth'); ?>">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address..." value="<?= set_value('email'); ?>">
                                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>

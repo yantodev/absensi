@@ -9,9 +9,17 @@
                <div class="collapse navbar-collapse" id="navbarResponsive">
                    <ul class="navbar-nav text-uppercase ml-auto">
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url(''); ?>">Home</a></li>
-                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/kegiatan'); ?>">Kegiatan</a></li>
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/absen'); ?>">Absen</a></li>
-                       <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/lokasi'); ?>">Lokasi</a></li> -->
+                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('home/keg'); ?>">Kegiatan</a></li>
+                       <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="surat" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Surat
+                           </a>
+                           <div class="dropdown-menu" aria-labelledby="surat">
+                               <a class="dropdown-item" href="<?= base_url('home/surat'); ?>">Surat Pernyataan</a>
+                               <a class="dropdown-item" href="<?= base_url('home/surat_pernyataan'); ?>">Cetak Surat Pernyataan</a>
+                           </div>
+                       </li>
                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                LOGIN
