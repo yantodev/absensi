@@ -13,7 +13,7 @@ class Guru extends CI_Controller
         $this->load->helper('url');
         $this->load->model('Admin_model');
         $this->load->model('Home_model');
-        $this->load->model('BK_model', 'bk');
+        // $this->load->model('BK_model', 'bk');
         $this->load->model('Count_model', 'count');
     }
 

@@ -52,8 +52,9 @@
                     <div class="form-group mb-md-0">
                         <p style="color: black;text-align:center;background-color:white">
                             <b>
-                                Dengan ini menyatakan bahwa saya telah menyetujui dan memberi ijin kepada anak saya tersebut di atas untuk mengikuti rangkaian kegiatan Ujian Kompetensi Keahlian (UKK) dan ISMUBA secara tatap muka di SMK Muhammadiyah Karangmojo sesuai jadwal yang telah ditentukan. Selain itu juga bersedia mengikuti ketentuan protokol kesehatan Covid-19 yang telah ditentukan, diantaranya adalah selalu mengisi screening kesehatan secara jujur pada saat akan mengikuti kegiatan pembelajaran tatap muka di sekolah. Screening kesehatan yang dimaksud adalah melalui link sebagai berikut:
-                                <a href="http://bit.ly/Screening_SMKMuhKarangmojo">http://bit.ly/Screening_SMKMuhKarangmojo</a>
+                                Dengan ini menyatakan bahwa saya telah menyetujui dan memberi ijin kepada anak saya tersebut di atas untuk mengikuti rangkaian kegiatan pembelajaran tatap muka di SMK Muhammadiyah Karangmojo sesuai jadwal yang telah ditentukan. Selain itu juga bersedia mengikuti ketentuan protokol kesehatan Covid-19 yang telah ditentukan, diantaranya adalah selalu mengisi screening kesehatan secara jujur pada saat akan mengikuti kegiatan pembelajaran tatap muka di sekolah. Screening kesehatan yang dimaksud adalah melalui link sebagai berikut:
+                                <a href="https://screening.smkmuhkarangmojo.sch.id">https://screening.smkmuhkarangmojo.sch.id</a>
+                                Jika Bapak/Ibu tidak berkenan mengijinkan putra/putrinya maka Bapak/Ibu berkewajiban mengantarkan hasil tugas-tugas ke sekolah.
 
                             </b>
                         </p>

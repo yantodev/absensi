@@ -20,6 +20,7 @@
             <th width="25px">NBM</th>
             <th>NAMA</th>
             <th>JABATAN</th>
+            <th>STATUS</th>
             <th>TTD</th>
         </tr>
     </thead>
@@ -28,19 +29,20 @@
         <?php foreach ($data2 as $d) : ?>
             <tr>
                 <td align="center"><?= $i; ?></td>
-                <td><?= $d['nbm']; ?></td>
+                <td><?= $d['no_id']; ?></td>
                 <td>
                     <?php
-                    $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['nbm']])->row_array();
+                    $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['no_id']])->row_array();
                     echo $data['nama'];
                     ?>
                 </td>
                 <td>
                     <?php
-                    $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['nbm']])->row_array();
+                    $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['no_id']])->row_array();
                     echo $data['jabatan'];
                     ?>
                 </td>
+                <td align="center"><?= $d['status']; ?></td>
                 <td align="center"><img src="<?= base_url() . $d['ttd']; ?>" width="50px" height="50px"></td>
             </tr>
             <?php $i++; ?>
