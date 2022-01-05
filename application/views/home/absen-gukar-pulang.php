@@ -28,22 +28,10 @@
                             <option value="">Your email *</option>
                         </select>
                         <p class="help-block text-danger"></p>
-                    </div>
-                </div>
-                <input type="hidden" name="date" id="date" value="<?= date("d-m-Y"); ?>">
-                <input type="hidden" name="time" id="time" value="<?= time(); ?>">
-                <div class="container">
-                    <div class="m-signature-pad-body mb-3">
-                        <p>Tanda Tangan Disini</p>
-                        <div id="signature-pad">
-                            <canvas width="200px" height="200px"></canvas>
-                            <div class="m-signature-pad-footer pb-8">
-                                <div style="align-content: center;" class="pb-9">
-                                    <button type="button" id="save2" data-action="save" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-                                    <button type="button" data-action="clear" class="btn btn-danger"><i class="fa fa-trash"></i> Clear</button>
-                                </div>
-                            </div>
-                        </div>
+
+                        <input type="hidden" name="date" id="date" value="<?= date("d-m-Y"); ?>">
+                        <input type="hidden" name="time" id="time" value="<?= time(); ?>">
+                        <button type="button" id="btn-simpan" class="btn btn-success"><i class="fa fa-check"></i> Absen Sekarang</button>
                     </div>
                 </div>
             </div>
@@ -83,43 +71,22 @@
 <!-- //tanda tangan -->
 <script src="<?= base_url(); ?>/assets/frontend/js/signature-pad.js"></script>
 <script>
-    var wrapper = document.getElementById("signature-pad"),
-        clearButton = wrapper.querySelector("[data-action=clear]"),
-        saveButton = wrapper.querySelector("[data-action=save]"),
-        canvas = wrapper.querySelector("canvas"),
-        signaturePad;
+    
     var today = new Date();
-    // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-    function resizeCanvas() {
-        var ratio = window.devicePixelRatio || 1;
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
-    }
-    signaturePad = new SignaturePad(canvas);
+    document.getElementById('btn-simpan').addEventListener("click", function(event) {
 
-    clearButton.addEventListener("click", function(event) {
-        signaturePad.clear();
-    });
-    saveButton.addEventListener("click", function(event) {
-
-        if (signaturePad.isEmpty()) {
-            $('#myModal').modal('show');
-        } else {
 
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url(); ?>js/update_DH",
                 data: {
-                    'image': signaturePad.toDataURL(),
                     'nama': $('#nama').val(),
                     'nbm': $('#nbm').val(),
                     'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
                     'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
                 },
                 success: function(datas1) {
-                    signaturePad.clear();
                     $('#myModal2').modal('show');
                     setTimeout(function() {
                         window.location.reload(1);
@@ -127,7 +94,6 @@
                     $('.success').html(datas1);
                 }
             });
-        }
     });
 </script>
 

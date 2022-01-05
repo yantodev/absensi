@@ -14,33 +14,6 @@ class Home extends CI_Controller
 
     public function lokasi()
     {
-        // $ip = $this->input->ip_address();
-        // $ip = '180.245.196.93';
-        // $this->load->library('Geolocation');
-        // $this->load->config('geolocation', true);
-
-        // $config = $this->config->config['geolocation'];
-
-        // $this->geolocation->initialize($config);
-        // $this->geolocation->set_ip_address($ip); // IP to locate
-        // $this->geolocation->set_format('json');
-        // OR you can change the format within `config/geolocation.php` config file
-        // $country = $this->geolocation->get_country();
-        // var_dump($country);
-
-        // For more precision
-        // $data['city'] = $this->geolocation->get_city();
-
-        // if ($city === FALSE)
-        //     var_dump($this->geolocation->get_error());
-        // else
-        //     $data['city'] = $city;
-        // $this->load->library('user_agent');
-        // $data['browser'] = $this->agent->browser();
-        // $data['browser_version'] = $this->agent->version();
-        // $data['os'] = $this->agent->platform();
-        // $data['ip_address'] = $this->input->ip_address();
-        // $this->load->view('home/lokasi', $data);
         $this->load->library('googlemaps');
 
         $config['center'] = '-7.9533793, 110.6809057'; //Coordinate tengah peta
@@ -105,6 +78,7 @@ class Home extends CI_Controller
     {
         $data['title'] = 'Form Absen';
         $data['nbm'] = $this->Home_model->getNBM();
+        $data['tp'] = $this->Home_model->getTp();
         $tgl = date('d');
         $data['motivasi'] = $this->db->get_where('tbl_motivasi', ['id' => $tgl])->row_array();
         $data['data'] = $this->db->get_where('home', ['id' => 1])->row_array();

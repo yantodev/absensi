@@ -116,12 +116,15 @@ class Ks extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Daftar Absensi';
+        $data['tp'] = $this->Home_model->getTp();
         $id = $this->input->get('status_id');
         $data['id'] = $id;
         $bulan = $this->input->get('bulan');
         $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
         $data['level'] = $this->db->get_where('tbl_status', ['id' => $id])->row_array();
-        $data['data'] = $this->Admin_model->absen_bln($id);
+        // $data['data'] = $this->Admin_model->absen_bln($id);
+        $data['all_bulan'] = allbulan();
+        $data['data'] = $this->db->get_where('tbl_gukar',['status'=>$id])->result_array();
         $this->load->view('ks/wrapper/header', $data);
         $this->load->view('ks/wrapper/sidebar', $data);
         $this->load->view('ks/wrapper/topbar', $data);
@@ -136,8 +139,10 @@ class Ks extends CI_Controller
         $bulan = $this->input->get('bulan');
         $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
         $data['id'] = $this->db->get_where('user', ['no_reg' => $nbm])->row_array();
-        $bulan = $this->input->get('bulan');
+        $bulan = @$this->input->get('bulan') ? $this->input->get('bulan') : date('m');
+        $tahun = @$this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
         $data['data'] = $this->Admin_model->detail_absen_bln($nbm, $bulan);
+        $data['hari'] = hari_bulan($bulan, $tahun);
         $this->load->view('ks/wrapper/header', $data);
         $this->load->view('ks/wrapper/sidebar', $data);
         $this->load->view('ks/wrapper/topbar', $data);
@@ -152,7 +157,6 @@ class Ks extends CI_Controller
         $nbm = $this->input->get('nbm');
         $data['id'] = $this->db->get_where('user', ['no_reg' => $nbm])->row_array();
         $bulan = $this->input->get('bulan');
-        $data['bulan'] = $bulan;
         $data['data'] = $this->Admin_model->detail_absen_bln($nbm, $bulan);
         $this->load->view('ks/cetak-pdf-bulanan', $data);
 
@@ -161,16 +165,23 @@ class Ks extends CI_Controller
                 'mode' => 'utf-8',
                 'format' => 'A4',
                 'orientation' => 'P',
-                'setAutoTopMargin' => false
+                'setAutoTopMargin' => false,
             ]
         );
 
-        // $mpdf->SetHTMLHeader('
+        //  $mpdf->SetHTMLHeader('
         // <div style="text-align: center; font-weight: bold;">
-        //   <img src="assets/img/pi-2020.png" width="100%" height="100%" />
+        //   <img src="assets/img/kop.png"  />
         // </div>');
 
-        $html = $this->load->view('admin/cetak-pdf-bulanan', [], true);
+        $mpdf->SetFooter(
+            '<p align="left">
+                <font color="blue">
+                    <i>https://presensi.smkmuhkarangmojo.sch.id</i>
+                </font>
+            </p>');
+
+        $html = $this->load->view('ks/cetak-pdf-bulanan', [], true);
         $mpdf->WriteHTML($html);
         $mpdf->Output('Detail Absensi ' . $nama . '.pdf', \Mpdf\Output\Destination::INLINE);
     }
@@ -178,9 +189,7 @@ class Ks extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Daftar Absensi';
-        $bulan = $this->input->get('bulan');
         $id = $this->input->get('id');
-        $data['bulan'] = $bulan;
         $data['data'] = $this->Admin_model->detail_all_bln($id);
         $this->load->view('ks/cetak-all-bulanan', $data);
 
@@ -208,7 +217,7 @@ class Ks extends CI_Controller
         $this->db->where('id', $id);
         $this->db->delete('tbl_dh');
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus!!!</div>');
-        redirect('admin');
+        redirect('ks');
     }
 
     public function jurnal()

@@ -11,42 +11,40 @@
         <?= $this->session->flashdata('message'); ?>
 
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered"  width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>TANGGAL</th>
-                        <th>NBM</th>
-                        <th>Name</th>
                         <th>MASUK</th>
-                        <th>TTD</th>
                         <th>PULANG</th>
-                        <th>TTD</th>
-                        <th>Action</th>
+                        <th>STATUS PRESENSI</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($data as $d) : ?>
+                    <?php foreach($hari as $j => $h): ?>
+                        <?php 
+                             $d = $this->db->get_where('tbl_dh',['date_in'=>$h['tgl'],'nbm'=>$this->input->get('nbm')])->row_array();
+                        ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td><?= tgl($d['date_in']); ?></td>
-                            <td><?= $d['nbm']; ?></td>
-                            <td><?= $d['nama']; ?></td>
-                            <td><?= $d['time_in']; ?></td>
-                            <td><img src="<?= base_url() . $d['ttd_in']; ?>" width="50px" height="50px"></td>
+                           <td><?=$h['hari']. ", " . tgl2($h['tgl']) ?></td>
+                          <td><?= $d['time_in']; ?></td>
                             <td><?= $d['time_out']; ?></td>
-                            <td><img src="<?= base_url() . $d['ttd_out']; ?>" width="50px" height="50px"></td>
-                            <td>
-                                <a href="<?= base_url('admin/edit_hr/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
-                                <!-- <a href="<?= base_url(); ?>admin/hapus/<?= $d['id']; ?>" target="_blank"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a> -->
-                            </td>
+                           <td>
+                                <?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : ($d['date_in']!= null ? "Hadir" : ""); ?>
+                           </td>
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <form action="<?= base_url('admin/cetak_pdf_bln'); ?>" method="get">
+            <form action="<?= base_url('ks/cetak_pdf_bln'); ?>" method="get">
+                <label for="">From</label>
+                <input type="date" name="date1" id="date1">
+                <label for="">To</label>
+                <input type="date" name="date2" id="date2">
                 <input type="hidden" name="bulan" id="bulan" value="<?= $bulan['id']; ?>">
                 <input type="hidden" name="nbm" id="nbm" value="<?= $id['no_reg']; ?>">
                 <input type="hidden" name="nama" id="nama" value="<?= $id['name']; ?>">

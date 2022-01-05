@@ -1,8 +1,8 @@
        <!-- Footer-->
-       <footer class="footer py-4">
+       <footer class="footer py-4" style="background-color: #3089e2; padding:0;">
            <div class="container">
-               <div class="row align-items-center">
-                   <div class="col-lg-4 text-lg-left">Copyright © <a href="https://smkmuhkarangmojo.sch.id">SMK Muh Karangmojo 2021</a>.</div>
+               <div class="row align-items-center" >
+                   <div class="col-lg-4 text-lg-left" style="color: black;">Copyright © <a href="https://smkmuhkarangmojo.sch.id">SMK Muh Karangmojo 2021</a>.</div>
                    <div class="col-lg-4 my-3 my-lg-0">
                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
@@ -11,6 +11,8 @@
                </div>
            </div>
        </footer>
+       <script src="<?= base_url(); ?>/assets/sweetalert2/dist/sweetalert2.all.min.js"></script>
+       <script src="<?= base_url(); ?>/assets/js/yantodev.js"></script>
        <!-- Bootstrap core JS-->
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>

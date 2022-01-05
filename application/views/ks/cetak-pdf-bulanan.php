@@ -1,58 +1,67 @@
 <style>
-    @page {
+    /* @page {
         margin-top: 0.5cm;
-        margin-bottom: 0.5cm;
+        margin-bottom: 1.5cm;
         margin-left: 1.0cm;
         margin-right: 1.0cm;
-        /* background-image: url('assets/img/pi-2020.png'); */
-    }
+    } */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 15px;
+}
+.column2 {
+  float: left;
+  /* width: 50%; */
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 </style>
-<?php
-$hadir = ($count->hadir / $efektif['jml']) * 100;
-$izin = ($count->izin / $efektif['jml']) * 100;
-$alpha = $efektif['jml'] - ($count->izin + $count->hadir);
-?>
 <img src="<?= base_url('assets/img/kop.png'); ?>" alt="">
 <h3 align="center">
     REKAP DAFTAR HADIR<br />
-    Bulan <?= bulan($bulan); ?>
+    Bulan <?= bulan($this->input->get('bulan')); ?>
 </h3>
 <table>
     <tbody>
         <tr>
-            <td>NIS</td>
+            <td>Tanggal</td>
             <td>:</td>
-            <td><?= $id['nis']; ?></td>
+            <td><?= tgl2($this->input->get('date1')); ?> s/d <?= tgl2($this->input->get('date2')); ?></td>
+        </tr>
+        <tr>
+            <td>NBM</td>
+            <td>:</td>
+            <td><?= $id['no_reg']; ?></td>
         </tr>
         <tr>
             <td>Nama</td>
             <td>:</td>
-            <td><?= ucwords(strtolower($id['nama'])); ?></td>
+            <td><?= $id['name']; ?></td>
         </tr>
         <tr>
-            <td>Kelas</td>
+            <td>Instansi</td>
             <td>:</td>
-            <td><?= $id['kelas']; ?></td>
-        </tr>
-        <tr>
-            <td>jurusan</td>
-            <td>:</td>
-            <td><?= jurusan($id['jurusan']); ?></td>
+            <td>SMK Muhammadiyah Karangmojo</td>
         </tr>
     </tbody>
 </table>
-
 <br />
-<table border="1" cellspacing="1" width="100%" cellspacing="0">
+<table border="1" cellspacing="1" width="100%" cellspacing="0" id="absensi">
     <thead>
         <tr>
             <th width="25px">No.</th>
-            <th width="180px">Hari, Tanggal</th>
-            <th>Status</th>
-            <th width="80px">Jam Masuk</th>
-            <th>TTD</th>
-            <th width="80px">Jam Pulang</th>
-            <th>TTD</th>
+            <th width="150px">Hari, Tanggal</th>
+            <th>Jam Masuk</th>
+            <th>Jam Pulang</th>
+            <th width="80px">Status Presensi</th>
+            <th>Total (Jam)</th>
         </tr>
     </thead>
     <tbody>
@@ -60,38 +69,67 @@ $alpha = $efektif['jml'] - ($count->izin + $count->hadir);
         <?php foreach ($data as $d) : ?>
             <tr>
                 <td align="center"><?= $i; ?></td>
-                <td><?= tgl($d['date_in']); ?></td>
-                <td align="center"><?= $d['status']; ?></td>
+                <td><?= tgl2($d['date_in']); ?></td>
                 <td align="center"><?= $d['time_in']; ?></td>
-                <td align="center"><img src="<?= base_url() . $d['ttd_in']; ?>" width="50px" height="50px"></td>
                 <td align="center"><?= $d['time_out']; ?></td>
-                <td align="center"><img src="<?= base_url() . $d['ttd_out']; ?>" width="50px" height="50px"></td>
+                <td align="center"><?= $d['status']; ?></td>
+                <td align="center">
+                    <?php
+                    $date_awal  = new DateTime($d['time_out']);
+                    $date_akhir = new DateTime($d['time_in']);
+                    $selisih = $date_akhir->diff($date_awal);
+
+                    $jam = $selisih->format('%h');
+                    $menit = $selisih->format('%i');
+
+                    if ($menit >= 0 && $menit <= 9) {
+                        $menit = "0" . $menit;
+                    }
+
+                    $hasil = $jam . "." . $menit;
+                    $hasil = number_format($hasil, 2);
+                    $total += (float)$hasil;
+                    ?>
+
+                    <?= $hasil; ?>
+
+                </td>
             </tr>
             <?php $i++; ?>
         <?php endforeach; ?>
+        <tfoot>
+            <tr>
+                <th colspan="5">Total Jam Kerja</th>
+                <th>
+                    <?= $total; ?>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="5">Standar Jam Kerja</th>
+                <th></th>
+            </tr>
+        </tfoot>
     </tbody>
 </table>
-<br />
-Keterangan :
-<table>
-    <tbody>
-        <tr>
-            <td>Hadir</td>
-            <td>:</td>
-            <td><?= $count->hadir; ?></td>
-            <td> hari</td>
-        </tr>
-        <tr>
-            <td>Izin</td>
-            <td>:</td>
-            <td><?= $count->izin; ?></td>
-            <td> hari</td>
-        </tr>
-        <tr>
-            <td>Alpha</td>
-            <td>:</td>
-            <td><?= $alpha; ?></td>
-            <td> hari</td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+  <div class="column">
+    <p>coba</p>
+ </div>
+  <div class="column2">
+    <table>
+        <tbody>
+            <tr>
+                <td width="100px">Mengetahui,</td>
+            </tr>
+            <tr>
+                <td>Kepala Sekolah</td>
+                <td>Kepala Tata Usaha</td>
+            </tr>
+            <tr>
+                <td height="120px">Munawar, S.Pd.I</td>
+                <td>Gunadi, S.IP</td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</div>

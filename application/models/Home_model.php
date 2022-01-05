@@ -49,4 +49,10 @@ class Home_model extends CI_Model
     //     $result = $this->db->get('tbl_siswa')->result();
     //     return $result;
     // }
+
+    function getTp()
+    {
+        $this->db->order_by('id', 'ASC');
+        return $this->db->get_where('tp')->result_array();
+    }
 }

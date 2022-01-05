@@ -160,15 +160,6 @@ class Js extends CI_Controller
 
     public function insert_DH()
     {
-        $img = $_POST['image'];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $file = './signature-image/daftar-hadir/gukar/masuk/' . uniqid() . '.png';
-        $success = file_put_contents($file, $data);
-        $image = str_replace('./', '', $file);
-
-        // $id = $_POST['id'];
         $tp = $_POST['tp'];
         $semester = $_POST['semester'];
         $nbm = $_POST['nbm'];
@@ -180,10 +171,7 @@ class Js extends CI_Controller
         $status = $_POST['status'];
         $alasan = $_POST['alasan'];
         $level = $_POST['level'];
-        $latitude = $_POST['latitude'];
-        $longitude = $_POST['longitude'];
         $data = array(
-            'ttd_in' => $image,
             'nbm' => $nbm,
             'nama' => $nama,
             'email' => $email,
@@ -194,9 +182,7 @@ class Js extends CI_Controller
             'alasan' => $alasan,
             'level' => $level,
             'tp' => $tp,
-            'semester' => $semester,
-            'latitude' => $latitude,
-            'longitude' => $longitude
+            'semester' => $semester
         );
         $this->db->insert('tbl_dh', $data);
 
@@ -212,25 +198,15 @@ class Js extends CI_Controller
     }
     public function update_DH()
     {
-        $img = $_POST['image'];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $file = './signature-image/daftar-hadir/gukar/pulang/' . uniqid() . '.png';
-        $success = file_put_contents($file, $data);
-        $image = str_replace('./', '', $file);
-
         $nama = $_POST['nama'];
         $nbm = $_POST['nbm'];
         $date = $_POST['date'];
         $time = $_POST['time'];
         $data = array(
-            'ttd_out' => $image,
             'date_out' => $date,
             'time_out' => $time,
         );
         $this->db->where('nbm', $nbm);
-        $this->db->where('date_in', $date);
         $this->db->update('tbl_dh', $data);
 
         $master = array(
@@ -276,7 +252,7 @@ class Js extends CI_Controller
             'nama' => $nama,
             'kegiatan' =>
             'Mengisi daftar kegiatan tanggal ' . $tgl . '<br/>' .
-                'Nama kegiatan :' . $kegiatan . '<br/>' .
+                // 'Nama kegiatan :' . $kegiatan . '<br/>' .
                 'Status Kehadiran :' . $status . '<br/>' .
                 'Alasan :' . $alasan,
         );

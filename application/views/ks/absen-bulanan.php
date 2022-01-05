@@ -10,25 +10,28 @@
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
         <form action="<?= base_url('ks/bln'); ?> " method="get">
-            <select class="form-control col-2 mb-2" name="bulan" id="bulan">
-                <option value="">Pilih bulan</option>
-                <option value="1"><?= bulan(1); ?></option>
-                <option value="2"><?= bulan(2); ?></option>
-                <option value="3"><?= bulan(3); ?></option>
-                <option value="4"><?= bulan(4); ?></option>
-                <option value="5"><?= bulan(5); ?></option>
-                <option value="6"><?= bulan(6); ?></option>
-                <option value="7"><?= bulan(7); ?></option>
-                <option value="8"><?= bulan(8); ?></option>
-                <option value="9"><?= bulan(9); ?></option>
-                <option value="10"><?= bulan(10); ?></option>
-                <option value="11"><?= bulan(11); ?></option>
-                <option value="12"><?= bulan(12); ?></option>
+        <select class="form-control col-3 mb-1" name="bulan" id="bulan">
+            <option value="" disabled selected>-- Pilih Bulan --</option>
+            <?php foreach($all_bulan as $bn => $bt): ?>
+                <option value="<?= $bn ?>" <?= ($bn == $bulan) ? 'selected' : '' ?>><?= $bt ?></option>
+                <?php endforeach; ?>
             </select>
-            <select class="form-control col-2 mb-1" name="status_id" id="status_id">
-                <option value="">Pilih status</option>
-                <option value="3">Guru</option>
-                <option value="4">Karyawan</option>
+             <select class="form-control col-3 mb-1" name="tahun" id="tahun">
+                 <option value="" disabled selected>-- Pilih Tahun --</option>
+                <?php for($i = date('Y'); $i >= (date('Y') - 5); $i--): ?>
+                    <option value="<?= $i ?>" <?= ($i == $tahun) ? 'selected' : '' ?>><?= $i ?></option>
+                <?php endfor; ?>">
+            </select>
+            <select class="form-control col-3 mb-1" name="status_id" id="status_id">
+                <option value="">-- Pilih Status --</option>
+                <option value="1">Guru</option>
+                <option value="2">Karyawan</option>
+            </select>
+            <select class="form-control col-3 mb-1" name="tp" id="tp">
+                <option value="">-- Pilih Tahun Pelajaran --</option>
+                <?php foreach($tp as $tp): ?>
+                <option value="<?= $tp['id']; ?>"><?= $tp['tp']; ?></option>
+                <?php endforeach; ?>
             </select>
             <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
         </form>
@@ -51,30 +54,44 @@
                     <?php foreach ($data as $d) : ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td><?= $d['no_reg']; ?></td>
-                            <td><?= $d['name']; ?></td>
+                            <td><?= $d['nbm']; ?></td>
+                            <td><?= $d['nama']; ?></td>
                             <td><?= $d['email']; ?></td>
                             <td align="center">
                                 <?php
-                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['no_reg'], 'status' => 'Hadir', 'bulan' => $bulan['id']])->result_array();
+                                $count = $this->db->get_where('tbl_dh',[
+                                    'nbm' => $d['nbm'],
+                                    'status' => 'Hadir',
+                                    'bulan' => $bulan['id'],
+                                    'tp' => $this->input->get('tp'),
+                                    ])->result_array();
                                 echo count($count);
                                 ?>
                             </td>
                             <td align="center">
                                 <?php
-                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['no_reg'], 'status' => 'Izin', 'bulan' => $bulan['id']])->result_array();
+                                $count = $this->db->get_where('tbl_dh', [
+                                    'nbm' => $d['nbm'],
+                                    'status' => 'Izin',
+                                    'bulan' => $bulan['id'],
+                                    'tp' => $this->input->get('tp'),
+                                ])->result_array();
                                 echo count($count);
                                 ?>
                             </td>
                             <td align="center">
                                 <?php
-                                $count = $this->db->get_where('tbl_dh', ['nbm' => $d['no_reg'], 'bulan' => $bulan['id']])->result_array();
+                                $count = $this->db->get_where('tbl_dh', [
+                                    'nbm' => $d['nbm'],
+                                    'bulan' => $bulan['id'],
+                                    'tp' => $this->input->get('tp'),
+                                ])->result_array();
                                 $data = count($count);
                                 echo $bulan['jml'] - $data;
                                 ?>
                             </td>
                             <td>
-                                <a href="<?= base_url('ks/dtl_absn?nbm=') . $d['no_reg'] . '&' . 'bulan=' . $bulan['id']; ?>"><button class="btn btn-primary">DETAIL</button></i></a>
+                                <a href="<?= base_url('ks/dtl_absn?nbm=') . $d['nbm'] . '&' . 'bulan=' . $bulan['id']; ?>"><button class="btn btn-primary">DETAIL</button></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -84,6 +101,7 @@
             <form action="<?= base_url('ks/cetak_all_bln'); ?>" method="get">
                 <input type="hidden" name="bulan" id="bulan" value="<?= $bulan['id']; ?>">
                 <input type="hidden" name="id" id="id" value="<?= $id; ?>">
+                <input type="hidden" name="tp" id="tp" value="<?= $this->input->get('tp'); ?>">
                 <button class="btn btn-google mb-2"><i class="far fa-file-pdf"> CETAK PDF</i></button>
                 </a>
                 <!-- <a href="">

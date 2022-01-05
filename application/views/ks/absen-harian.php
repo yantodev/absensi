@@ -12,14 +12,14 @@
         <form action="<?= base_url('ks/hr'); ?> " method="get">
             <select name="level" id="level">
                 <option value="">pilih status</option>
-                <option value="3">Guru</option>
-                <option value="4">Karyawan</option>
+                <option value="1">Guru</option>
+                <option value="2">Karyawan</option>
             </select>
             <input type="date" name="date" id="date">
             <button type="submit">VIEW</button>
         </form>
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered"  width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -27,9 +27,7 @@
                         <th>NBM</th>
                         <th>Name</th>
                         <th>MASUK</th>
-                        <th>TTD</th>
                         <th>PULANG</th>
-                        <th>TTD</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -42,12 +40,10 @@
                             <td><?= $d['nbm']; ?></td>
                             <td><?= $d['nama']; ?></td>
                             <td><?= $d['time_in']; ?></td>
-                            <td><img src="<?= base_url() . $d['ttd_in']; ?>" width="50px" height="50px"></td>
                             <td><?= $d['time_out']; ?></td>
-                            <td><img src="<?= base_url() . $d['ttd_out']; ?>" width="50px" height="50px"></td>
                             <td>
                                 <a href="<?= base_url('ks/edit_hr/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
-                                <a href="<?= base_url(); ?>ks/hapus/<?= $d['id']; ?>" target="_blank"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
+                                <a href="<?= base_url(); ?>ks/hapus/<?= $d['id']; ?>"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>

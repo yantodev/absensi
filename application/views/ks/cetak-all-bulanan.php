@@ -11,7 +11,7 @@
 <img src="<?= base_url('assets/img/kop.png'); ?>" alt="">
 <h3 align="center">
     REKAP DAFTAR HADIR<br />
-    Bulan <?= bulan($bulan); ?>
+    Bulan <?= bulan($this->input->get('bulan')); ?>
 </h3>
 <br />
 <table border="1" cellspacing="1" width="100%" cellspacing="0">
@@ -35,7 +35,12 @@
                 <td><?= $d['nama']; ?></td>
                 <td align="center">
                     <?php
-                    $hadir = $this->db->get_where('tbl_dh', ['nbm' => $d['nbm'], 'status' => 'Hadir'])->result_array();
+                    $hadir = $this->db->get_where('tbl_dh', [
+                        'nbm' => $d['nbm'],
+                        'status' => 'Hadir',
+                        'bulan' =>  $this->input->get('bulan'),
+                        'tp' => $this->input->get('tp'),
+                    ])->result_array();
                     echo count($hadir);
                     ?>
                 </td>
