@@ -255,4 +255,10 @@ class Admin_model extends CI_Model
         $this->db->order_by('time', 'ASC');
         return $this->db->get_where('tbl_jurnal', ['bulan' => $bulan, 'nbm' => $nbm])->result_array();
     }
+
+    function getGukar($status)
+    {
+        $this->db->order_by('nama','ASC');
+        return $this->db->get_where('tbl_gukar',['status'=>$status])->result_array();
+    }
 }

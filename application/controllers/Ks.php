@@ -315,4 +315,43 @@ class Ks extends CI_Controller
 		$mpdf->WriteHTML($html);
 		$mpdf->Output('Jurnal Bulanan ' . $nama . '.pdf', \Mpdf\Output\Destination::INLINE);
 	}
+
+	public function bebankerja()
+	{
+		$data['title'] = 'Beban Kerja';
+		$status = $this->input->get('status');
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		$data['data'] = $this->Admin_model->getGukar($status);
+
+		$this->form_validation->set_rules('id[]', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+		$this->load->view('ks/wrapper/header', $data);
+		$this->load->view('ks/wrapper/sidebar', $data);
+		$this->load->view('ks/wrapper/topbar', $data);
+		$this->load->view('ks/beban-kerja', $data);
+		$this->load->view('wrapper/footer');
+		} else {
+            $id = $this->input->post('id[]');
+            $senin = $this->input->post('senin[]');
+            $selasa = $this->input->post('selasa[]');
+            $rabu = $this->input->post('rabu[]');
+            $kamis = $this->input->post('kamis[]');
+            $jumat = $this->input->post('jumat[]');
+            $status = $this->input->post('status');
+            $result = array();
+            foreach ($id as $key => $val) {
+                $result[] = array(
+                    'id'    	=> $id[$key],
+                    'senin'		=> $senin[$key],
+                    'selasa'    => $selasa[$key],
+                    'rabu'    	=> $rabu[$key],
+                    'kamis'    	=> $kamis[$key],
+                    'jumat'    	=> $jumat[$key]
+                );
+            }
+            $this->db->update_batch('tbl_gukar', $result, 'id');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!!!</div>');
+            redirect('ks/bebankerja?status=' . $status);
+        }
+	}
 }

@@ -47,6 +47,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
                         <a class="collapse-item" href="<?= base_url('ks/jurnal'); ?>">Jurnal Guru</a>
+                        <a class="collapse-item" href="<?= base_url('ks/bebankerja'); ?>">Beban Kerja</a>
                     </div>
                 </div>
             </li>
