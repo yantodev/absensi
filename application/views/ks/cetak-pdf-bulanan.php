@@ -103,6 +103,7 @@
                             
                             $hasil = $jam . "." . $menit;
                             $hasil = number_format($hasil, 2);
+                            $total += (float)$hasil;
                         }
                         echo $hasil;
                     ?>
