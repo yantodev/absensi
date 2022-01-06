@@ -409,4 +409,44 @@ class Home extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output('Surat Pernytaan Siswa.pdf', \Mpdf\Output\Destination::INLINE);
     }
+
+    public function cetak_pdf_bln()
+	{
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		$data['title'] = 'Daftar Absensi';
+		$nama = $this->input->get('nama');
+		$nbm = $this->input->get('nbm');
+		$data['id'] = $this->db->get_where('user', ['no_reg' => $nbm])->row_array();
+		$bulan = $this->input->get('bulan');
+		$bulan = @$this->input->get('bulan') ? $this->input->get('bulan') : date('m');
+		$tahun = @$this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
+		$data['data'] = $this->Admin_model->detail_absen_bln($nbm, $bulan);
+		$data['hari'] = hari_bulan($bulan, $tahun);
+		$this->load->view('ks/cetak-pdf-bulanan', $data);
+
+		$mpdf = new \Mpdf\Mpdf(
+			[
+				'mode' => 'utf-8',
+				'format' => 'A4',
+				'orientation' => 'P',
+				'setAutoTopMargin' => false,
+			]
+		);
+
+		//  $mpdf->SetHTMLHeader('
+		// <div style="text-align: center; font-weight: bold;">
+		//   <img src="assets/img/kop.png"  />
+		// </div>');
+
+		$mpdf->SetFooter(
+			'<p align="left">
+                <font color="blue">
+                    <i>https://presensi.smkmuhkarangmojo.sch.id</i>
+                </font>
+            </p>');
+
+		$html = $this->load->view('ks/cetak-pdf-bulanan', [], true);
+		$mpdf->WriteHTML($html);
+		$mpdf->Output('Detail Absensi ' . $nama . '.pdf', \Mpdf\Output\Destination::INLINE);
+	}
 }

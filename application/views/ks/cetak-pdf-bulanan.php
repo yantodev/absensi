@@ -15,6 +15,11 @@
   /* width: 50%; */
   padding: 15px;
 }
+.column3 {
+  float: left;
+  width: 50%;
+  padding: 15px;
+}
 
 /* Clear floats after the columns */
 .row:after {
@@ -28,7 +33,9 @@
     REKAP DAFTAR HADIR<br />
     Bulan <?= bulan($this->input->get('bulan')); ?>
 </h3>
-<table>
+<div class="row">
+    <div class="column3">
+        <table>
     <tbody>
         <tr>
             <td>Tanggal</td>
@@ -52,6 +59,14 @@
         </tr>
     </tbody>
 </table>
+    </div>
+    <div class="column2">
+        <div style="text-align:center">
+            <barcode code="<?= base_url('/home/cetak_pdf_bln?date1='.$this->input->get('date1').'&date2='.$this->input->get('date2').'&bulan='.$this->input->get('bulan').'&nbm='.$this->input->get('nbm').'&nama='.$this->input->get('nama').''); ?>" size="1" type="QR" error="M" class="barcode" />
+        </div>
+    </div>
+</div>
+
 <br />
 <table border="1" cellspacing="1" width="100%" cellspacing="0" id="absensi">
     <thead>
