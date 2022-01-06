@@ -162,7 +162,10 @@ class Ks extends CI_Controller
 		$nbm = $this->input->get('nbm');
 		$data['id'] = $this->db->get_where('user', ['no_reg' => $nbm])->row_array();
 		$bulan = $this->input->get('bulan');
+		$bulan = @$this->input->get('bulan') ? $this->input->get('bulan') : date('m');
+		$tahun = @$this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
 		$data['data'] = $this->Admin_model->detail_absen_bln($nbm, $bulan);
+		$data['hari'] = hari_bulan($bulan, $tahun);
 		$this->load->view('ks/cetak-pdf-bulanan', $data);
 
 		$mpdf = new \Mpdf\Mpdf(
