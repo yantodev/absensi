@@ -213,6 +213,7 @@ class Js extends CI_Controller
 			'time_out' => $time,
 		);
 		$this->db->where('nbm', $nbm);
+		$this->db->where('date_in', $date);
 		$this->db->update('tbl_dh', $data);
 
 		$master = array(
