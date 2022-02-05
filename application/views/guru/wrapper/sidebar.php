@@ -20,12 +20,14 @@
 
             <!-- Nav Item -->
             <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('guru'); ?>">
+                <a class="nav-link pb-0" href="<?= base_url('guru') ?>">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('guru/jurnal?nbm=' . $user['no_reg']); ?>">
+                <a class="nav-link pb-0" href="<?= base_url(
+                    'guru/jurnal?nbm=' . $user['no_reg']
+                ) ?>">
                     <i class="fas fa-book"></i>
                     <span>Jurnal-ku</span></a>
             </li>
@@ -37,8 +39,12 @@
                 <div id="absen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url('guru/absensi'); ?>">Absensi</a>
-                        <a class="collapse-item" href="<?= base_url('guru/rekap'); ?>">Rekap Absensi</a>
+                        <a class="collapse-item" href="<?= base_url(
+                            'guru/absensi'
+                        ) ?>">Rekap Absensi</a>
+                        <!-- <a class="collapse-item" href="<?= base_url(
+                            'guru/rekap'
+                        ) ?>">Rekap Absensi</a> -->
                     </div>
                 </div>
             </li>
@@ -50,9 +56,15 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url('guru/kegiatan?owner=' . $user['name']); ?>">Kegiatan</a>
-                        <a class="collapse-item" href="<?= base_url('guru/fl_keg?owner=' . $user['name']); ?>">File Kegiatan</a>
-                        <a class="collapse-item" href="<?= base_url('guru/ft_keg?owner=' . $user['name']); ?>">Foto Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url(
+                            'guru/kegiatan?owner=' . $user['name']
+                        ) ?>">Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url(
+                            'guru/fl_keg?owner=' . $user['name']
+                        ) ?>">File Kegiatan</a>
+                        <a class="collapse-item" href="<?= base_url(
+                            'guru/ft_keg?owner=' . $user['name']
+                        ) ?>">Foto Kegiatan</a>
                     </div>
                 </div>
             </li>

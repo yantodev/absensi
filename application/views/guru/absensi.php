@@ -1,87 +1,140 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold">Rekap Kehadiran <?= $user['name']; ?> Bulan <?= bulan($bln); ?></h6>
-        <small>Keterangan <br />
-            Hadir = <?php
-                    $count = $this->db->get_where('tbl_dh', ['nbm' => $user['no_reg'], 'status' => 'Hadir', 'bulan' => $bln])->result_array();
-                    echo count($count);
-                    ?>
-            <br />
-            Izin = <?php
-                    $count = $this->db->get_where('tbl_dh', ['nbm' => $user['no_reg'], 'status' => 'Izin', 'bulan' => $bln])->result_array();
-                    echo count($count);
-                    ?>
-            <br />
-            Alpha = <?php
-                    $count = $this->db->get_where('tbl_dh', ['nbm' => $user['no_reg'], 'bulan' => $bln])->result_array();
-                    echo $bulan2['jml'] - count($count);
-                    ?>
+        <h6 class="m-0 font-weight-bold text-uppercase">
+            REKAP DAFTAR HADIR 
+            <?= $user['name'] ?>
+        </h6>
+        <small>
+            Keterangan <br />
+            <ol>
+                <li><span class="badge badge-warning">TPD</span> (Tidak Presensi Datang)</li>
+                <li><span class="badge badge-warning">TPP</span> (Tidak Presensi Pulang)</li>
+                <li><span class="badge badge-danger">TK</span> (Tidak Masuk Kerja Tanpa Keterangan)</li>
+                <li><span class="badge badge-info">D</span> (Libur)</li>
+            </ol>
         </small>
     </div>
     <div class="card-body">
-        <?= $this->session->flashdata('message'); ?>
-        <form action="<?= base_url('guru/absensi'); ?> " method="get">
-            <select name="bulan" id="bulan" required>
-                <option value="">Pilih Bulan</option>
-                <?php foreach ($bulan as $b) : ?>
-                    <option value="<?= $b['id']; ?>"><?= $b['bulan']; ?></option>
+        <?= $this->session->flashdata('message') ?>
+     <form action="" method="get">
+        <select class="form-control col-3 mb-1" name="bulan" id="bulan">
+            <option value="" disabled selected>-- Pilih Bulan --</option>
+            <?php foreach ($all_bulan as $bn => $bt): ?>
+                <option value="<?= $bn ?>" <?= $bn == $bulan
+    ? 'selected'
+    : '' ?>><?= $bt ?></option>
                 <?php endforeach; ?>
             </select>
-            <input type="hidden" name="id" id="id" value="<?= $user['no_reg']; ?>">
-            <!-- <input type="date" name="date" id="date" required> -->
-            <button type="submit">VIEW</button>
+             <select class="form-control col-3 mb-1" name="tahun" id="tahun">
+                 <option value="" disabled selected>-- Pilih Tahun --</option>
+                <?php for ($i = date('Y'); $i >= date('Y') - 5; $i--): ?>
+                    <option value="<?= $i ?>" <?= $i == $tahun
+    ? 'selected'
+    : '' ?>><?= $i ?></option>
+                <?php endfor; ?>">
+            </select>
+            <input type="hidden" name="nbm" id="nbm" value="<?= $user[
+                'no_reg'
+            ] ?>">
+            <!-- <select class="form-control col-3 mb-1" name="status_id" id="status_id">
+                <option value="">-- Pilih Status --</option>
+                <option value="1">Guru</option>
+                <option value="2">Karyawan</option>
+            </select> -->
+            <select class="form-control col-3 mb-1" name="tp" id="tp">
+                <option value="">-- Pilih Tahun Pelajaran --</option>
+                <?php foreach ($tp as $tp): ?>
+                <option value="<?= $tp['id'] ?>"><?= $tp['tp'] ?></option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
         </form>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered"  width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>TANGGAL</th>
-                        <th>NIS</th>
-                        <th>Name</th>
                         <th>MASUK</th>
-                        <th>TTD</th>
                         <th>PULANG</th>
-                        <th>TTD</th>
+                        <th>TOTAL JAM</th>
+                        <th>STATUS PRESENSI</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($data as $d) : ?>
-                        <tr>
-                            <td><?= $i; ?></td>
-                            <td><?= tgl($d['date_in']); ?></td>
-                            <td><?= $d['nbm']; ?></td>
-                            <td><?= $d['nama']; ?></td>
-                            <td><?= $d['time_in']; ?></td>
-                            <td><img src="<?= base_url() . $d['ttd_in']; ?>" width="50px" height="50px"></td>
-                            <td><?= $d['time_out']; ?></td>
-                            <td><img src="<?= base_url() . $d['ttd_out']; ?>" width="50px" height="50px"></td>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
+                    <?php foreach ($hari as $j => $h): ?>
+                        <?php $d = $this->db
+                            ->get_where('tbl_dh', [
+                                'date_in' => $h['tgl'],
+                                'nbm' => $this->input->get('nbm'),
+                            ])
+                            ->row_array(); ?>
+                       <tr>
+                        <td align="center"><?= $i ?></td>
+                        <td><?= tgl2($h['tgl']) ?></td>
+                        <td style="text-align:center"><?= $d['time_in'] ?></td>
+                        <td style="text-align:center"><?= $d['time_out'] ?></td>
+                        <td style="text-align:center">
+                            <?php
+                            $date_awal = new DateTime($d['time_out']);
+                            $date_akhir = new DateTime($d['time_in']);
+
+                            if ($d['time_out'] == 0) {
+                                echo $hasil = 0;
+                            } else {
+                                $selisih = $date_akhir->diff($date_awal);
+
+                                $jam = $selisih->format('%h');
+                                $menit = $selisih->format('%i');
+
+                                if ($menit >= 0 && $menit <= 9) {
+                                    $menit = '0' . $menit;
+                                }
+
+                                $hasil = $jam . '.' . $menit;
+                                $hasil = number_format($hasil, 2);
+                            }
+                            echo $hasil;
+                            ?>
+                        </td>
+                        <td style="text-align:center">
+                            <?= is_weekend($h['tgl'])
+                                ? '<span class="badge badge-info">D</span>'
+                                : (!$d['date_in']
+                                    ? '<span class="badge badge-danger">TK</span>'
+                                    : ($d['time_in'] == 0
+                                        ? '<span class="badge badge-warning">TPD</span>'
+                                        : ($d['time_out'] == 0
+                                            ? '<span class="badge badge-warning">TPP</span>'
+                                            : ''))) ?>
+                        </td>
+                    </tr>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
+            <form action="<?= base_url('ks/cetak_pdf_bln') ?>" method="get">
+                <label for="">From</label>
+                <input type="date" name="date1" id="date1">
+                <label for="">To</label>
+                <input type="date" name="date2" id="date2">
+                <input type="hidden" name="bulan" id="bulan" value="<?= $bulan[
+                    'id'
+                ] ?>">
+                <input type="hidden" name="nbm" id="nbm" value="<?= $id[
+                    'no_reg'
+                ] ?>">
+                <input type="hidden" name="nama" id="nama" value="<?= $id[
+                    'name'
+                ] ?>">
+                <button class="btn btn-google mb-2"><i class="far fa-file-pdf"> CETAK PDF</i></button>
+                </a>
+                <!-- <a href="">
+                    <button class="btn btn-success mb-2"><i class="far fa-file-excel"> CETAK EXCEL</i></button>
+                </a> -->
+            </form>
         </div>
     </div>
 </div>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Yakin ingin menghapus siswa ini?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Setelah data dihapus data tidak bisa dikembalikan!!!</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="<?= base_url('admin/hapus/') . $d['id']; ?>">Hapus</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Begin Page Content -->
