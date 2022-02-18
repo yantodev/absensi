@@ -24,6 +24,7 @@
                         <th>MASUK</th>
                         <th>PULANG</th>
                         <th>TOTAL JAM</th>
+                        <th>PROSENTASE</th>
                         <th>STATUS PRESENSI</th>
                     </tr>
                 </thead>
@@ -32,6 +33,7 @@
                     <?php foreach($hari as $j => $h): ?>
                         <?php 
                              $d = $this->db->get_where('tbl_dh',['date_in'=>$h['tgl'],'nbm'=>$this->input->get('nbm')])->row_array();
+                             $persen = $this->db->get_where('tbl_gukar',['nbm'=>$this->input->get('nbm')])->row_array();
                         ?>
                        <tr>
                         <td align="center"><?= $i; ?></td>
@@ -59,6 +61,21 @@
                                     $hasil = number_format($hasil, 2);
                                 }
                                 echo $hasil;
+                            ?>
+                        </td>
+                        <td>
+                            <?= 
+                                $h['hari'] == 'Senin' ?
+                                number_format(($hasil / $persen['senin']) *100 , 1) . '%' :
+                                ($h['hari'] == 'Selasa' ?
+                                number_format(($hasil / $persen['selasa']) *100 , 1) . '%' :
+                                ($h['hari'] == 'Rabu' ?
+                                number_format(($hasil / $persen['rabu']) *100 , 1) . '%' :
+                                ($h['hari'] == 'Kamis' ?
+                                number_format(($hasil / $persen['kamis']) *100 , 1) . '%' :
+                                ($h['hari'] == "Jum'at" ?
+                                number_format(($hasil / $persen['jumat']) *100 , 1) . '%' : ''
+                            ))));
                             ?>
                         </td>
                         <td style="text-align:center">

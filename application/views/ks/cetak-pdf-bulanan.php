@@ -28,10 +28,10 @@
   clear: both;
 }
 </style>
-<img src="<?= base_url('assets/img/kop.png'); ?>" alt="">
+<img src="<?= base_url('assets/img/kop.png') ?>" alt="">
 <h3 align="center">
     REKAP DAFTAR HADIR<br />
-    Bulan <?= bulan($this->input->get('bulan')); ?>
+    Bulan <?= bulan($this->input->get('bulan')) ?>
 </h3>
 <div class="row">
     <div class="column3">
@@ -40,17 +40,19 @@
         <tr>
             <td>Tanggal</td>
             <td>:</td>
-            <td><?= tgl2($this->input->get('date1')); ?> s/d <?= tgl2($this->input->get('date2')); ?></td>
+            <td><?= tgl2($this->input->get('date1')) ?> s/d <?= tgl2(
+     $this->input->get('date2')
+ ) ?></td>
         </tr>
         <tr>
             <td>NBM</td>
             <td>:</td>
-            <td><?= $id['no_reg']; ?></td>
+            <td><?= $id['no_reg'] ?></td>
         </tr>
         <tr>
             <td>Nama</td>
             <td>:</td>
-            <td><?= $id['name']; ?></td>
+            <td><?= $id['name'] ?></td>
         </tr>
         <tr>
             <td>Instansi</td>
@@ -62,7 +64,19 @@
     </div>
     <div class="column2">
         <div style="text-align:center">
-            <barcode code="<?= base_url('/home/cetak_pdf_bln?date1='.$this->input->get('date1').'&date2='.$this->input->get('date2').'&bulan='.$this->input->get('bulan').'&nbm='.$this->input->get('nbm').'&nama='.$this->input->get('nama').''); ?>" size="1" type="QR" error="M" class="barcode" />
+            <barcode code="<?= base_url(
+                '/home/cetak_pdf_bln?date1=' .
+                    $this->input->get('date1') .
+                    '&date2=' .
+                    $this->input->get('date2') .
+                    '&bulan=' .
+                    $this->input->get('bulan') .
+                    '&nbm=' .
+                    $this->input->get('nbm') .
+                    '&nama=' .
+                    $this->input->get('nama') .
+                    ''
+            ) ?>" size="1" type="QR" error="M" class="barcode" />
         </div>
     </div>
 </div>
@@ -81,46 +95,51 @@
     </thead>
     <tbody>
         <?php $i = 1; ?>
-        <?php foreach($hari as $j => $h): ?>
-            <?php 
-                $d = $this->db->get_where('tbl_dh',['date_in'=>$h['tgl'],'nbm'=>$this->input->get('nbm')])->row_array();
-            ?>
+        <?php foreach ($hari as $j => $h): ?>
+            <?php $d = $this->db
+                ->get_where('tbl_dh', [
+                    'date_in' => $h['tgl'],
+                    'nbm' => $this->input->get('nbm'),
+                ])
+                ->row_array(); ?>
             <tr>
-                <td align="center"><?= $i; ?></td>
-                <td><?=tgl2($h['tgl']) ?></td>
-                <td style="text-align:center"><?= $d['time_in']; ?></td>
-                <td style="text-align:center"><?= $d['time_out']; ?></td>
+                <td align="center"><?= $i ?></td>
+                <td><?= tgl2($h['tgl']) ?></td>
+                <td style="text-align:center"><?= $d['time_in'] ?></td>
+                <td style="text-align:center"><?= $d['time_out'] ?></td>
                     <td style="text-align:center">
-                    <?= is_weekend($h['tgl']) ?
-                    '<span class="badge badge-info">D</span>' :
-                    (!$d['date_in'] ? '<span class="badge badge-danger">TK</span>' :
-                    ($d['time_in'] == 0 ? '<span class="badge badge-warning">TPD</span>' :
-                    ($d['time_out'] == 0 ? '<span class="badge badge-warning">TPP</span>' :
-                    ''
-                    ))); ?>
+                    <?= is_weekend($h['tgl'])
+                        ? '<span class="badge badge-info">D</span>'
+                        : (!$d['date_in']
+                            ? '<span class="badge badge-danger">TK</span>'
+                            : ($d['time_in'] == 0
+                                ? '<span class="badge badge-warning">TPD</span>'
+                                : ($d['time_out'] == 0
+                                    ? '<span class="badge badge-warning">TPP</span>'
+                                    : ''))) ?>
                 </td>
                 <td style="text-align:center">
                     <?php
-                        $date_awal  = new DateTime($d['time_out']);
-                        $date_akhir = new DateTime($d['time_in']);
+                    $date_awal = new DateTime($d['time_out']);
+                    $date_akhir = new DateTime($d['time_in']);
 
-                        if($d['time_out'] == 0){
-                            echo $hasil=0;
-                        } else {
-                            $selisih = $date_akhir->diff($date_awal);
-                            
-                            $jam = $selisih->format('%h');
-                            $menit = $selisih->format('%i');
-                            
-                            if ($menit >= 0 && $menit <= 9) {
-                                $menit = "0" . $menit;
-                            }
-                            
-                            $hasil = $jam . "." . $menit;
-                            $hasil = number_format($hasil, 2);
-                            $total += (float)$hasil;
+                    if ($d['time_out'] == 0) {
+                        echo $hasil = 0;
+                    } else {
+                        $selisih = $date_akhir->diff($date_awal);
+
+                        $jam = $selisih->format('%h');
+                        $menit = $selisih->format('%i');
+
+                        if ($menit >= 0 && $menit <= 9) {
+                            $menit = '0' . $menit;
                         }
-                        echo $hasil;
+
+                        $hasil = $jam . '.' . $menit;
+                        $hasil = number_format($hasil, 2);
+                        $total += (float) $hasil;
+                    }
+                    echo $hasil;
                     ?>
                 </td>
             </tr>
@@ -130,7 +149,7 @@
             <tr>
                 <th colspan="5">Total Jam Kerja</th>
                 <th style="text-align:center">
-                    <?= $total; ?>
+                    <?= $total ?>
                 </th>
             </tr>
             <tr>

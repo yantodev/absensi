@@ -1,9 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-/**
- * @Author Yantodev
- * @Link https://yantodev.github.io/
- */
+
 class Menu_model extends CI_Model
 {
     public function getSubMenu()

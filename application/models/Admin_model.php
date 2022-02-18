@@ -10,7 +10,9 @@ class Admin_model extends CI_Model
     {
         $bulan = date('n');
         $this->db->order_by('id', 'DESC');
-        return $this->db->get_where('tbl_dh', ['bulan' => $bulan])->result_array();
+        return $this->db
+            ->get_where('tbl_dh', ['bulan' => $bulan])
+            ->result_array();
     }
     function getjurusan()
     {
@@ -20,7 +22,9 @@ class Admin_model extends CI_Model
     function getGuru()
     {
         $this->db->order_by('nama', 'ASC');
-        return $this->db->get_where('tbl_gukar', ['status' => '3'])->result_array();
+        return $this->db
+            ->get_where('tbl_gukar', ['status' => '3'])
+            ->result_array();
     }
     public function aktivitas()
     {
@@ -30,7 +34,9 @@ class Admin_model extends CI_Model
     public function absen_hr($id, $date)
     {
         $this->db->order_by('id', 'DESC');
-        return $this->db->get_where('tbl_dh', ['level' => $id, 'date_in' => $date])->result_array();
+        return $this->db
+            ->get_where('tbl_dh', ['level' => $id, 'date_in' => $date])
+            ->result_array();
     }
     public function absen_bln($id)
     {
@@ -40,27 +46,37 @@ class Admin_model extends CI_Model
     public function detail_absen_bln($nbm, $bln)
     {
         $this->db->order_by('id', 'ASC');
-        return $this->db->get_where('tbl_dh', ['nbm' => $nbm, 'bulan' => $bln])->result_array();
+        return $this->db
+            ->get_where('tbl_dh', ['nbm' => $nbm, 'bulan' => $bln])
+            ->result_array();
     }
     public function detail_all_bln($id)
     {
         $this->db->order_by('nama', 'ASC');
-        return $this->db->get_where('tbl_gukar', ['status' => $id])->result_array();
+        return $this->db
+            ->get_where('tbl_gukar', ['status' => $id])
+            ->result_array();
     }
     public function edit_absen()
     {
         $data = [
             'time_in' => htmlspecialchars($this->input->post('time_in', true)),
-            'time_out' => htmlspecialchars($this->input->post('time_out', true)),
-
+            'time_out' => htmlspecialchars(
+                $this->input->post('time_out', true)
+            ),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('tbl_dh', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('name', true)),
-            'kegiatan' => 'Merubah absensi harian ' . $this->input->post('nama') . '</br>jam masuk ' .
-                $this->input->post('time_in') . '</br>jam pulang ' . $this->input->post('time_out'),
+            'nama' => htmlspecialchars($this->input->post('name', true)),
+            'kegiatan' =>
+                'Merubah absensi harian ' .
+                $this->input->post('nama') .
+                '</br>jam masuk ' .
+                $this->input->post('time_in') .
+                '</br>jam pulang ' .
+                $this->input->post('time_out'),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -72,18 +88,27 @@ class Admin_model extends CI_Model
             'nama' => htmlspecialchars($this->input->post('nama', true)),
             'email' => htmlspecialchars($this->input->post('email', true)),
             'jabatan' => htmlspecialchars($this->input->post('jabatan', true)),
-            'hp' => htmlspecialchars($this->input->post('hp', true))
-
+            'hp' => htmlspecialchars($this->input->post('hp', true)),
         ];
         $this->db->insert('tbl_gukar', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('user', true)),
-            'kegiatan' => 'Menambah data ' . $this->input->post('nama') . '</br>' .
-                'NBM ' . $this->input->post('nbm') . '</br>' .
-                'email ' . $this->input->post('email') . '</br>' .
-                'jabatan ' . $this->input->post('jabatan') . '</br>' .
-                'hp ' . $this->input->post('hp')
+            'nama' => htmlspecialchars($this->input->post('user', true)),
+            'kegiatan' =>
+                'Menambah data ' .
+                $this->input->post('nama') .
+                '</br>' .
+                'NBM ' .
+                $this->input->post('nbm') .
+                '</br>' .
+                'email ' .
+                $this->input->post('email') .
+                '</br>' .
+                'jabatan ' .
+                $this->input->post('jabatan') .
+                '</br>' .
+                'hp ' .
+                $this->input->post('hp'),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -94,19 +119,28 @@ class Admin_model extends CI_Model
             'nama' => htmlspecialchars($this->input->post('nama', true)),
             'email' => htmlspecialchars($this->input->post('email', true)),
             'jabatan' => htmlspecialchars($this->input->post('jabatan', true)),
-            'hp' => htmlspecialchars($this->input->post('hp', true))
-
+            'hp' => htmlspecialchars($this->input->post('hp', true)),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('tbl_gukar', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('user', true)),
-            'kegiatan' => 'Merubah data pribadi ' . $this->input->post('nama') . '</br>' .
-                'NBM ' . $this->input->post('nbm') . '</br>' .
-                'email ' . $this->input->post('email') . '</br>' .
-                'jabatan ' . $this->input->post('jabatan') . '</br>' .
-                'hp ' . $this->input->post('hp')
+            'nama' => htmlspecialchars($this->input->post('user', true)),
+            'kegiatan' =>
+                'Merubah data pribadi ' .
+                $this->input->post('nama') .
+                '</br>' .
+                'NBM ' .
+                $this->input->post('nbm') .
+                '</br>' .
+                'email ' .
+                $this->input->post('email') .
+                '</br>' .
+                'jabatan ' .
+                $this->input->post('jabatan') .
+                '</br>' .
+                'hp ' .
+                $this->input->post('hp'),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -119,18 +153,30 @@ class Admin_model extends CI_Model
             'jk' => htmlspecialchars($this->input->post('jk', true)),
             'kelas' => htmlspecialchars($this->input->post('kelas', true)),
             'level' => '5',
-            'jurusan' => $this->input->post('jurusan')
+            'jurusan' => $this->input->post('jurusan'),
         ];
         $this->db->insert('tbl_siswa', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('owner', true)),
-            'kegiatan' => 'Menambah siswa' . $this->input->post('nama') . '</br>' .
-                'NIS ' . $this->input->post('nis') . '</br>' .
-                'email ' . $this->input->post('email') . '</br>' .
-                'Jenis Kelamin ' . $this->input->post('jk') . '</br>' .
-                'Kelas ' . $this->input->post('kelas') . '</br>' .
-                'Jurusan ' . jurusan($this->input->post('jurusan'))
+            'nama' => htmlspecialchars($this->input->post('owner', true)),
+            'kegiatan' =>
+                'Menambah siswa' .
+                $this->input->post('nama') .
+                '</br>' .
+                'NIS ' .
+                $this->input->post('nis') .
+                '</br>' .
+                'email ' .
+                $this->input->post('email') .
+                '</br>' .
+                'Jenis Kelamin ' .
+                $this->input->post('jk') .
+                '</br>' .
+                'Kelas ' .
+                $this->input->post('kelas') .
+                '</br>' .
+                'Jurusan ' .
+                jurusan($this->input->post('jurusan')),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -141,18 +187,24 @@ class Admin_model extends CI_Model
             'nama' => htmlspecialchars($this->input->post('nama', true)),
             'email' => htmlspecialchars($this->input->post('email', true)),
             'jk' => htmlspecialchars($this->input->post('jk', true)),
-
-
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('tbl_siswa', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('user', true)),
-            'kegiatan' => 'Merubah data pribadi ' . $this->input->post('nama') . '</br>' .
-                'NIS ' . $this->input->post('nis') . '</br>' .
-                'email ' . $this->input->post('email') . '</br>' .
-                'Jenis Kelamin ' . $this->input->post('jk')
+            'nama' => htmlspecialchars($this->input->post('user', true)),
+            'kegiatan' =>
+                'Merubah data pribadi ' .
+                $this->input->post('nama') .
+                '</br>' .
+                'NIS ' .
+                $this->input->post('nis') .
+                '</br>' .
+                'email ' .
+                $this->input->post('email') .
+                '</br>' .
+                'Jenis Kelamin ' .
+                $this->input->post('jk'),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -166,16 +218,26 @@ class Admin_model extends CI_Model
         $data = [
             'tgl' => htmlspecialchars($this->input->post('tgl', true)),
             'time' => htmlspecialchars($this->input->post('time', true)),
-            'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
-            'keterangan' => htmlspecialchars($this->input->post('keterangan', true)),
+            'kegiatan' => htmlspecialchars(
+                $this->input->post('kegiatan', true)
+            ),
+            'keterangan' => htmlspecialchars(
+                $this->input->post('keterangan', true)
+            ),
             'owner' => htmlspecialchars($this->input->post('owner', true)),
-            'status_id' => $this->input->post('status_id', true)
+            'status_id' => $this->input->post('status_id', true),
         ];
         $this->db->insert('tbl_kegiatan', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('owner', true)),
-            'kegiatan' => 'Membuat kegiatan ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
+            'nama' => htmlspecialchars($this->input->post('owner', true)),
+            'kegiatan' =>
+                'Membuat kegiatan ' .
+                $this->input->post('kegiatan') .
+                ' pada tanggal ' .
+                $this->input->post('tgl') .
+                ' Jam ' .
+                $this->input->post('time'),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -184,15 +246,25 @@ class Admin_model extends CI_Model
         $data = [
             'tgl' => htmlspecialchars($this->input->post('tgl', true)),
             'time' => htmlspecialchars($this->input->post('time', true)),
-            'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
-            'keterangan' => htmlspecialchars($this->input->post('keterangan', true)),
+            'kegiatan' => htmlspecialchars(
+                $this->input->post('kegiatan', true)
+            ),
+            'keterangan' => htmlspecialchars(
+                $this->input->post('keterangan', true)
+            ),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('tbl_kegiatan', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('owner', true)),
-            'kegiatan' => 'Mengedit kegiatan ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
+            'nama' => htmlspecialchars($this->input->post('owner', true)),
+            'kegiatan' =>
+                'Mengedit kegiatan ' .
+                $this->input->post('kegiatan') .
+                ' pada tanggal ' .
+                $this->input->post('tgl') .
+                ' Jam ' .
+                $this->input->post('time'),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -200,15 +272,16 @@ class Admin_model extends CI_Model
     function edit_dhkeg()
     {
         $data = [
-            'status' => $this->input->post('status')
+            'status' => $this->input->post('status'),
         ];
-        $this->db->update('tbl_dh_kegiatan', ['id' => $this->input->post('id')]);
+        $this->db->update('tbl_dh_kegiatan', [
+            'id' => $this->input->post('id'),
+        ]);
     }
     function tambah_jurnal()
     {
-
         $data = [
-            'bulan' => date("m", strtotime($this->input->post('tgl'))),
+            'bulan' => date('m', strtotime($this->input->post('tgl'))),
             'tgl' => htmlspecialchars($this->input->post('tgl', true)),
             'time' => htmlspecialchars($this->input->post('time', true)),
             'nbm' => htmlspecialchars($this->input->post('nbm', true)),
@@ -219,8 +292,14 @@ class Admin_model extends CI_Model
         $this->db->insert('tbl_jurnal', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('name', true)),
-            'kegiatan' => 'Membuat jurnal ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
+            'nama' => htmlspecialchars($this->input->post('name', true)),
+            'kegiatan' =>
+                'Membuat jurnal ' .
+                $this->input->post('kegiatan') .
+                ' pada tanggal ' .
+                $this->input->post('tgl') .
+                ' Jam ' .
+                $this->input->post('time'),
         ];
         $this->db->insert('aktivitas', $master);
     }
@@ -235,30 +314,44 @@ class Admin_model extends CI_Model
         $this->db->update('tbl_jurnal', $data);
 
         $master = [
-            'nama' =>  htmlspecialchars($this->input->post('name', true)),
-            'kegiatan' => 'Mengedit jurnal ' . $this->input->post('kegiatan') . ' pada tanggal ' . $this->input->post('tgl') . ' Jam ' . $this->input->post('time')
+            'nama' => htmlspecialchars($this->input->post('name', true)),
+            'kegiatan' =>
+                'Mengedit jurnal ' .
+                $this->input->post('kegiatan') .
+                ' pada tanggal ' .
+                $this->input->post('tgl') .
+                ' Jam ' .
+                $this->input->post('time'),
         ];
         $this->db->insert('aktivitas', $master);
     }
     function getJurnal($nbm)
     {
         $this->db->order_by('id', 'DESC');
-        return $this->db->get_where('tbl_jurnal', ['nbm' => $nbm])->result_array();
+        return $this->db
+            ->get_where('tbl_jurnal', ['nbm' => $nbm])
+            ->result_array();
     }
     function getJurnal2($tgl, $nbm)
     {
         $this->db->order_by('time', 'ASC');
-        return $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->result_array();
+        return $this->db
+            ->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])
+            ->result_array();
     }
     function getJurnal3($bulan, $nbm)
     {
         $this->db->order_by('time', 'ASC');
-        return $this->db->get_where('tbl_jurnal', ['bulan' => $bulan, 'nbm' => $nbm])->result_array();
+        return $this->db
+            ->get_where('tbl_jurnal', ['bulan' => $bulan, 'nbm' => $nbm])
+            ->result_array();
     }
 
     function getGukar($status)
     {
-        $this->db->order_by('nama','ASC');
-        return $this->db->get_where('tbl_gukar',['status'=>$status])->result_array();
+        $this->db->order_by('nama', 'ASC');
+        return $this->db
+            ->get_where('tbl_gukar', ['status' => $status])
+            ->result_array();
     }
 }

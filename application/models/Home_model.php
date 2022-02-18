@@ -16,7 +16,9 @@ class Home_model extends CI_Model
     function getSiswa($kelas)
     {
         $this->db->order_by('nis', 'ASC');
-        return $this->db->get_where('tbl_siswa', ['kelas' => $kelas])->result_array();
+        return $this->db
+            ->get_where('tbl_siswa', ['kelas' => $kelas])
+            ->result_array();
     }
     function nama_siswa($nis)
     {
@@ -42,13 +44,6 @@ class Home_model extends CI_Model
         $this->db->order_by('id', 'DESC');
         return $this->db->get_where('tbl_kegiatan')->result_array();
     }
-
-    // function tbh_siswa($kelas)
-    // {
-    //     $this->db->where('kelas', $kelas);
-    //     $result = $this->db->get('tbl_siswa')->result();
-    //     return $result;
-    // }
 
     function getTp()
     {

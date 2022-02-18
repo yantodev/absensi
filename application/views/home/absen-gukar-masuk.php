@@ -10,8 +10,9 @@
                     <div class="form-group">
                         <select class="form-control" name="tp" id="tp">
                             <option>Pilih Tahun Pelajaran</option>
-                            <?php foreach($tp as $tp): ?>
-                            <option value="<?= $tp['id']; ?>"><?= $tp['tp']; ?></option>
+                            <?php foreach ($tp as $tp): ?>
+                            <option value="<?= $tp['id'] ?>">
+                            <?= $tp['tp'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -25,8 +26,8 @@
                     <div class="form-group">
                         <input class="form-control" list="datalistOptions" id="nbm" name="nbm" placeholder="your NIP/NBM *" data-validation-required-message="Please enter your NBM." />
                         <datalist id="datalistOptions">
-                            <?php foreach ($nbm as $n) : ?>
-                                <option value="<?= $n['nbm']; ?>">
+                            <?php foreach ($nbm as $n): ?>
+                                <option value="<?= $n['nbm'] ?>">
                                 <?php endforeach; ?>
                         </datalist>
                         <p class="help-block text-danger"></p>
@@ -61,8 +62,10 @@
                         <input class="form-control" id="alasan" name="alasan" value="-" placeholder="Masukan alasan Anda" />
                         <small style="color: red;"><i>*Diisi ketika anda izin saja, apabila masuk silahkan dikosongkan</i></small>
                         <p class="help-block text-danger"></p>
-                        <input type="hidden" name="date" id="date" value="<?= date("d-m-Y"); ?>">
-                        <input type="hidden" name="time" id="time" value="<?= time(); ?>">
+                        <input type="hidden" name="date" id="date" value="<?= date(
+                            'd-m-Y'
+                        ) ?>">
+                        <input type="hidden" name="time" id="time" value="<?= time() ?>">
                         <button type="button" id="btn-simpan" class="btn btn-success"><i class="fa fa-check"></i> Absen Sekarang</button>
                     </div>
                 </div>
@@ -79,7 +82,7 @@
                 <div class="alert alert-success">
                     <p style="text-align: center;">Absensi berhasil, Terima Kasih!!!!</p>
                 </div>
-                <p style="text-align: center;"><?= $motivasi['motivasi']; ?></p>
+                <p style="text-align: center;"><?= $motivasi['motivasi'] ?></p>
             </div>
         </div>
     </div>
@@ -88,10 +91,9 @@
 <script>
     var today = new Date();
     document.getElementById('btn-simpan').addEventListener("click", function(event) {
-
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>js/insert_DH",
+                url: "<?= base_url() ?>js/insert_DH",
                 data: {
                     'tp': $('#tp').val(),
                     'semester': $('#semester').val(),
@@ -111,6 +113,10 @@
                         window.location.reload(1);
                     }, 10000);
                     $('.success').html(datas1);
+                },
+                error: function(){
+                    alert('Anda Sudah Absen');
+                    $('#myModal').modal('show');
                 }
             });
         }
