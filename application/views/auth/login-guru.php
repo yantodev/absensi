@@ -16,13 +16,13 @@
                     <label class="label" for="username">Username</label>
                     <input type="text" id="email" name="email" placeholder="Email Resmi Sekolah"
                         value="<?= set_value('email'); ?>">
-                    <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
+                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                 <div class="form-group">
                     <label class="label" for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Nomor Baku Muhammadiyah">
-                    <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
+                <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                 <div style="text-align: center; display:flex;justify-content: center">
                     <button type="submit" class="btn-login">
                         LOGIN
