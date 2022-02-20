@@ -1,0 +1,70 @@
+body{
+    background-color: #B0B0B0;
+}
+.form-login{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.header {
+    margin-top: 30px;
+    text-align: center;
+}
+.header img {
+    width: 200px;
+}
+.header h3{
+    color:black;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.user{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+.form-group {
+    margin : 10px;
+    padding : 5px;
+    /* font-size: 20px; */
+    display: flex;
+    justify-content: center;
+}
+.form-group label{
+    background-color: #64b0f8;
+    width : 130px;
+    font-size: 18px;
+}
+.form-group input{
+    margin-left: 0;
+    border: 1px solid #64b0f8;
+    text-decoration: none;
+    font-size: 15px;
+}
+.btn-login{
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #0387FF;
+    border-radius: 0.6em;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    margin: 20px;
+    padding: 1.2em 2.8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+.btn-login:hover, .btn-login:focus{
+    color: #0387FF;
+    outline: 0;
+}
