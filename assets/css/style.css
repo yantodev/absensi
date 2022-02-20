@@ -24,22 +24,29 @@ body{
     justify-content: center
 }
 .form-group {
-    margin : 10px;
-    padding : 5px;
+    margin : 5px;
+    padding : 0 10px;
     /* font-size: 20px; */
     display: flex;
     justify-content: center;
+    height: 40px
 }
 .form-group label{
     background-color: #64b0f8;
     width : 130px;
-    font-size: 18px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 .form-group input{
     margin-left: 0;
     border: 1px solid #64b0f8;
     text-decoration: none;
     font-size: 15px;
+}
+.text-danger{
+    color : red
 }
 .btn-login{
     box-sizing: border-box;
