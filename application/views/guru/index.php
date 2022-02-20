@@ -9,7 +9,11 @@
     <div class="card-body">
         <h4 class="card-title" style="text-align: center"><?= $user['name']; ?></h4>
         <h5 class="card-title" style="text-align: center"><?= $data['jabatan']; ?></h5>
-        <p class="card-text" style="text-align: center"><?= format_indo(date('Y-m-d')); ?> </p>
+        <p class="card-text" style="text-align: center">
+            <?php 
+            ini_set('date.timezone', 'Asia/Jakarta'); 
+            echo format_indo(date('Y-m-d'))
+            ?> </p>
         <div style="text-align: center">
             <h3 id="clock" style="font-weight: bold;"></h3>
         </div>
