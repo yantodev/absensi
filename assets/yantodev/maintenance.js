@@ -21,8 +21,8 @@ function maintenance(nbm) {
             Swal.fire({
             icon: 'info',
             title: `Hai!!!  ${response[0].nama}`,
-            text: 'Untuk sat ini menu ini belum tersedia...',
-            footer: 'Infomasi mlebih lanjut bisa menghubungi developer!'
+            text: 'Mohon maaf untuk menu ini belum tersedia...',
+            footer: 'Infomasi lebih lanjut bisa menghubungi guru piket! Terima Kasih &#128522'
     })
         },
         error: function (xhr, ajaxOptions) {
