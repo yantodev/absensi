@@ -11,9 +11,66 @@ class Js extends CI_Controller
         $this->load->model('Count_model');
         $this->load->model('Js_model');
     }
+    public function getDetailsGukar(){
+        $nbm = $this->input->get('nbm');
+        $data = $this->Js_model->getDetailGukar($nbm);
+        echo json_encode($data);
+    }
 
-    public function nama_siswa()
+    public function presensiMasuk(){
+        $nbm = $this->input->get('id');
+        $dateIn = $this->input->get('dateIn');
+        $data = $this->Js_model->presensiMasuk($nbm, $dateIn);
+        echo json_encode($data);
+    }
+
+    public function presensiPulang(){
+        $nbm = $this->input->get('id');
+        $dateIn = $this->input->get('dateIn');
+        $data = $this->Js_model->presensiPulang($nbm, $dateIn);
+        echo json_encode($data);
+    }
+    public function insert_DH()
     {
+        $nbm = $_POST['nbm'];
+        $bulan = $_POST['bulan'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $roleId = $_POST['role_id'];
+        $year = $_POST['year'];
+        $data = [
+            'nbm' => $nbm,
+            'bulan' => $bulan,
+            'date_in' => $date,
+            'time_in' => $time,
+            'role_id' => $roleId,
+            'year'=>$year
+        ];
+
+        $this->db->insert('tbl_dh', $data);
+    }
+
+    public function update_DH()
+    {
+        $nbm = $_POST['nbm'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $data = [
+            'date_out' => $date,
+            'time_out' => $time,
+        ];
+        $this->db->where('nbm', $nbm);
+        $this->db->where('date_in', $date);
+        $this->db->update('tbl_dh', $data);
+    }
+    
+    public function getMotivation(){
+        $id = $this->input->get('id');
+        $data = $this->Js_model->getMotivasi($id);
+        echo json_encode($data);
+    }
+    //data lama
+    public function nama_siswa(){
         $nis = $this->input->get('nis');
         $data = $this->Home_model->nama_siswa($nis);
         foreach ($data as $data) {
@@ -203,79 +260,6 @@ class Js extends CI_Controller
         }
         $callback = ['list_level' => $lists];
         echo json_encode($callback);
-    }
-
-    public function insert_DH()
-    {
-        $tp = $_POST['tp'];
-        $semester = $_POST['semester'];
-        $nbm = $_POST['nbm'];
-        $nama = $_POST['nama'];
-        $email = $_POST['email'];
-        $bulan = $_POST['bulan'];
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $status = $_POST['status'];
-        $alasan = $_POST['alasan'];
-        $level = $_POST['level'];
-        $data = [
-            'nbm' => $nbm,
-            'nama' => $nama,
-            'email' => $email,
-            'bulan' => $bulan,
-            'date_in' => $date,
-            'time_in' => $time,
-            'status' => $status,
-            'alasan' => $alasan,
-            'level' => $level,
-            'tp' => $tp,
-            'semester' => $semester,
-        ];
-
-        $this->db->insert('tbl_dh', $data);
-
-        $master = [
-            'nama' => $nama,
-            'kegiatan' =>
-                'Mengisi daftar hadir tanggal ' .
-                $date .
-                '<br/>' .
-                'Jam masuk ' .
-                $time .
-                '<br/>' .
-                'Status Kehadiran :' .
-                $status .
-                '<br/>' .
-                'Alasan ' .
-                $alasan,
-        ];
-        $this->db->insert('aktivitas', $master);
-    }
-
-    public function update_DH()
-    {
-        $nama = $_POST['nama'];
-        $nbm = $_POST['nbm'];
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $data = [
-            'date_out' => $date,
-            'time_out' => $time,
-        ];
-        $this->db->where('nbm', $nbm);
-        $this->db->where('date_in', $date);
-        $this->db->update('tbl_dh', $data);
-
-        $master = [
-            'nama' => $nama,
-            'kegiatan' =>
-                'Mengisi daftar pulang tanggal ' .
-                $date .
-                '<br/>' .
-                'Jam pulang ' .
-                $time,
-        ];
-        $this->db->insert('aktivitas', $master);
     }
 
     public function insert_DH_kegiatan()

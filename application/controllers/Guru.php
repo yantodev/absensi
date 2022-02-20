@@ -20,11 +20,10 @@ class Guru extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_gukar',['email' => $this->session->userdata('email')])->row_array();
         $this->load->view('guru/wrapper/header', $data);
-        $this->load->view('guru/wrapper/sidebar', $data);
+        // $this->load->view('guru/wrapper/sidebar', $data);
         $this->load->view('guru/wrapper/topbar', $data);
         $this->load->view('guru/index', $data);
         $this->load->view('wrapper/footer');
@@ -114,38 +113,22 @@ class Guru extends CI_Controller
 
     public function absensi()
     {
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Daftar Absensi';
         $data['tp'] = $this->Home_model->getTp();
         $id = $this->input->get('status_id');
         $data['id'] = $id;
         $bulan = $this->input->get('bulan');
-        $data['bulan'] = $this->db
-            ->get_where('tbl_hari_efektif', ['id' => $bulan])
-            ->row_array();
-        $data['level'] = $this->db
-            ->get_where('tbl_status', ['id' => $id])
-            ->row_array();
+        $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
+        $data['level'] = $this->db->get_where('tbl_status', ['id' => $id])->row_array();
         $data['all_bulan'] = allbulan();
-        $data['data'] = $this->db
-            ->get_where('tbl_gukar', ['status' => $id])
-            ->result_array();
+        $data['data'] = $this->db->get_where('tbl_gukar', ['status' => $id])->result_array();
         $nbm = $this->input->get('nbm');
         $bulan = $this->input->get('bulan');
-        $data['bulan'] = $this->db
-            ->get_where('tbl_hari_efektif', ['id' => $bulan])
-            ->row_array();
-        $data['id'] = $this->db
-            ->get_where('user', ['no_reg' => $nbm])
-            ->row_array();
-        $bulan = @$this->input->get('bulan')
-            ? $this->input->get('bulan')
-            : date('m');
-        $tahun = @$this->input->get('tahun')
-            ? $this->input->get('tahun')
-            : date('Y');
+        $data['bulan'] = $this->db->get_where('tbl_hari_efektif', ['id' => $bulan])->row_array();
+        $data['id'] = $this->db->get_where('user', ['no_reg' => $nbm])->row_array();
+        $bulan = @$this->input->get('bulan') ? $this->input->get('bulan') : date('m');
+        $tahun = @$this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
         $data['data'] = $this->Admin_model->detail_absen_bln($nbm, $bulan);
         $data['hari'] = hari_bulan($bulan, $tahun);
 

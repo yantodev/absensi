@@ -1,8 +1,8 @@
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
+<div class="card shadow mb-4 mt-3">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-uppercase">
-            REKAP DAFTAR HADIR 
+            REKAP DAFTAR HADIR
             <?= $user['name'] ?>
         </h6>
         <small>
@@ -17,41 +17,35 @@
     </div>
     <div class="card-body">
         <?= $this->session->flashdata('message') ?>
-     <form action="" method="get">
-        <select class="form-control col-3 mb-1" name="bulan" id="bulan">
-            <option value="" disabled selected>-- Pilih Bulan --</option>
-            <?php foreach ($all_bulan as $bn => $bt): ?>
-                <option value="<?= $bn ?>" <?= $bn == $bulan
-    ? 'selected'
-    : '' ?>><?= $bt ?></option>
+        <form action="" method="get">
+            <select class="form-control col-3 mb-1" name="bulan" id="bulan">
+                <option value="" disabled selected>-- Pilih Bulan --</option>
+                <?php foreach ($all_bulan as $bn => $bt): ?>
+                <option value="<?= $bn ?>" <?= $bn == $bulan ? 'selected' : '' ?>><?= $bt ?></option>
                 <?php endforeach; ?>
             </select>
-             <select class="form-control col-3 mb-1" name="tahun" id="tahun">
-                 <option value="" disabled selected>-- Pilih Tahun --</option>
+            <select class="form-control col-3 mb-1" name="tahun" id="tahun">
+                <option value="" disabled selected>-- Pilih Tahun --</option>
                 <?php for ($i = date('Y'); $i >= date('Y') - 5; $i--): ?>
-                    <option value="<?= $i ?>" <?= $i == $tahun
-    ? 'selected'
-    : '' ?>><?= $i ?></option>
+                <option value="<?= $i ?>" <?= $i == $tahun ? 'selected' : '' ?>><?= $i ?></option>
                 <?php endfor; ?>">
             </select>
-            <input type="hidden" name="nbm" id="nbm" value="<?= $user[
-                'no_reg'
-            ] ?>">
+            <input type="hidden" name="nbm" id="nbm" value="<?= $user['no_reg'] ?>">
             <!-- <select class="form-control col-3 mb-1" name="status_id" id="status_id">
                 <option value="">-- Pilih Status --</option>
                 <option value="1">Guru</option>
                 <option value="2">Karyawan</option>
             </select> -->
-            <select class="form-control col-3 mb-1" name="tp" id="tp">
+            <!-- <select class="form-control col-3 mb-1" name="tp" id="tp">
                 <option value="">-- Pilih Tahun Pelajaran --</option>
                 <?php foreach ($tp as $tp): ?>
                 <option value="<?= $tp['id'] ?>"><?= $tp['tp'] ?></option>
                 <?php endforeach; ?>
-            </select>
+            </select> -->
             <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
         </form>
         <div class="table-responsive">
-            <table class="table table-bordered"  width="100%" cellspacing="0">
+            <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -65,13 +59,13 @@
                 <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($hari as $j => $h): ?>
-                        <?php $d = $this->db
+                    <?php $d = $this->db
                             ->get_where('tbl_dh', [
                                 'date_in' => $h['tgl'],
                                 'nbm' => $this->input->get('nbm'),
                             ])
                             ->row_array(); ?>
-                       <tr>
+                    <tr>
                         <td align="center"><?= $i ?></td>
                         <td><?= tgl2($h['tgl']) ?></td>
                         <td style="text-align:center"><?= $d['time_in'] ?></td>
@@ -111,7 +105,7 @@
                                             : ''))) ?>
                         </td>
                     </tr>
-                        <?php $i++; ?>
+                    <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>

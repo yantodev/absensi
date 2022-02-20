@@ -9,7 +9,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-edit"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">ABSENSI</br><small>SMK Muhka</small></div>
+                <div class="sidebar-brand-text mx-3">PRESENSI</br><small>SMK Muhka</small></div>
             </a>
 
             <hr class="sidebar-divider">
@@ -32,16 +32,15 @@
                     <span>Jurnal-ku</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#absen" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#absen"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="far fa-calendar-check"></i>
-                    <span>Data Absen-ku</span>
+                    <span>Presensi-ku</span>
                 </a>
                 <div id="absen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Daftar Menu</h6>
-                        <a class="collapse-item" href="<?= base_url(
-                            'guru/absensi'
-                        ) ?>">Rekap Absensi</a>
+                        <a class="collapse-item" href="<?= base_url('guru/absensi') ?>">Rekap Presensi</a>
                         <!-- <a class="collapse-item" href="<?= base_url(
                             'guru/rekap'
                         ) ?>">Rekap Absensi</a> -->
@@ -49,7 +48,8 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-database"></i>
                     <span>Master Data</span>
                 </a>

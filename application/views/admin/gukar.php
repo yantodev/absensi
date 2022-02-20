@@ -8,12 +8,12 @@
         </small>
     </div>
     <div class="card-body">
-        <?= $this->session->flashdata('message'); ?>
-        <form action="<?= base_url('admin/gukar'); ?> " method="get">
+        <?= $this->session->flashdata('message') ?>
+        <form action="<?= base_url('admin/gukar') ?> " method="get">
             <select class="form-control col-2 mb-1" name="status_id" id="status_id">
                 <option value="">Pilih status</option>
-                <option value="3">Guru</option>
-                <option value="4">Karyawan</option>
+                <option value="1">Guru</option>
+                <option value="2">Karyawan</option>
             </select>
             <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
         </form>
@@ -31,23 +31,31 @@
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($data as $d) : ?>
-                        <tr>
-                            <td><?= $i; ?></td>
-                            <td><?= $d['nbm']; ?></td>
-                            <td><?= $d['nama']; ?></td>
-                            <td><?= $d['email']; ?></td>
-                            <td><?= $d['jabatan']; ?></td>
-                            <td>
-                                <a href="<?= base_url('admin/edit_gukar/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
-                                <!-- <a href="<?= base_url(); ?>admin/hapus_gukar/<?= $d['id']; ?>" target="_blank"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a> -->
-                            </td>
-                        </tr>
-                        <?php $i++; ?>
+                    <?php foreach ($data as $d): ?>
+                    <tr>
+                        <td><?= $i ?></td>
+                        <td><?= $d['nbm'] ?></td>
+                        <td><?= $d['nama'] ?></td>
+                        <td><?= $d['email'] ?></td>
+                        <td><?= $d['jabatan'] ?></td>
+                        <td>
+                            <a href="<?= base_url('admin/edit_gukar/').$d['id'] ?>">
+                                <i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i>
+                            </a>
+                            <a
+                                href="<?= base_url() ?>admin/hapus_gukar?id=<?= $d['id'] ?>&status=<?= $this->input->get('status_id')?>">
+                                <i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus"
+                                    onclick="return confirm('Yakin ingin menghapus?');">
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-info mb-3" data-toggle="modal" data-target="#tambah">Tambah Pegawai</button>
+            <button type="button" class="btn btn-info mb-3" data-toggle="modal" data-target="#tambah">Tambah
+                Pegawai</button>
         </div>
     </div>
 </div>
@@ -62,14 +70,14 @@
                 <h4 class="modal-title">Tambah Pegawai</h4>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('admin/gukar'); ?>" method="post">
+                <form action="<?= base_url('admin/gukar') ?>" method="post">
                     <div class="form-group row">
                         <label class="col-3 form-label">Status</label>
                         <div class="col">
                             <select class="form-control" name="status" id="status" required>
                                 <option value="">Pilih Status</option>
-                                <option value="3">Guru</option>
-                                <option value="4">Karyawan</option>
+                                <option value="1">Guru</option>
+                                <option value="2">Karyawan</option>
                             </select>
                         </div>
                     </div>
@@ -106,7 +114,9 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="user" id="user" value="<?= $user['name']; ?>">
+                <input type="hidden" name="user" id="user" value="<?= $user[
+                    'name'
+                ] ?>">
                 <button type="submit" class="btn btn-info">Tambah</button>
                 <!-- <button type=" button" class="btn btn-default" data-dismiss="modal">Close</button> -->
             </div>

@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @Author : yantodev
+ * mailto: ekocahyanto007@gmail.com
+ * link : http://yantodev.github.io/
+ */
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -10,9 +14,7 @@ class Admin_model extends CI_Model
     {
         $bulan = date('n');
         $this->db->order_by('id', 'DESC');
-        return $this->db
-            ->get_where('tbl_dh', ['bulan' => $bulan])
-            ->result_array();
+        return $this->db->get_where('tbl_dh', ['bulan' => $bulan])->result_array();
     }
     function getjurusan()
     {
@@ -61,8 +63,7 @@ class Admin_model extends CI_Model
     {
         $data = [
             'time_in' => htmlspecialchars($this->input->post('time_in', true)),
-            'time_out' => htmlspecialchars(
-                $this->input->post('time_out', true)
+            'time_out' => htmlspecialchars($this->input->post('time_out', true)
             ),
         ];
         $this->db->where('id', $this->input->post('id'));
@@ -351,7 +352,7 @@ class Admin_model extends CI_Model
     {
         $this->db->order_by('nama', 'ASC');
         return $this->db
-            ->get_where('tbl_gukar', ['status' => $status])
+            ->get_where('tbl_gukar', ['status' => $status, 'is_deleted' => 0])
             ->result_array();
     }
 }
