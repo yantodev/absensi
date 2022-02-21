@@ -24,11 +24,11 @@ function showDataPresensi(noReg) {
             dateIn: todayIn
         },
         dataType: 'json',
-                beforeSend: function(e) {
-                    if (e && e.overrideMimeType) {
-                        e.overrideMimeType("application/json;charset=UTF-8");
-                    }
-                },
+        beforeSend: function(e) {
+            if (e && e.overrideMimeType) {
+                e.overrideMimeType("application/json;charset=UTF-8");
+            }
+        },
         success: function (response) {
             if (response.length > 0) {
                 document.getElementById("data-presensi-masuk").innerHTML = response[0].time_in
@@ -65,7 +65,7 @@ function presensiMasuk(noReg) {
                     icon: "warning",
                     title: "Presensi Masuk Gagal!!!",
                     text: "Anda Sudah melakukan presensi",
-                    footer: "Infomasi mlebih lanjut bisa menghubungi guru piket"
+                    footer: "Infomasi lebih lanjut bisa menghubungi guru piket"
                 })
             } else {
                 $.ajax({
@@ -75,38 +75,37 @@ function presensiMasuk(noReg) {
                         nbm: noReg,
                     },
                     dataType: 'json',
-                            beforeSend: function(e) {
+                    beforeSend: function (e) {
                                 if (e && e.overrideMimeType) {
                                     e.overrideMimeType("application/json;charset=UTF-8");
                                 }
                             },
                     success: function (response) {
-                       savePresensiMasuk(response[0].nbm, response[0].nama, response[0].status)
+                        savePresensiMasuk(response[0].nbm, response[0].nama, response[0].status)
+                        $.ajax({
+                            type: "GET",
+                            url: 'js/getMotivation',
+                            data: { id: today.getDate() },
+                            dataType: 'json',
+                            beforeSend: function (e) {
+                                if (e && e.overrideMimeType) {
+                                    e.overrideMimeType("application/json;charset=UTF-8");
+                                }
+                            },
+                            success: function (response) {
+                                    Swal.fire({
+                                    icon: "success",
+                                    title: "Presensi Masuk Berhasil!!!",
+                                    text: response[0].motivasi,
+                                    footer: "<p>Jaga Diri dan Keluarga dari Virus Corona Dengan GERMAS.<br/>Info lebih lanjut <a href='https://www.kemenkopmk.go.id/jaga-diri-dan-keluarga-dari-virus-corona-dengan-germas'>Klik Disini</a></p>"
+                                })
+                            }
+                        })
                     },
                     error: function (xhr, ajaxOptions) {
                         swal.fire(ajaxOptions, xhr.responseText, "error"); 
                         }
                     });
-                
-                $.ajax({
-                    type: "GET",
-                    url: 'js/getMotivation',
-                    data: { id: today.getDate() },
-                    dataType: 'json',
-                    beforeSend: function (e) {
-                        if (e && e.overrideMimeType) {
-                            e.overrideMimeType("application/json;charset=UTF-8");
-                        }
-                    },
-                    success: function (response) {
-                            Swal.fire({
-                            icon: "success",
-                            title: "Presensi Masuk Berhasil!!!",
-                            text: response[0].motivasi,
-                            footer: "<p>Jaga Diri dan Keluarga dari Virus Corona Dengan GERMAS.<br/>Info lebih lanjut <a href='https://www.kemenkopmk.go.id/jaga-diri-dan-keluarga-dari-virus-corona-dengan-germas'>Klik Disini</a></p>"
-                        })
-                    }
-                })
             }    
         },
         error: function (xhr, ajaxOptions) {

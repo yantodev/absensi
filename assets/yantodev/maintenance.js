@@ -22,7 +22,7 @@ function maintenance(nbm) {
             icon: 'info',
             title: `Hai!!!  ${response[0].nama}`,
             text: 'Mohon maaf untuk menu ini belum tersedia...',
-            footer: 'Infomasi lebih lanjut bisa menghubungi guru piket! Terima Kasih &#128522'
+            footer: '<p style="text-align:center;">Infomasi lebih lanjut bisa menghubungi guru piket!<br/>Terima Kasih &#128522</p>'
     })
         },
         error: function (xhr, ajaxOptions) {
