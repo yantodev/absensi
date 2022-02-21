@@ -121,6 +121,7 @@ class Admin_model extends CI_Model
             'email' => htmlspecialchars($this->input->post('email', true)),
             'jabatan' => htmlspecialchars($this->input->post('jabatan', true)),
             'hp' => htmlspecialchars($this->input->post('hp', true)),
+            'id_keterangan' => htmlspecialchars($this->input->post('id_keterangan', true)),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('tbl_gukar', $data);

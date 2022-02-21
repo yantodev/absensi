@@ -280,6 +280,8 @@ class Admin extends CI_Controller
         $data['title'] = 'Edit Guru dan Karyawan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->db->get_where('tbl_gukar', ['id' => $id])->row_array();
+        $status = $this->db->get_where('tbl_gukar', ['id' => $id])->row_array();
+        $data['keterangan'] = $this->db->get_where('tbl_keterangan',['id_ref_status' => $status['status']])->result_array();
 
         $this->form_validation->set_rules('id', 'ID', 'required');
         if ($this->form_validation->run() == false) {

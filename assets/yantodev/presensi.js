@@ -8,40 +8,13 @@ let today = new Date();
 var todayIn = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 var year = today.getFullYear();
 function tampilkanwaktu() { 
-        var waktu = new Date(); 
-        var sh = waktu.getHours() + "";
-        var sm = waktu.getMinutes() + ""; 
-        var ss = waktu.getSeconds() + "";
-        document.getElementById("clock").innerHTML = (sh.length == 1 ? "0" + sh : sh) + ":" + (sm.length == 1 ? "0" + sm : sm) + ":" + (ss.length == 1 ? "0" + ss : ss);
+    var waktu = new Date(); 
+    var sh = waktu.getHours() + "";
+    var sm = waktu.getMinutes() + ""; 
+    var ss = waktu.getSeconds() + "";
+    document.getElementById("clock").innerHTML = (sh.length == 1 ? "0" + sh : sh) + ":" + (sm.length == 1 ? "0" + sm : sm) + ":" + (ss.length == 1 ? "0" + ss : ss);
 }
       
-function maintenance(nbm) {
-    $.ajax({
-        type:'GET',
-        url: 'js/getDetailsGukar',
-        data: {
-            nbm: nbm,
-        },
-        dataType: 'json',
-                beforeSend: function(e) {
-                    if (e && e.overrideMimeType) {
-                        e.overrideMimeType("application/json;charset=UTF-8");
-                    }
-                },
-        success: function (response) {
-            Swal.fire({
-            icon: 'info',
-            title: `Hai!!!  ${response[0].nama}`,
-            text: 'Untuk sat ini menu ini belum tersedia...',
-            footer: 'Infomasi mlebih lanjut bisa menghubungi developer!'
-    })
-        },
-        error: function (xhr, ajaxOptions) {
-            swal.fire(ajaxOptions, xhr.responseText, "error"); 
-            }
-        });
-}
-
 function showDataPresensi(noReg) {
     $.ajax({
         type:'GET',
@@ -210,13 +183,13 @@ function savePresensiMasuk(nbm, nama, status) {
         type:'POST',
         url: 'js/insert_DH',
         data: {
-            nbm: nbm,
-            nama: nama,
-            bulan: (today.getMonth() + 1),
-            date: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
-            time: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            role_id: status,
-             year : year
+            'nbm': nbm,
+            'nama': nama,
+            'bulan': (today.getMonth() + 1),
+            'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+            'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+            'role_id': status,
+             'year' : year
         },
         error: function(xhr, ajaxOptions, thrownError) { 
             swal.fire(ajaxOptions, xhr.responseText ,"error"); 

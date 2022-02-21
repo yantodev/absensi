@@ -23,4 +23,4 @@
 
 </head>
 
-<body>
+<body onload="getCovidData()">

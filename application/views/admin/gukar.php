@@ -26,6 +26,7 @@
                         <th>NAMA</th>
                         <th>EMAIL</th>
                         <th>JABATAN</th>
+                        <th>STATUS PEGAWAI</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -38,6 +39,12 @@
                         <td><?= $d['nama'] ?></td>
                         <td><?= $d['email'] ?></td>
                         <td><?= $d['jabatan'] ?></td>
+                        <td>
+                            <?php
+                            $keterangan = $this->db->get_where('tbl_keterangan',['id' => $d['id_keterangan']])->row_array();
+                            echo $keterangan['name']
+                            ?>
+                        </td>
                         <td>
                             <a href="<?= base_url('admin/edit_gukar/').$d['id'] ?>">
                                 <i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i>
