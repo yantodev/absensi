@@ -89,10 +89,12 @@ class Js extends CI_Controller
     {
         $eventId = $this->input->post('eventId');
         $userId = $this->input->post('userId');
+        $status = $this->input->post('status');
         $tgl = $this->input->post('date');
         $data = [
             'id_kegiatan' => $eventId,
             'no_id' => $userId,
+            'status'=> $status,
             'tgl' => $tgl
         ];
         $this->db->insert('tbl_dh_kegiatan', $data);

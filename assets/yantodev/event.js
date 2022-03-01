@@ -98,6 +98,7 @@ function eventPresensi(eventId, userId) {
                     data: {
                         eventId: eventId,
                         userId: userId,
+                        status: 'Hadir',
                         date: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
                     },
                     success: function () {
