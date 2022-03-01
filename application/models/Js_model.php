@@ -36,4 +36,24 @@ class Js_model extends CI_Model
         $result = $this->db->get('tbl_motivasi')->result();
         return $result;
     }
+
+    function getEvent($date){
+        $this->db->where('tgl', $date);
+        $result = $this->db->get('tbl_kegiatan')->result();
+        return $result;
+    }
+
+    function cekEvent($eventId){
+        $this->db->where('id', $eventId);
+        $result = $this->db->get('tbl_kegiatan')->result();
+        return $result;
+    }
+    
+    function getDetailDHEvent($userId, $eventId, $today){
+        $this->db->where('no_id', $userId);
+        $this->db->where('id_kegiatan', $eventId);
+        $this->db->where('tgl', $today);
+        $result = $this->db->get('tbl_dh_kegiatan')->result();
+        return $result;
+    }
 }

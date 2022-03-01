@@ -3,10 +3,17 @@
  * mailto: ekocahyanto007@gmail.com
  * link : http://yantodev.github.io/
  */
-
 let today = new Date();
 var todayIn = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 var year = today.getFullYear();
+var timeNow = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+// var dateNow = today.getFullYear() + '-' + getMonth((today.getMonth() + 1)) + '-' + today.getDate();
+
+// function getMonth(month) {
+//     if (month == 2) {
+//         return "02";
+//     }
+// }
 function tampilkanwaktu() { 
     var waktu = new Date(); 
     var sh = waktu.getHours() + "";
@@ -14,7 +21,7 @@ function tampilkanwaktu() {
     var ss = waktu.getSeconds() + "";
     document.getElementById("clock").innerHTML = (sh.length == 1 ? "0" + sh : sh) + ":" + (sm.length == 1 ? "0" + sm : sm) + ":" + (ss.length == 1 ? "0" + ss : ss);
 }
-      
+
 function showDataPresensi(noReg) {
     $.ajax({
         type:'GET',
@@ -42,7 +49,6 @@ function showDataPresensi(noReg) {
             swal.fire(ajaxOptions, xhr.responseText, "error"); 
             }
         });
-    
 }
 
 function presensiMasuk(noReg) {

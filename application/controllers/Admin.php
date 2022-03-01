@@ -24,9 +24,7 @@ class Admin extends CI_Controller
     public function aktivitas()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->Admin_model->aktivitas();
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -37,9 +35,7 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->Admin_model->getDH();
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -297,7 +293,7 @@ class Admin extends CI_Controller
         }
     }
 
-      public function hapus_gukar()
+    public function hapus_gukar()
     {
         $id = $this->input->get('id');
         $status = $this->input->get('status');

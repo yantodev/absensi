@@ -1,5 +1,5 @@
 <?= $this->session->flashdata('message'); ?>
-<h2>Welcome!</h2>
+<h3 style="color: black" id="notif-event"></h3>
 
 <div class="card mb-3"
     style="background-image:url(<?=base_url("assets/frontend/assets/img/bg-new.jpeg");?>);color:black">

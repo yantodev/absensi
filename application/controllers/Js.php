@@ -69,6 +69,34 @@ class Js extends CI_Controller
         $data = $this->Js_model->getMotivasi($id);
         echo json_encode($data);
     }
+
+    public function getEvent($dateNow){
+        $data = $this->Js_model->getEvent($dateNow);
+        echo json_encode($data);
+    }
+
+    public function cekEvent($eventId){
+        $data = $this->Js_model->cekEvent($eventId);
+        echo json_encode($data);
+    }
+    
+    public function getDetailDHEvent($userId, $eventId, $today){
+        $data = $this->Js_model->getDetailDHEvent($userId, $eventId, $today);
+        echo json_encode($data);
+    }
+    
+    public function saveDhEvent()
+    {
+        $eventId = $this->input->post('eventId');
+        $userId = $this->input->post('userId');
+        $tgl = $this->input->post('date');
+        $data = [
+            'id_kegiatan' => $eventId,
+            'no_id' => $userId,
+            'tgl' => $tgl
+        ];
+        $this->db->insert('tbl_dh_kegiatan', $data);
+    }
     //data lama
     public function nama_siswa(){
         $nis = $this->input->get('nis');

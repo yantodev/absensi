@@ -3,7 +3,7 @@
     <div class="container">
         <div class="text-center">
             <h2 class="section-heading text-uppercase" style="color:black">Daftar Kegiatan</h2>
-            <h3 class="section-subheading"  style="color:black">SMK MUHAMMADIYAH KARANGMOJO</h3>
+            <h3 class="section-subheading" style="color:black">SMK MUHAMMADIYAH KARANGMOJO</h3>
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -31,13 +31,13 @@
                         <tbody>
                             <?php $i = 1; ?>
                             <?php foreach ($data as $d): ?>
-                                <tr>
-                                    <td scope="row"><?= $i ?></td>
-                                    <td><?= tgl($d['tgl']) ?></td>
-                                    <td><?= $d['time'] ?></td>
-                                    <td><?= $d['kegiatan'] ?></td>
-                                    <td>
-                                        <?php
+                            <tr>
+                                <td scope="row"><?= $i ?></td>
+                                <td><?= tgl($d['tgl']) ?></td>
+                                <td><?= $d['time'] ?></td>
+                                <td><?= $d['kegiatan'] ?></td>
+                                <td>
+                                    <?php
                                         $ktg = $this->db
                                             ->get_where('tbl_kategori', [
                                                 'id' => $d['status_id'],
@@ -45,10 +45,10 @@
                                             ->row_array();
                                         echo $ktg['nama'];
                                         ?>
-                                    </td>
-                                    <td><?= $d['owner'] ?></td>
-                                    <td align="center">
-                                        <?php
+                                </td>
+                                <td><?= $d['owner'] ?></td>
+                                <td align="center">
+                                    <?php
                                         $count = $this->db
                                             ->get_where('tbl_dh_kegiatan', [
                                                 'id_kegiatan' => $d['id'],
@@ -56,25 +56,20 @@
                                             ->result_array();
                                         echo count($count);
                                         ?> Orang
-                                    </td>
-                                    <td>
-                                        <a href="<?= base_url(
-                                            'home/absn_keg?id='
-                                        ) .
-                                            $d['id'] .
-                                            '&status=' .
-                                            $d[
-                                                'status_id'
-                                            ] ?>"><button class="btn btn-primary mb-3"><i class="fa fa-edit fa-fw" alt="detail" title="Absen Sekarang"></i> Absen</button></a><br />
-                                        <a href="<?= base_url(
-                                            'home/detail_kegiatan/'
-                                        ) .
-                                            $d[
-                                                'id'
-                                            ] ?>"><button class="btn btn-success"><i class="fa fa-eye fa-fw" alt="detail" title="View Detail"></i> Detail</button></a>
-                                    </td>
-                                </tr>
-                                <?php $i++; ?>
+                                </td>
+                                <td>
+                                    <a
+                                        href="<?= base_url('home/absn_keg?id=') .$d['id'] .'&status=' . $d['status_id'] ?>">
+                                        <button class="btn btn-primary mb-3">
+                                            <i class="fa fa-edit fa-fw" alt="detail" title="Absen Sekarang"></i>
+                                            Absen</button></a><br />
+                                    <a href="<?= base_url('home/detail_kegiatan/') .$d['id'] ?>">
+                                        <button class="btn btn-success">
+                                            <i class="fa fa-eye fa-fw" alt="detail" title="View Detail"></i>
+                                            Detail</button></a>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -89,7 +84,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Warning!</h4>
             </div>
             <div class="modal-body">

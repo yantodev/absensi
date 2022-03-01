@@ -660,4 +660,16 @@ class Guru extends CI_Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output('Jurnal-ku.pdf', \Mpdf\Output\Destination::INLINE);
     }
+
+       public function event($date)
+    {
+        $data['title'] = 'Daftar Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('tbl_kegiatan',['tgl' => $date])->result_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/event', $data);
+        $this->load->view('wrapper/footer');
+    }
 }

@@ -26,5 +26,6 @@
 
 <body style="background-image:url(<?=base_url("assets/frontend/assets/img/bg-new.jpeg");?>)" id=" page-top" onload="
 tampilkanwaktu();
+notifyEvent(<?= $user['no_reg'];?>);
 showDataPresensi(<?= $user['no_reg'];?>);
 setInterval('tampilkanwaktu(), showDataPresensi(<?= $user['no_reg'];?>)', 1000)">
