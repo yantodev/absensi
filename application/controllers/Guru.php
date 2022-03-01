@@ -163,14 +163,10 @@ class Guru extends CI_Controller
     public function kegiatan()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $owner = $this->input->get('owner');
         $owner2 = $this->input->post('owner');
-        $data['data'] = $this->db
-            ->get_where('tbl_kegiatan', ['owner' => $owner])
-            ->result_array();
+        $data['data'] = $this->db->get_where('tbl_kegiatan', ['owner' => $owner])->result_array();
         $data['status'] = $this->db->get_where('tbl_kategori')->result_array();
 
         $this->form_validation->set_rules('tgl', 'Tanggal', 'required');

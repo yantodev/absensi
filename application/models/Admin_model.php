@@ -220,12 +220,8 @@ class Admin_model extends CI_Model
         $data = [
             'tgl' => htmlspecialchars($this->input->post('tgl', true)),
             'time' => htmlspecialchars($this->input->post('time', true)),
-            'kegiatan' => htmlspecialchars(
-                $this->input->post('kegiatan', true)
-            ),
-            'keterangan' => htmlspecialchars(
-                $this->input->post('keterangan', true)
-            ),
+            'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
+            'keterangan' => $this->input->post('keterangan', true),
             'owner' => htmlspecialchars($this->input->post('owner', true)),
             'status_id' => $this->input->post('status_id', true),
         ];
