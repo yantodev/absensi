@@ -94,7 +94,7 @@ function eventPresensi(eventId, userId) {
             } else {
                     $.ajax({
                     type: 'POST',
-                    url: url+'/absensi/js/saveDhEvent',
+                    url: url+'/js/saveDhEvent',
                     data: {
                         eventId: eventId,
                         userId: userId,
