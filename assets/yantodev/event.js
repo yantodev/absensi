@@ -104,7 +104,7 @@ function eventPresensi(eventId, userId) {
                             Swal.fire({
                             icon: "success",
                             title: "Presensi Berhasil!!!",
-                            text: "Selamat Mengingkuti Kegiatan ini",
+                            text: "Selamat Mengikuti Kegiatan ini",
                             footer: "Infomasi lebih lanjut bisa menghubungi guru piket"
                         })
                     }
