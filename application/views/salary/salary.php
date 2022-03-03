@@ -55,30 +55,117 @@
                         <td><?= $d['nbm'] ?></td>
                         <td><?= $d['nama'] ?></td>
                         <td>
-                            <?php 
-                            $salary = $this->db->get_where('tbl_salary',
-                            ['id_peg'=>$d['nbm'],
-                            'bulan' => $this->input->get('bulan'),
-                            'tahun' => $this->input->get('tahun'),
-                            ])->row_array();
-                            echo convRupiah($salary['umum'])
+                            <?php
+                            $totalUmum = 0; 
+                            $master = $this->db->get_where('tbl_list_salary',[
+                                'month' => $this->input->get('bulan'),
+                                'year' => $this->input->get('tahun'),
+                                'id_peg'=> $d['nbm'],
+                                'id_salary_category' => 1,
+                            ])->result_array();
+                            
+                            if(!$master){
+                                $totalUmum = 0;
+                            }
+                            
+                            foreach ($master as $m){
+                                $totalUmum += $m['price'] * $m['qty'];
+                            }
+                            echo convRupiah($totalUmum);
                             ?>
                         </td>
-                        <td><?= convRupiah($salary['jabatan']); ?></td>
-                        <td><?= convRupiah($salary['stafsus']); ?></td>
-                        <td><?= convRupiah($salary['keamanan']); ?></td>
-                        <td><?= convRupiah($salary['potongan']); ?></td>
                         <td>
-                            <?= convRupiah(($salary['umum'] + $salary['jabatan'] + $salary['stafsus'] + $salary['keamanan']) - $salary['potongan']); ?>
+                            <?php
+                            $totalJabatan = 0; 
+                            $master = $this->db->get_where('tbl_list_salary',[
+                                'month' => $this->input->get('bulan'),
+                                'year' => $this->input->get('tahun'),
+                                'id_peg'=> $d['nbm'],
+                                'id_salary_category' => 2,
+                            ])->result_array();
+                            
+                            if(!$master){
+                                $totalJabatan = 0;
+                            }
+                            
+                            foreach ($master as $m){
+                                $totalJabatan += $m['price'] * $m['qty'];
+                            }
+                            echo convRupiah($totalJabatan);
+                            ?>
                         </td>
                         <td>
-                            <a href="<?= base_url('salary/add_salary/').$d['nbm'] ?>">
-                                <i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i>
-                            </a>
+                            <?php
+                            $totalStafsus = 0; 
+                            $master = $this->db->get_where('tbl_list_salary',[
+                                'month' => $this->input->get('bulan'),
+                                'year' => $this->input->get('tahun'),
+                                'id_peg'=> $d['nbm'],
+                                'id_salary_category' => 3,
+                            ])->result_array();
+                            
+                            if(!$master){
+                                $totalStafsus = 0;
+                            }
+                            
+                            foreach ($master as $m){
+                                if(!$master){
+                                $totalStafsus = 0;
+                            }
+                                $totalStafsus += $m['price'] * $m['qty'];
+                            }
+                            echo convRupiah($totalStafsus);
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $totalKeamanan = 0; 
+                            $master = $this->db->get_where('tbl_list_salary',[
+                                'month' => $this->input->get('bulan'),
+                                'year' => $this->input->get('tahun'),
+                                'id_peg'=> $d['nbm'],
+                                'id_salary_category' => 4,
+                            ])->result_array();
+                            
+                            if(!$master){
+                                $totalKeamanan = 0;
+                            }
+                            
+                            foreach ($master as $m){
+                                $totalKeamanan += $m['price'] * $m['qty'];
+                            }
+                            echo convRupiah($totalKeamanan);
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $totalPotongan = 0; 
+                            $master = $this->db->get_where('tbl_list_salary',[
+                                'month' => $this->input->get('bulan'),
+                                'year' => $this->input->get('tahun'),
+                                'id_peg'=> $d['nbm'],
+                                'id_salary_category' => 5,
+                            ])->result_array();
+                            
+                            if(!$master){
+                                $totalPotongan = 0;
+                            }
+                            
+                            foreach ($master as $m){
+                                $totalPotongan += $m['price'] * $m['qty'];
+                            }
+                            echo convRupiah($totalPotongan);
+                            ?>
+                        </td>
+                        <td>
+                            <?= convRupiah(($totalUmum + $totalJabatan + $totalStafsus + $totalKeamanan) - $totalPotongan); ?>
+                        </td>
+                        <td>
                             <a
-                                href="<?= base_url() ?>salary/detail_salary?id=<?= $d['id'] ?>&status=<?= $this->input->get('status_id')?>">
-                                <i class="fa fa-eye fa-fw" alt="detail" title="detail">
-                                </i>
+                                href="<?= base_url('salary/add_salary/').$d['nbm']."/".$this->input->get('bulan')."/".$this->input->get('tahun'); ?>">
+                                <button class="btn btn-info">
+                                    <i class="fa fa-eye fa-fw" alt="detail" title="Detail"></i> Detail
+                                </button>
                             </a>
                         </td>
                     </tr>

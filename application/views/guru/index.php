@@ -41,10 +41,17 @@
                 </table>
             </div>
         </div>
-        <div style="text-align: center; display:flex;justify-content: center">
-            <a href="<?= base_url('guru/absensi') ?>" class="btn btn-primary">
-                <i class="fa fa-book"> Presensi Saya</i>
-            </a>
+        <div style="text-align: center; display:flex;justify-content: center;">
+            <div class="m-2">
+                <a href="<?= base_url('guru/absensi') ?>" class="btn btn-primary">
+                    <i class="fa fa-book"> Presensi Saya</i>
+                </a>
+            </div>
+            <div class="m-2">
+                <button onclick="salary(<?= $user['no_reg']?>)" class="btn btn-primary">
+                    <i class="fas fa-credit-card"> Struk Gaji</i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

@@ -50,11 +50,12 @@ class Salary extends CI_Controller{
         }
     }
 
-    public function add_salary($userId){
+    public function add_salary($userId,$month,$year){
         $data['title'] = 'Add Salary';
         $data['nbm'] = $userId;
+        $data['month'] = $month;
+        $data['year'] = $year;
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        // $data['data'] = $this->db->get_where('tbl_list_salary',['id_peg' => $userId])->result_array();
         $data['category'] = $this->db->get_where('tbl_salary_category',['is_deleted'=>0])->result_array();
         $this->load->view('salary/wrapper/header', $data);
         $this->load->view('salary/wrapper/sidebar', $data);
