@@ -43,14 +43,14 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($data);
                     if ($user['status_id'] == 1) {
                         redirect('administrator');
+                    } else if ($user['status_id'] == 2) {
+                        redirect('admin');
+                    } else if($user['status_id'] == 4){
+                        redirect('salary');
                     } else {
-                        if ($user['status_id'] == 2) {
-                            redirect('admin');
-                        } else {
-                            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                            Maaf, Anda tidak memiliki akses ini!!</div>');
-                            redirect('auth');
-                        }
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                        Maaf, Anda tidak memiliki akses ini!!</div>');
+                        redirect('auth');
                     }
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
@@ -162,6 +162,8 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($data);
                     if ($user['role_id'] == 3 || $user['role_id'] == 4) {
                         redirect('guru');
+                    } else if($user['role_id'] == 3 || $user['role_id'] == 4){
+
                     } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                         Maaf, Anda tidak memiliki akses ini!!</div>');

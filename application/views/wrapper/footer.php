@@ -47,7 +47,8 @@
     <script src="<?= base_url(); ?>assets/yantodev/admin.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/event.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/employee.js"></script>
-    <script src="<?= base_url(); ?>assets/yantodev/ckeditor.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/flashdata.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/salary/category.js"></script>
 
     <script>
 $('.custom-file-input').on('change', function() {

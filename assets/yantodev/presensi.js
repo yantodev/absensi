@@ -52,6 +52,7 @@ function showDataPresensi(noReg) {
 }
 
 function presensiMasuk(noReg) {
+    console.log(noReg);
     $.ajax({
         type:'GET',
         url: 'js/presensiMasuk',
@@ -87,6 +88,8 @@ function presensiMasuk(noReg) {
                                 }
                             },
                     success: function (response) {
+                        console.log(response);
+                        if(response[0] == undefined) { console.log("user id " + noReg + " tidak ditemukan")}
                         savePresensiMasuk(response[0].nbm, response[0].nama, response[0].status)
                         $.ajax({
                             type: "GET",

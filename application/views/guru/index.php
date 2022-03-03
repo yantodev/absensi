@@ -19,7 +19,7 @@
         </div>
         <div style="text-align: center;" id="button-presensi">
             <button class="btn btn-success" style="margin:15px;padding:10px 18px"
-                onclick="presensiMasuk(<?= $user['no_reg']?>);">MASUK</button>
+                onclick="presensiMasuk(<?= $user['no_reg'];?>);">MASUK</button>
             <button class="btn btn-danger" style="margin:15px;padding:10px 18px"
                 onclick="presensiPulang(<?= $user['no_reg']?>);">PULANG</button>
             <button class="btn btn-info" style="margin:15px;padding:10px 18px"
