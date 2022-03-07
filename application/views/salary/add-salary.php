@@ -11,13 +11,18 @@
                 'id_peg' => $nbm,
                 'id_salary_category'=>$category['id'],
                 'month' => $month,
-                'year' => $year
+                'year' => $year,
+                 'is_deleted'=>0,
             ])->result_array();
         ?>
         <div class="card mb-3">
             <div class="card-header text-uppercase">
                 <b><?= $category['name']; ?></b>
-                <button class="btn btn-primary" onclick="alert(<?= $category['id'];?>)">Add Data</button>
+                <button class="btn btn-primary" onclick="getSubCategory(
+                    <?= $category['id'];?>,
+                    <?= $nbm;?>,
+                    <?= $month;?>,
+                    <?= $year;?>)">Add Data</button>
             </div>
             <table class="table table-bordered">
                 <tr>
@@ -31,6 +36,7 @@
                     $sub = $this->db->get_where('tbl_salary_sub_category',
                     [
                         'is_deleted'=>0,
+                        'id_salary_category' => $d['id_salary_category'],
                         'id'=>$d['id_salary_sub_category'],
                     ])->row_array();
                     ?>

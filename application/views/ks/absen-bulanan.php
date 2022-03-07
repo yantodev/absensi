@@ -39,8 +39,6 @@
                         <th>NAMA</th>
                         <th>EMAIL</th>
                         <th>HADIR</th>
-                        <th>IZIN</th>
-                        <th>ALPHA</th>
                         <th>TOTAL JAM</th>
                         <th>PROSENTASE</th>
                         <th>Action</th>
@@ -66,7 +64,7 @@
                                 echo count($count);
                                 ?>
                         </td>
-                        <td align="center">
+                        <!-- <td align="center">
                             <?php
                                 $count = $this->db
                                     ->get_where('tbl_dh', [
@@ -89,9 +87,10 @@
                                 $data = count($count);
                                 echo $bulan['jml'] - $data;
                                 ?>
-                        </td>
+                        </td> -->
                         <td>
                             <?php
+                            $total = 0;
                                 $dt = $this->db
                                     ->get_where('tbl_dh', [
                                         'bulan' => $this->input->get('bulan'),
@@ -102,30 +101,19 @@
                                     $total = 0;
                                 } else {
                                     foreach ($dt as $dt):
-                                        $date_awal = new DateTime(
-                                            $dt['time_out']
-                                        );
-                                        $date_akhir = new DateTime(
-                                            $dt['time_in']
-                                        );
-                                        $date_default1 = new DateTime(
-                                            '16:00:00'
-                                        );
-
+                                        $date_awal = new DateTime($dt['time_out']);
+                                        $date_akhir = new DateTime($dt['time_in']);
+                                        $date_default1 = new DateTime('16:00:00');
+                                        $date_default2 = new DateTime('16:00:00');
                                         if ($dt['time_out'] == '00:00:00') {
-                                            $date_awal = $date_default1;
+                                            $date_awal = $date_akhir;
                                         } else {
-                                            $selisih = $date_akhir->diff(
-                                                $date_awal
-                                            );
-
+                                            $selisih = $date_akhir->diff($date_awal);
                                             $jam = $selisih->format('%h');
                                             $menit = $selisih->format('%i');
-
                                             if ($menit >= 0 && $menit <= 9) {
                                                 $menit = '0' . $menit;
                                             }
-
                                             $hasil = $jam . '.' . $menit;
                                             $hasil = number_format($hasil, 2);
                                         }
@@ -137,11 +125,7 @@
                         </td>
                         <td>
                             <?php
-                                $mdt = $this->db
-                                    ->get_where('tbl_gukar', [
-                                        'nbm' => $d['nbm'],
-                                    ])
-                                    ->row_array();
+                                $mdt = $this->db->get_where('tbl_gukar',['nbm' => $d['nbm']])->row_array();
                                 $bebankerja =
                                     $mdt['senin'] +
                                     $mdt['selasa'] +
@@ -149,7 +133,6 @@
                                     $mdt['kamis'] +
                                     $mdt['jumat'];
                                 $res = ($total / $bebankerja) * 100;
-
                                 if (is_infinite($res)) {
                                     echo 0 . '%';
                                 } else {
@@ -158,13 +141,8 @@
                                 ?>
                         </td>
                         <td>
-                            <a href="<?= base_url('ks/dtl_absn?nbm=') .
-                                    $d['nbm'] .
-                                    '&' .
-                                    'bulan=' .
-                                    $bulan[
-                                        'id'
-                                    ] ?>"><button class="btn btn-primary">DETAIL</button></i></a>
+                            <a href="<?= base_url('ks/dtl_absn?nbm=') . $d['nbm'] .'&' .'bulan=' .$bulan['id'];?>">
+                                <button class="btn btn-primary">DETAIL</button></i></a>
                         </td>
                     </tr>
                     <?php $i++; ?>

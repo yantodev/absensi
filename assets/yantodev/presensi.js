@@ -102,6 +102,9 @@ function presensiMasuk(noReg) {
                                 }
                             },
                             success: function (response) {
+                                setTimeout(function () {
+                                    window.location.reload(1)
+                                }, 10000);
                                     Swal.fire({
                                     icon: "success",
                                     title: "Presensi Masuk Berhasil!!!",

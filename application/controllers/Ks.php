@@ -177,7 +177,7 @@ class Ks extends CI_Controller
         $data['level'] = $this->db->get_where('tbl_status', ['id' => $id])->row_array();
         // $data['data'] = $this->Admin_model->absen_bln($id);
         $data['all_bulan'] = allbulan();
-        $data['data'] = $this->db->get_where('tbl_gukar', ['status' => $id])->result_array();
+        $data['data'] = $this->db->get_where('tbl_gukar', ['status' => $id,'is_deleted' => 0])->result_array();
         $this->load->view('ks/wrapper/header', $data);
         $this->load->view('ks/wrapper/sidebar', $data);
         $this->load->view('ks/wrapper/topbar', $data);

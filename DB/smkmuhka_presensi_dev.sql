@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 01, 2022 at 05:26 AM
+-- Generation Time: Mar 04, 2022 at 12:50 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -16626,7 +16626,11 @@ INSERT INTO `aktivitas` (`id`, `nama`, `kegiatan`, `timestamp`) VALUES
 (16538, 'Eko Cahyanto', 'Mengisi daftar hadir tanggal 2022-2-20<br/>Jam masuk 10:55:58', '2022-02-20 03:56:00'),
 (16539, 'nama', 'Mengisi daftar pulang tanggal 2022-2-20<br/>Jam pulang 10:55:58', '2022-02-20 03:56:05'),
 (16540, 'Admin Absensi', 'Merubah data pribadi Andri Kristianto, S.Pd.I</br>NBM 1328453</br>email qisthi.hasyim@smkmuhkarangmojo.sch.id</br>jabatan Mudir Pondok & Guru ISMUBA</br>hp 083146118797', '2022-02-20 16:52:32'),
-(16541, 'Eko Cahyanto', 'Membuat kegiatan COba kegoatan pada tanggal 2022-02-22 Jam 00:00', '2022-02-22 16:55:40');
+(16541, 'Eko Cahyanto', 'Membuat kegiatan COba kegoatan pada tanggal 2022-02-22 Jam 00:00', '2022-02-22 16:55:40'),
+(16542, 'Eko Cahyanto', 'Mengedit kegiatan COba kegoatan pada tanggal 2022-03-01 Jam 00:00:00', '2022-03-01 04:52:55'),
+(16543, 'Eko Cahyanto', 'Mengedit kegiatan COba kegoatan pada tanggal 2022-03-01 Jam 00:00:00', '2022-03-01 05:34:36'),
+(16544, 'Eko Cahyanto', 'Mengedit kegiatan COba kegoatan pada tanggal 2022-03-01 Jam 00:00:00', '2022-03-01 05:55:20'),
+(16545, 'Edi Prabowo, S.T', 'Mengedit kegiatan Rapat Persiapan UKK pada tanggal 2022-03-03 Jam 09:00:00', '2022-03-03 14:48:36');
 
 -- --------------------------------------------------------
 
@@ -17949,7 +17953,11 @@ INSERT INTO `tbl_dh` (`id`, `nbm`, `nama`, `email`, `status`, `alasan`, `bulan`,
 (1213, '1335571', 'Muhamad Tito Purnomo, S.Pd.', 'tito@smkmuhkarangmojo.sch.id', 'Hadir', '-', '2', 0, '2022-02-18', '07:28:00', '0000-00-00', '00:00:00', 3, '', '2', '2', '2022-02-18 00:28:32'),
 (1299, '1288585', '', '', '', '', '2', 2022, '2022-02-20', '11:00:25', '2022-02-20', '11:00:35', 2, '', '', '', '2022-02-20 04:00:37'),
 (1303, '1121333', '', '', '', '', '2', 2022, '2022-02-21', '08:11:54', '2022-02-21', '08:11:54', 1, '', '', '', '2022-02-21 01:11:59'),
-(1304, '1288585', '', '', '', '', '2', 2022, '2022-02-23', '01:17:04', '2022-02-23', '01:17:13', 2, '', '', '', '2022-02-22 18:17:17');
+(1304, '1288585', '', '', '', '', '2', 2022, '2022-02-23', '01:17:04', '2022-02-23', '01:17:13', 2, '', '', '', '2022-02-22 18:17:17'),
+(1305, '1288585', '', '', '', '', '3', 2022, '2022-03-01', '12:28:55', '2022-03-01', '12:29:13', 2, '', '', '', '2022-03-01 05:29:15'),
+(1306, '1288585', '', '', '', '', '3', 2022, '2022-03-02', '13:07:02', '0000-00-00', '00:00:00', 2, '', '', '', '2022-03-02 06:07:03'),
+(1307, '196203021994031005', '', '', '', '', '3', 2022, '2022-03-02', '13:18:53', '0000-00-00', '00:00:00', 1, '', '', '', '2022-03-02 06:18:55'),
+(1308, '662243', '', '', '', '', '3', 2022, '2022-03-02', '14:34:01', '0000-00-00', '00:00:00', 1, '', '', '', '2022-03-02 07:34:02');
 
 -- --------------------------------------------------------
 
@@ -18849,7 +18857,8 @@ INSERT INTO `tbl_dh_kegiatan` (`id`, `id_kegiatan`, `no_id`, `nama`, `jabatan`, 
 (917, 49, '965818', 'Gunadi, SIP', '', '', '2022-02-16', 'Hadir', '', 3),
 (918, 49, '1203416', '', '', '', '2022-02-17', 'Hadir', '', 3),
 (919, 49, '1310659', '', '', '', '2022-02-17', 'Hadir', '', 3),
-(940, 1, '1288585', NULL, NULL, NULL, '2022-03-01', NULL, NULL, NULL);
+(942, 51, '1288585', NULL, NULL, NULL, '2022-03-01', 'Hadir', NULL, NULL),
+(943, 1, '1288585', NULL, NULL, NULL, '2022-03-01', 'Hadir', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -18893,14 +18902,14 @@ INSERT INTO `tbl_gukar` (`id`, `email`, `nama`, `nbm`, `hp`, `jabatan`, `status`
 (12, 'erni_s@smkmuhkarangmojo.sch.id', 'Erni Setyaningsih, S.Pd', '1171369', '85385726864', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
 (13, 'fajarnurharyati@smkmuhkarangmojo.sch.id', 'Fajar Nurharyati, S.Pd', '1290540', '82248098501', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
 (14, 'feridaeka18@smkmuhkarangmojo.sch.id', 'Ferida Eka Pratiwi MH., S.Pd', '1191215', '83123795100', 'Ketua Kompetensi Keahlian BDP', 1, 0, 8, 8, 8, 8, 8, 0),
-(15, 'hartana@smkmuhkarangmojo.sch.id', 'Drs. Hartana', '196203021994031005', '81285777727', 'Waka SDM', 1, 0, 8, 8, 8, 8, 8, 0),
+(15, 'hartana@smkmuhkarangmojo.sch.id', 'Drs. Hartana', '662243', '81285777727', 'Waka SDM', 1, 0, 8, 8, 8, 8, 8, 0),
 (16, 'ika_budi@smkmuhkarangmojo.sch.id', 'Ika Budi Saryati, S.Pd', '1096301', '81227048068', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
 (17, 'iwingvina@smkmuhkarangmojo.sch.id', 'Iwing Vinisyanti, M.Sc', '1141916', '85228907878', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
 (18, 'kanifathonibagas@smkmuhkarangmojo.sch.id', 'Kanifathoni Bagaskara, S.Pd', '1209660', '82242228713', 'Ketua Kompetensi Keahlian TKRO', 1, 0, 8, 8, 8, 8, 8, 0),
 (19, 'karmila@smkmuhkarangmojo.sch.id', 'Karmila, S.Pd.I', '1141917', '85800703392', 'Waka Ismuba', 1, 0, 8, 8, 8, 8, 8, 0),
 (20, 'lina_sp@smkmuhkarangmojo.sch.id', 'Hj. Lina Supartiningsih, B.Sc.', '823004', '87839266987', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
 (21, 'luthfiinas@smkmuhkarangmojo.sch.id', 'Luthfi Inas Afifah, S.Pd', '1095781', '85292115924', 'Sekretaris Waka Kurikulum', 1, 0, 8, 8, 8, 8, 8, 0),
-(22, 'margono@smkmuhkarangmojo.sch.id', 'Drs. H. Margono', '196206081990051002', '85725481474', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
+(22, 'margono@smkmuhkarangmojo.sch.id', 'Drs. H. Margono', '1171375', '85725481474', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
 (23, 'bang_udin08@smkmuhkarangmojo.sch.id', 'Muh. Nurudin, S.Pd.I', '1096299', '85227995846', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
 (24, 'muharamnurachsany@smkmuhkarangmojo.sch.id', 'Muharam Nur Achsany, S.Pd', '1302184', '87838477600', 'Ketua Kompetensi Keahlian TBSM', 1, 0, 8, 8, 8, 8, 8, 0),
 (25, 'muhas@smkmuhkarangmojo.sch.id', 'Muhas Rahmanta, S.Pd', '1209658', '87839474666', 'Guru', 1, 0, 8, 8, 8, 8, 8, 0),
@@ -19072,7 +19081,7 @@ INSERT INTO `tbl_kegiatan` (`id`, `tgl`, `time`, `kegiatan`, `keterangan`, `owne
 (2, '2020-01-09', '02:00:00', 'Persiapan PPDB', 'Mencari Siswa baru', 'Admin Absensi', 1),
 (4, '2021-01-05', '09:00:00', 'Rapat Pembinaan Rutin Bulan Januari', 'Harap datang tepat waktu', 'Munawar, S.Pd.I', 1),
 (5, '2021-02-09', '09:00:00', 'Koordinasi Guru', 'Pertemuan Bulanan', 'Munawar, S.Pd.I', 1),
-(6, '2021-02-17', '09:00:00', 'Rapat Persiapan UKK', '- Harap datang tepat waktu\r\n- Rapat khusus PH dan Kajur', 'Edi Prabowo, S.T', 1),
+(6, '2022-03-03', '09:00:00', 'Rapat Persiapan UKK', '- Harap datang tepat waktu\r\n- Rapat khusus PH dan Kajur', 'Edi Prabowo, S.T', 1),
 (7, '2021-02-19', '09:00:00', 'Pengajian Online #1', 'Sunnah di Hari Jumat ', 'Yarudin, S.Pd.I', 1),
 (8, '2021-02-26', '09:00:00', 'Rapat Tindak Lanjut Budaya Industri', 'PH dan K3', 'Edi Prabowo, S.T', 1),
 (9, '2021-02-26', '09:00:00', 'Pengajian Online #2 HPT part 1', 'HPT', 'Yarudin, S.Pd.I', 1),
@@ -19113,7 +19122,7 @@ INSERT INTO `tbl_kegiatan` (`id`, `tgl`, `time`, `kegiatan`, `keterangan`, `owne
 (48, '2022-02-16', '14:12:00', 'RAPAT KOORDINASI UKK', '', 'Edi Prabowo, S.T', 1),
 (49, '2022-02-16', '13:00:00', 'RAPAT KOORDINASI UKK TAHUN 2021-2022', '', 'Luthfi Inas Afifah, S.Pd', 3),
 (50, '2022-02-22', '08:00:00', 'Rapat Pembinaan 2', 'Rapat pembinaa adalah salah satu kegiatan evaluasi bulanan', 'Admin Absensi', 1),
-(51, '2022-02-26', '00:00:00', 'COba kegoatan', 'jangan lupa bawa laptop', 'Eko Cahyanto', 1);
+(51, '2022-03-01', '00:00:00', 'COba kegoatan', '1.jangan lupa bawa laptop\r\n2. tetap patuhi protokol', 'Eko Cahyanto', 1);
 
 -- --------------------------------------------------------
 
@@ -19175,6 +19184,63 @@ INSERT INTO `tbl_keterangan` (`id`, `id_ref_status`, `name`) VALUES
 (2, 1, 'GTY'),
 (3, 2, 'PTT'),
 (4, 2, 'PTY');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_list_salary`
+--
+
+CREATE TABLE `tbl_list_salary` (
+  `id` int(11) NOT NULL,
+  `id_peg` int(50) NOT NULL,
+  `month` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `id_salary_category` int(11) NOT NULL,
+  `id_salary_sub_category` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `price` int(25) NOT NULL,
+  `is_deleted` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_list_salary`
+--
+
+INSERT INTO `tbl_list_salary` (`id`, `id_peg`, `month`, `year`, `id_salary_category`, `id_salary_sub_category`, `qty`, `price`, `is_deleted`) VALUES
+(1, 1328453, 1, 2022, 1, 1, 24, 18000, 0),
+(2, 1328453, 1, 2022, 1, 2, 150, 4000, 0),
+(3, 1328453, 1, 2022, 1, 3, 50, 1875, 0),
+(4, 1328453, 1, 2022, 2, 4, 6, 45000, 0),
+(5, 1141923, 1, 2022, 1, 1, 24, 18000, 0),
+(6, 1220623, 1, 2022, 1, 1, 24, 18000, 0),
+(7, 1141918, 1, 2022, 1, 1, 24, 18000, 0),
+(8, 1220623, 1, 2022, 1, 2, 150, 4000, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_master_salary`
+--
+
+CREATE TABLE `tbl_master_salary` (
+  `id` int(11) NOT NULL,
+  `id_salary_category` int(3) NOT NULL,
+  `id_salary_sub_category` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `is_deleted` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_master_salary`
+--
+
+INSERT INTO `tbl_master_salary` (`id`, `id_salary_category`, `id_salary_sub_category`, `qty`, `price`, `is_deleted`) VALUES
+(1, 1, 1, 24, 18000, 0),
+(2, 1, 2, 150, 4000, 0),
+(3, 1, 3, 50, 1875, 0),
+(4, 1, 4, 6, 45000, 0);
 
 -- --------------------------------------------------------
 
@@ -19244,6 +19310,137 @@ INSERT INTO `tbl_ref_status` (`id`, `name`) VALUES
 (1, 'Guru'),
 (2, 'Karyawan'),
 (3, 'Pengurus Pondok');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_salary`
+--
+
+CREATE TABLE `tbl_salary` (
+  `id` int(10) NOT NULL,
+  `id_peg` int(50) NOT NULL,
+  `umum` int(50) NOT NULL,
+  `jabatan` int(50) NOT NULL,
+  `stafsus` int(50) NOT NULL,
+  `keamanan` int(50) NOT NULL,
+  `potongan` int(50) NOT NULL,
+  `tahun` int(10) NOT NULL,
+  `bulan` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_salary`
+--
+
+INSERT INTO `tbl_salary` (`id`, `id_peg`, `umum`, `jabatan`, `stafsus`, `keamanan`, `potongan`, `tahun`, `bulan`) VALUES
+(86, 1203416, 1000, 2000, 21000, 1212, 1212, 2022, 1),
+(87, 1300885, 0, 0, 0, 0, 0, 0, 0),
+(88, 1121314, 0, 0, 0, 0, 0, 0, 0),
+(89, 1171374, 0, 0, 0, 0, 0, 0, 0),
+(90, 732787, 0, 0, 0, 0, 0, 0, 0),
+(91, 965818, 0, 0, 0, 0, 0, 0, 0),
+(92, 1121312, 0, 0, 0, 0, 0, 0, 0),
+(93, 1121304, 0, 0, 0, 0, 0, 0, 0),
+(94, 1288837, 0, 0, 0, 0, 0, 0, 0),
+(95, 1323474, 0, 0, 0, 0, 0, 0, 0),
+(96, 675500, 0, 0, 0, 0, 0, 0, 0),
+(97, 965811, 0, 0, 0, 0, 0, 0, 0),
+(98, 1096300, 0, 0, 0, 0, 0, 0, 0),
+(99, 965817, 0, 0, 0, 0, 0, 0, 0),
+(100, 1141920, 0, 0, 0, 0, 0, 0, 0),
+(101, 1336686, 0, 0, 0, 0, 0, 0, 0),
+(102, 1310662, 0, 0, 0, 0, 0, 0, 0),
+(103, 1328453, 100000, 10000, 10000, 10000, 1000, 2022, 1),
+(104, 1141923, 0, 0, 0, 0, 0, 0, 0),
+(105, 1220623, 0, 0, 0, 0, 0, 0, 0),
+(106, 1322316, 0, 0, 0, 0, 0, 0, 0),
+(107, 1313288, 0, 0, 0, 0, 0, 0, 0),
+(108, 1096304, 0, 0, 0, 0, 0, 0, 0),
+(109, 1129305, 0, 0, 0, 0, 0, 0, 0),
+(110, 1271158, 0, 0, 0, 0, 0, 0, 0),
+(111, 552560, 0, 0, 0, 0, 0, 0, 0),
+(112, 823001, 0, 0, 0, 0, 0, 0, 0),
+(113, 2147483647, 0, 0, 0, 0, 0, 0, 0),
+(114, 2147483647, 0, 0, 0, 0, 0, 0, 0),
+(115, 1273064, 0, 0, 0, 0, 0, 0, 0),
+(116, 1121333, 0, 0, 0, 0, 0, 0, 0),
+(117, 1171369, 0, 0, 0, 0, 0, 0, 0),
+(118, 1290540, 0, 0, 0, 0, 0, 0, 0),
+(119, 1191215, 0, 0, 0, 0, 0, 0, 0),
+(120, 1160657, 0, 0, 0, 0, 0, 0, 0),
+(121, 1310664, 0, 0, 0, 0, 0, 0, 0),
+(122, 1209657, 0, 0, 0, 0, 0, 0, 0),
+(123, 823004, 0, 0, 0, 0, 0, 0, 0),
+(124, 1096301, 0, 0, 0, 0, 0, 0, 0),
+(125, 1185481, 0, 0, 0, 0, 0, 0, 0),
+(126, 1141916, 0, 0, 0, 0, 0, 0, 0),
+(127, 1209660, 0, 0, 0, 0, 0, 0, 0),
+(128, 1141917, 0, 0, 0, 0, 0, 0, 0),
+(129, 1095781, 0, 0, 0, 0, 0, 0, 0),
+(130, 1096299, 0, 0, 0, 0, 0, 0, 0),
+(131, 1335571, 0, 0, 0, 0, 0, 0, 0),
+(132, 1302184, 0, 0, 0, 0, 0, 0, 0),
+(133, 1209658, 0, 0, 0, 0, 0, 0, 0),
+(134, 965822, 0, 0, 0, 0, 0, 0, 0),
+(135, 1076230, 0, 0, 0, 0, 0, 0, 0),
+(136, 1141918, 0, 0, 0, 0, 0, 0, 0),
+(137, 1310659, 0, 0, 0, 0, 0, 0, 0),
+(138, 1336782, 0, 0, 0, 0, 0, 0, 0),
+(139, 1141919, 0, 0, 0, 0, 0, 0, 0),
+(140, 816949, 0, 0, 0, 0, 0, 0, 0),
+(141, 1132612, 0, 0, 0, 0, 0, 0, 0),
+(142, 1026449, 0, 0, 0, 0, 0, 0, 0),
+(143, 1055682, 0, 0, 0, 0, 0, 0, 0),
+(144, 1233226, 0, 0, 0, 0, 0, 0, 0),
+(145, 1355119, 0, 0, 0, 0, 0, 0, 0),
+(146, 1389280, 0, 0, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_salary_category`
+--
+
+CREATE TABLE `tbl_salary_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `is_deleted` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_salary_category`
+--
+
+INSERT INTO `tbl_salary_category` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Tunjangan Umum', 0),
+(2, 'Tunjangan Jabatan', 0),
+(3, 'Tunjangan Staf Khusus', 0),
+(4, 'Tunjangan Kemanan dan Kebersihan Sekolah', 0),
+(5, 'Potongan', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_salary_sub_category`
+--
+
+CREATE TABLE `tbl_salary_sub_category` (
+  `id` int(11) NOT NULL,
+  `id_salary_category` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `is_deleted` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_salary_sub_category`
+--
+
+INSERT INTO `tbl_salary_sub_category` (`id`, `id_salary_category`, `name`, `is_deleted`) VALUES
+(1, 1, 'Jam Mengajar', 0),
+(2, 1, 'Kehadiran KBM', 0),
+(3, 1, 'Kehadiran / Stay', 0),
+(4, 2, 'PEMBINA ASRAMA / PESANTREN DAN KEAGAMAAN (PKPLK)', 0);
 
 -- --------------------------------------------------------
 
@@ -20169,7 +20366,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `no_reg`, `name`, `email`, `image`, `password`, `role_id`, `status_id`, `is_active`, `date_created`, `tp`) VALUES
 (1, '0', 'Administrator', 'ekocahyanto007@gmail.com', 'default.png', '$2y$10$SSdGxDrTPZr0KhyP6LiJle9oVxw27XIh98wKLKcWUfKs.IANRuEnG', 0, 1, 1, '2021-01-09 07:19:31', '0000-00-00 0'),
 (2, '0', 'Admin Absensi', 'admin_absensi@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$Q/K2hx8OVXAWjJW1k1JATuQ3xs69azNyKUh4DNQPC8EZcbOk7x0Qm', 0, 2, 1, '2021-01-09 07:19:32', '0000-00-00 0'),
-(3, '1288585', 'Eko Cahyanto', 'cahya93@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$qr.nMY09o9/j2xOcF.JoWOx/8gQNMfCBblnn4vyMgCo5onDf0Wx0C', 3, 3, 1, '2021-01-09 07:19:33', '0000-00-00 0'),
+(3, '1288585', 'Eko Cahyanto', 'cahya93@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$qr.nMY09o9/j2xOcF.JoWOx/8gQNMfCBblnn4vyMgCo5onDf0Wx0C', 3, 4, 1, '2021-01-09 07:19:33', '0000-00-00 0'),
 (4, '1076230', 'Munawar, S.Pd.I', 'munawar@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 3, 1, '2021-01-09 07:19:34', '-'),
 (5, '1373287', 'Ahsan Fauzi, S.Pd', 'ahsanfauzi.af@smkmuhkarangmojo.sch.id ', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:35', '-'),
 (6, '1141923', 'Anik Nur Khayati, S.Pd', 'anik@smkmuhkarangmojo.sch.id ', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:36', '-'),
@@ -20184,14 +20381,14 @@ INSERT INTO `user` (`id`, `no_reg`, `name`, `email`, `image`, `password`, `role_
 (15, '1171369', 'Erni Setyaningsih, S.Pd', 'erni_s@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:45', '-'),
 (16, '1290540', 'Fajar Nurharyati, S.Pd', 'fajarnurharyati@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:46', '-'),
 (17, '1191215', 'Ferida Eka Pratiwi Mulya Handayani, S.E', 'feridaeka18@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:47', '-'),
-(18, '1.96203021994031E+017', 'Drs. Hartana', 'hartana@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:48', '-'),
+(18, '662243', 'Drs. Hartana', 'hartana@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:48', '-'),
 (19, '1096301', 'Ika Budi Saryati, S.Pd', 'ika_budi@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:49', '-'),
 (20, '1141916', 'Iwing Vinisyanti, M.Sc', 'iwingvina@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:50', '-'),
 (21, '1209660', 'Kanifathoni Bagaskara, S.Pd', 'kanifathonibagas@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:51', '-'),
 (22, '1141917', 'Karmila, S.Pd.I', 'karmila@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:52', '-'),
 (23, '823004', 'Dra. Hj. Lina Supartiningsih', 'lina_sp@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:53', '-'),
 (24, '1095781', 'Luthfi Inas Afifah, S.Pd', 'luthfiinas@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:54', '-'),
-(25, '1.96206081990051E+017', 'Drs. H. Margono', 'margono@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:55', '-'),
+(25, '1171375', 'Drs. H. Margono', 'margono@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:55', '-'),
 (26, '1096299', 'Muh. Nurudin, S.Pd.I', 'bang_udin08@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:56', '-'),
 (27, '1302184', 'Muharam Nur Achsany, S.Pd', 'muharamnurachsany@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:57', '-'),
 (28, '1209658', 'Muhas Rahmanta, S.Pd', 'muhas@smkmuhkarangmojo.sch.id', 'default.png', '$2y$10$q.phSqaYRGJOx8q72DEbl.MG8EdVBm5fDJyKD1z2LtuH72PFoCWvy', 3, 0, 1, '2021-01-09 07:19:58', '-'),
@@ -20353,6 +20550,18 @@ ALTER TABLE `tbl_keterangan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_list_salary`
+--
+ALTER TABLE `tbl_list_salary`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_master_salary`
+--
+ALTER TABLE `tbl_master_salary`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_motivasi`
 --
 ALTER TABLE `tbl_motivasi`
@@ -20362,6 +20571,24 @@ ALTER TABLE `tbl_motivasi`
 -- Indexes for table `tbl_ref_status`
 --
 ALTER TABLE `tbl_ref_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_salary`
+--
+ALTER TABLE `tbl_salary`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_salary_category`
+--
+ALTER TABLE `tbl_salary_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_salary_sub_category`
+--
+ALTER TABLE `tbl_salary_sub_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -20408,7 +20635,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `aktivitas`
 --
 ALTER TABLE `aktivitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16542;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16546;
 
 --
 -- AUTO_INCREMENT for table `file`
@@ -20438,13 +20665,13 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `tbl_dh`
 --
 ALTER TABLE `tbl_dh`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1305;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1309;
 
 --
 -- AUTO_INCREMENT for table `tbl_dh_kegiatan`
 --
 ALTER TABLE `tbl_dh_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=941;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=944;
 
 --
 -- AUTO_INCREMENT for table `tbl_gukar`
@@ -20495,6 +20722,18 @@ ALTER TABLE `tbl_keterangan`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `tbl_list_salary`
+--
+ALTER TABLE `tbl_list_salary`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tbl_master_salary`
+--
+ALTER TABLE `tbl_master_salary`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `tbl_motivasi`
 --
 ALTER TABLE `tbl_motivasi`
@@ -20505,6 +20744,24 @@ ALTER TABLE `tbl_motivasi`
 --
 ALTER TABLE `tbl_ref_status`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_salary`
+--
+ALTER TABLE `tbl_salary`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+
+--
+-- AUTO_INCREMENT for table `tbl_salary_category`
+--
+ALTER TABLE `tbl_salary_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_salary_sub_category`
+--
+ALTER TABLE `tbl_salary_sub_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_siswa`
