@@ -46,6 +46,15 @@ function getSubCategory(idCategory, nbm, month, year) {
                         }
                     },
                     success: function (res) {
+                        console.log(res);
+                        if (res[0] == undefined) {
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Anda harus menambahkan data master salary terlebih dahulu!',
+                            footer: `<a href="${url + '/salary/master_salary'}">klik disini untuk menambah data</a>`
+                            })
+                        }
                         addSalary(res[0].id_salary_sub_category, res[0].qty, res[0].price, idCategory, nbm, month, year);
                     }
                 });
