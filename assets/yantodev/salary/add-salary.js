@@ -33,13 +33,13 @@ function getSubCategory(idCategory, nbm, month, year) {
                 showCancelButton: true,
                 confirmButtonText: 'Add',
                 showLoaderOnConfirm: true,
-                allowOutsideClick: () => !Swal.isLoading()
-            }).then((data) => {
-                $.ajax({
+                preConfirm: function (data) {
+                    console.log(data);
+                    $.ajax({
                     type: 'GET',
                     url: url + '/category/get_master_salary',
                     dataType: 'json',
-                    data: { id: data.value },
+                    data: { id: data },
                     beforeSend: function (e) {
                         if (e && e.overrideMimeType) {
                             e.overrideMimeType("application/json;charset=UTF-8");
@@ -53,11 +53,13 @@ function getSubCategory(idCategory, nbm, month, year) {
                             text: 'Anda harus menambahkan data master salary terlebih dahulu!',
                             footer: `<a href="${url + '/salary/master_salary'}">klik disini untuk menambah data</a>`
                             })
-                        } else {
-                            cekTemplate(res[0].id_salary_sub_category, res[0].qty, res[0].price, idCategory, nbm, month, year);
-                        }
+                        } 
+                        console.log(res);
+                        cekTemplate(res[0].id_salary_sub_category, res[0].qty, res[0].price, idCategory, nbm, month, year);
+
                     }
                 });
+                }
             })
         },
         error: function (xhr, ajaxOptions) {
