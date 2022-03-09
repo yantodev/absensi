@@ -63,8 +63,8 @@
                         echo convRupiah($master['price'])
                         ?>
                         </td>
-                        <td><?= $master['qty']; ?></td>
-                        <td><?= convRupiah($master['price'] * $master['qty']); ?></td>
+                        <td><?= $d['qty']; ?></td>
+                        <td><?= convRupiah($d['price'] * $d['qty']); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

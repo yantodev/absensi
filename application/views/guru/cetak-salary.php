@@ -93,7 +93,7 @@
                                         </ul>
                                     </td>
                                     <td></td>
-                                    <td><?= convRupiah($master['price'] * $master['qty']); ?></td>
+                                    <td><?= convRupiah($d['price'] * $d['qty']); ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
