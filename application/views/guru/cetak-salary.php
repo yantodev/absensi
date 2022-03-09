@@ -5,17 +5,25 @@
 <div class="card-body">
     <div class="col">
         <div class="kotak"></div>
-        <table>
+        <table width="100%">
             <tbody>
                 <tr>
+                    <td width="80px">Nama</td>
+                    <td width="330px">: <?=$user['name'];?></td>
                     <td width="120px">Bulan/Tahun</td>
-                    <td> : </td>
-                    <td><?=allbulan($this->input->get('bulan'))." ".$this->input->get('tahun')?></td>
+                    <td>: <?=allbulan($this->input->get('bulan'))." ".$this->input->get('tahun')?></td>
                 </tr>
                 <tr>
+                    <td>Status</td>
+                    <td>:
+                        <?php
+                            $getGukar=$this->db->get_where('tbl_gukar', ['nbm'=>$user['no_reg']])->row_array();
+                            $status=$this->db->get_where('tbl_ref_status', ['id'=>$getGukar['status']])->row_array();
+                            echo $status['name'];
+                        ?>
+                    </td>
                     <td>Stay Sekolah</td>
-                    <td> : </td>
-                    <td>
+                    <td>:
                         <?php $getQty=$this->db->get_where('tbl_list_salary', [
                             'id_peg'=> $user['no_reg'],
                             'month'=> $this->input->get('bulan'),
@@ -23,22 +31,6 @@
                             'id_salary_category'=> 1,
                             'id_salary_sub_category'=>3])->row_array();
                         echo $getQty['qty']
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Bp/Ibu</td>
-                    <td> : </td>
-                    <td><?=$user['name'];?></td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <td> : </td>
-                    <td>
-                        <?php
-                            $getGukar=$this->db->get_where('tbl_gukar', ['nbm'=>$user['no_reg']])->row_array();
-                            $status=$this->db->get_where('tbl_ref_status', ['id'=>$getGukar['status']])->row_array();
-                            echo $status['name'];
                         ?>
                     </td>
                 </tr>
@@ -196,7 +188,7 @@
     </table>
     <div class="kotak"></div>
 </div>
-<div style="margin-top:30px">
+<div style="margin-top:10px">
     <table>
         <thead>
             <tr>
