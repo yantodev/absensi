@@ -248,4 +248,16 @@ class Salary extends CI_Controller{
         $this->session->set_flashdata('message','Data Berhasil diupdate!!!');
             redirect('salary/master_salary');
     }
+
+    public function template_salary(){
+         $data['title'] = 'Template Salary';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $id = $this->input->get('status_id');
+         $data['data'] = $this->Admin_model->getGukar($id);
+        $this->load->view('salary/wrapper/header', $data);
+        $this->load->view('salary/wrapper/sidebar', $data);
+        $this->load->view('salary/wrapper/topbar', $data);
+        $this->load->view('salary/template-salary', $data);
+        $this->load->view('wrapper/footer');
+    }
 }

@@ -687,11 +687,14 @@ class Guru extends CI_Controller
 
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
-            'format' => array(105, 200),
+            'format' => 'A4',
             'orientation' => 'P',
             'setAutoTopMargin' => false,
+            'default_font' => 'mono'
         ]);
 
+        $stylesheet = file_get_contents('assets/yantodev/css/pdf.css'); // external css
+        $mpdf->WriteHTML($stylesheet,1);
         $html = $this->load->view('guru/cetak-salary', [], true);
         $mpdf->WriteHTML($html);
         $mpdf->Output('Salary-ku.pdf', \Mpdf\Output\Destination::INLINE);

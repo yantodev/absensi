@@ -1,35 +1,27 @@
-<style>
-@page {
-    margin-top: 0.5cm;
-    margin-bottom: 0.5cm;
-    margin-left: 0.5cm;
-    margin-right: 0.5cm;
-}
-</style>
-<h4 style="text-align: center;margin:0px;padding:0px">Struk Gaji Pegawai</h4>
-<h4 style="text-align: center;margin-top:0px;padding:0px">SMK Muhammadiyah Karangmojo</h4>
+<img src="<?= base_url('assets/img/kop.png'); ?>">
+<h3 style="text-align: center;margin:0px;padding:0px">SLIP GAJI PEGAWAI</h3>
+<h3 style="text-align: center;margin-top:0px;padding:0px">SMK Muhammadiyah Karangmojo</h3>
 
 <div class="card-body">
     <div class="col">
+        <div class="kotak"></div>
         <table>
             <tbody>
                 <tr>
                     <td width="120px">Bulan/Tahun</td>
                     <td> : </td>
-                    <td><?= allbulan($this->input->get('bulan'))." ".$this->input->get('tahun')?></td>
+                    <td><?=allbulan($this->input->get('bulan'))." ".$this->input->get('tahun')?></td>
                 </tr>
                 <tr>
                     <td>Stay Sekolah</td>
                     <td> : </td>
                     <td>
-                        <?php
-                        $getQty = $this->db->get_where('tbl_list_salary',[
-                            'id_peg' => $user['no_reg'],
-                            'month' => $this->input->get('bulan'),
-                            'year' => $this->input->get('tahun'),
-                            'id_salary_category' => 1,
-                            'id_salary_sub_category' =>3
-                        ])->row_array();
+                        <?php $getQty=$this->db->get_where('tbl_list_salary', [
+                            'id_peg'=> $user['no_reg'],
+                            'month'=> $this->input->get('bulan'),
+                            'year'=> $this->input->get('tahun'),
+                            'id_salary_category'=> 1,
+                            'id_salary_sub_category'=>3])->row_array();
                         echo $getQty['qty']
                         ?>
                     </td>
@@ -37,161 +29,184 @@
                 <tr>
                     <td>Bp/Ibu</td>
                     <td> : </td>
-                    <td><?= $user['name']; ?></td>
+                    <td><?=$user['name'];?></td>
                 </tr>
                 <tr>
                     <td>Status</td>
                     <td> : </td>
                     <td>
                         <?php
-                        $getGukar = $this->db->get_where('tbl_gukar',['nbm'=>$user['no_reg']])->row_array();
-                        $status = $this->db->get_where('tbl_ref_status',['id'=>$getGukar['status']])->row_array();
-                        echo $status['name'];
+                            $getGukar=$this->db->get_where('tbl_gukar', ['nbm'=>$user['no_reg']])->row_array();
+                            $status=$this->db->get_where('tbl_ref_status', ['id'=>$getGukar['status']])->row_array();
+                            echo $status['name'];
                         ?>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="kotak"></div>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th width="50px">NO</th>
+                    <th width="500px" align="left">KETERANGAN</th>
+                    <th align="right">JUMLAH</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="kotak"></div>
+        <?php $no=1; ?>
         <?php foreach($category as $category): ?>
-        <?php
-            $data = $this->db->get_where('tbl_list_salary',[
-                'id_peg' => $user['no_reg'],
+        <?php $data=$this->db->get_where('tbl_list_salary', [ 'id_peg'=> $user['no_reg'],
                 'id_salary_category'=>$category['id'],
-                'month' => $this->input->get('bulan'),
-                'year' => $this->input->get('tahun'),
+                'month'=> $this->input->get('bulan'),
+                'year'=> $this->input->get('tahun'),
                 'is_deleted'=>0,
-            ])->result_array();
-        ?>
-        <div class="card mb-3">
-            <div class="card-header">
-                <ul>
-                    <li>
-                        <b><?= $category['name']; ?></b>
-                        <table>
+                ])->result_array();
+            ?>
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td width="50px" align="center" valign="top"><?= $no++; ?></td>
+                    <td>
+                        <?= $category['name']; ?>
+                        <table width="100%">
                             <tbody>
-                                <?php foreach($data as $d): ?>
-                                <?php
-                                $sub = $this->db->get_where('tbl_salary_sub_category',
-                                [
-                                    'is_deleted'=>0,
-                                    'id_salary_category' => $d['id_salary_category'],
+                                <?php foreach($data as $d): ?><?php $sub=$this->db->get_where('tbl_salary_sub_category',
+                                    [ 'is_deleted'=>0,
+                                    'id_salary_category'=> $d['id_salary_category'],
                                     'id'=>$d['id_salary_sub_category'],
-                                ])->row_array();
+                                    ])->row_array();
                                 ?>
-                                <?php
-                                $master = $this->db->get_where('tbl_master_salary',[
+                                <?php $master=$this->db->get_where('tbl_master_salary', [
                                     'is_deleted'=>0,
                                     'id_salary_sub_category'=>$d['id_salary_sub_category']
-                                ])->row_array();
-                                ?>
+                                ])->row_array();?>
                                 <tr>
-                                    <td width="200px">
+                                    <td width=" 500px">
                                         <ul>
-                                            <li>
-                                                <?= $sub['name']; ?>
-                                            </li>
+                                            <li><?=$sub['name'];?></li>
                                         </ul>
                                     </td>
-                                    <td></td>
-                                    <td><?= convRupiah($d['price'] * $d['qty']); ?></td>
+                                    <td align="right"><?=convRupiah($d['price'] * $d['qty']);?></td>
                                 </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach;?>
                             </tbody>
                         </table>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-        <?php endforeach; ?>
-        <div class="card-body">
-            <div class="card-header text-uppercase" style="margin-left:150px">
-                <?php
-                            $totalUmum = 0; 
-                            $master = $this->db->get_where('tbl_list_salary',[
-                                'month' => $this->input->get('bulan'),
-                                'year' => $this->input->get('tahun'),
-                                'id_peg'=> $user['no_reg'],
-                                'id_salary_category' => 1,
-                            ])->result_array();
-                            
-                            if(!$master){
-                                $totalUmum = 0;
-                            }
-                            
-                            foreach ($master as $m){
-                                $totalUmum += $m['price'] * $m['qty'];
-                            }
-
-                            $totalJabatan = 0; 
-                            $master = $this->db->get_where('tbl_list_salary',[
-                                'month' => $this->input->get('bulan'),
-                                'year' => $this->input->get('tahun'),
-                                'id_peg'=> $user['no_reg'],
-                                'id_salary_category' => 2,
-                            ])->result_array();
-                            
-                            if(!$master){
-                                $totalJabatan = 0;
-                            }
-                            
-                            foreach ($master as $m){
-                                $totalJabatan += $m['price'] * $m['qty'];
-                            }
-
-                            $totalStafsus = 0; 
-                            $master = $this->db->get_where('tbl_list_salary',[
-                                'month' => $this->input->get('bulan'),
-                                'year' => $this->input->get('tahun'),
-                                'id_peg'=> $user['no_reg'],
-                                'id_salary_category' => 3,
-                            ])->result_array();
-                            
-                            if(!$master){
-                                $totalStafsus = 0;
-                            }
-                            
-                            foreach ($master as $m){
-                                if(!$master){
-                                $totalStafsus = 0;
-                            }
-                                $totalStafsus += $m['price'] * $m['qty'];
-                            }
-                            $totalKeamanan = 0; 
-                            $master = $this->db->get_where('tbl_list_salary',[
-                                'month' => $this->input->get('bulan'),
-                                'year' => $this->input->get('tahun'),
-                                'id_peg'=> $user['no_reg'],
-                                'id_salary_category' => 4,
-                            ])->result_array();
-                            
-                            if(!$master){
-                                $totalKeamanan = 0;
-                            }
-                            
-                            foreach ($master as $m){
-                                $totalKeamanan += $m['price'] * $m['qty'];
-                            }
-                            $totalPotongan = 0; 
-                            $master = $this->db->get_where('tbl_list_salary',[
-                                'month' => $this->input->get('bulan'),
-                                'year' => $this->input->get('tahun'),
-                                'id_peg'=> $user['no_reg'],
-                                'id_salary_category' => 5,
-                            ])->result_array();
-                            
-                            if(!$master){
-                                $totalPotongan = 0;
-                            }
-                            
-                            foreach ($master as $m){
-                                $totalPotongan += $m['price'] * $m['qty'];
-                            }
-                            ?>
-                <b>
-                    Total Terima
-                    <?= convRupiah(($totalUmum + $totalJabatan + $totalStafsus + $totalKeamanan) - $totalPotongan); ?></b>
-            </div>
-        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <?php endforeach;?>
+    <div class="kotak"></div>
+    <?php $totalUmum=0;
+                    $master=$this->db->get_where('tbl_list_salary', [ 'month'=> $this->input->get('bulan'),
+                        'year'=> $this->input->get('tahun'),
+                        'id_peg'=> $user['no_reg'],
+                        'id_salary_category'=> 1,
+                        ])->result_array();
+
+                    if( !$master) {
+                        $totalUmum=0;
+                    }
+
+                    foreach ($master as $m) {
+                        $totalUmum+=$m['price'] * $m['qty'];
+                    }
+
+                    $totalJabatan=0;
+                    $master=$this->db->get_where('tbl_list_salary', [ 'month'=> $this->input->get('bulan'),
+                        'year'=> $this->input->get('tahun'),
+                        'id_peg'=> $user['no_reg'],
+                        'id_salary_category'=> 2,
+                        ])->result_array();
+
+                    if( !$master) {
+                        $totalJabatan=0;
+                    }
+
+                    foreach ($master as $m) {
+                        $totalJabatan+=$m['price'] * $m['qty'];
+                    }
+
+                    $totalStafsus=0;
+                    $master=$this->db->get_where('tbl_list_salary', [ 'month'=> $this->input->get('bulan'),
+                        'year'=> $this->input->get('tahun'),
+                        'id_peg'=> $user['no_reg'],
+                        'id_salary_category'=> 3,
+                        ])->result_array();
+
+                    if( !$master) {
+                        $totalStafsus=0;
+                    }
+
+                    foreach ($master as $m) {
+                        if( !$master) {
+                            $totalStafsus=0;
+                        }
+
+                        $totalStafsus+=$m['price'] * $m['qty'];
+                    }
+
+                    $totalKeamanan=0;
+                    $master=$this->db->get_where('tbl_list_salary', [ 'month'=> $this->input->get('bulan'),
+                        'year'=> $this->input->get('tahun'),
+                        'id_peg'=> $user['no_reg'],
+                        'id_salary_category'=> 4,
+                        ])->result_array();
+
+                    if( !$master) {
+                        $totalKeamanan=0;
+                    }
+
+                    foreach ($master as $m) {
+                        $totalKeamanan+=$m['price'] * $m['qty'];
+                    }
+
+                    $totalPotongan=0;
+                    $master=$this->db->get_where('tbl_list_salary', [ 'month'=> $this->input->get('bulan'),
+                        'year'=> $this->input->get('tahun'),
+                        'id_peg'=> $user['no_reg'],
+                        'id_salary_category'=> 5,
+                        ])->result_array();
+
+                    if( !$master) {
+                        $totalPotongan=0;
+                    }
+
+                    foreach ($master as $m) {
+                        $totalPotongan+=$m['price'] * $m['qty'];
+                    }
+                    ?>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th width="370px" align="left">
+                    <?= terbilang(($totalUmum + $totalJabatan + $totalStafsus + $totalKeamanan) - $totalPotongan); ?>
+                </th>
+                <th width="150px" align="right">
+                    TOTAL DITERIMA
+                </th>
+                <th align="right">
+                    <?=convRupiah(($totalUmum + $totalJabatan + $totalStafsus + $totalKeamanan) - $totalPotongan);?>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <div class="kotak"></div>
+</div>
+<div style="margin-top:30px">
+    <table>
+        <thead>
+            <tr>
+                <th>Diterima Oleh,</th>
+            </tr>
+            <tr>
+                <th height="150px">
+                    <?=$user['name'];?>
+                </th>
+            </tr>
+        </thead>
+    </table>
 </div>

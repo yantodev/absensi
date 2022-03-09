@@ -1,0 +1,23 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url('primer/primer\ print.otf');
+}
+
+@page {
+    margin-top: 0.5cm;
+    margin-bottom: 0.5cm;
+    margin-left: 1.5cm;
+    margin-right: 1.5cm;
+        /* background-image: url('assets/img/pi-2020.png'); */
+}
+.printing-salary{
+    font-family: myFont;
+    font-weight: bold;
+}
+
+.kotak{
+    border-top: 3px dashed black;
+}
+.card-body.col.header-table{
+    display:block !important;
+}

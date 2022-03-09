@@ -41,7 +41,7 @@
                         <a class="collapse-item" href="<?= base_url('salary/category'); ?>">Category</a>
                         <a class="collapse-item" href="<?= base_url('salary/sub_category'); ?>">Sub Category</a>
                         <a class="collapse-item" href="<?= base_url('salary/master_salary'); ?>">Master Salary</a>
-                        <!-- <a class="collapse-item" href="<?= base_url('salary/hr_efektif'); ?>">Hari Efektif</a> -->
+                        <a class="collapse-item" href="<?= base_url('salary/template_salary'); ?>">Template Salary</a>
                     </div>
                 </div>
             </li>
