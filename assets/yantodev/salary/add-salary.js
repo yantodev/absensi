@@ -46,7 +46,6 @@ function getSubCategory(idCategory, nbm, month, year) {
                         }
                     },
                     success: function (res) {
-                        console.log(res);
                         if (res[0] == undefined) {
                             Swal.fire({
                             icon: 'error',
@@ -54,8 +53,9 @@ function getSubCategory(idCategory, nbm, month, year) {
                             text: 'Anda harus menambahkan data master salary terlebih dahulu!',
                             footer: `<a href="${url + '/salary/master_salary'}">klik disini untuk menambah data</a>`
                             })
+                        } else {
+                            cekTemplate(res[0].id_salary_sub_category, res[0].qty, res[0].price, idCategory, nbm, month, year);
                         }
-                        addSalary(res[0].id_salary_sub_category, res[0].qty, res[0].price, idCategory, nbm, month, year);
                     }
                 });
             })
@@ -66,6 +66,39 @@ function getSubCategory(idCategory, nbm, month, year) {
     })
 }
 
+function cekTemplate(idSubCategory, qty, price, idCategory, nbm, month, year) {
+    console.log(idSubCategory, qty, price, idCategory, nbm, month, year)
+    $.ajax({
+        type: 'GET',
+        url: url + '/category/cek_tempalate',
+        dataType: 'json',
+        data: {
+            idpeg: nbm,
+            idcategory: idCategory,
+            idsubcategory: idSubCategory,
+        },
+         beforeSend: function(e) {
+            if (e && e.overrideMimeType) {
+                e.overrideMimeType("application/json;charset=UTF-8");
+            }
+        },
+        success: function (response) {
+            console.log(response.length);
+            if (response.length >= 1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Data sudah ada!',
+                })
+            } else if (response.length == 0) {
+                addSalary(idSubCategory, qty, price, idCategory, nbm, month, year);
+            };
+         },
+         error: function (xhr, ajaxOptions) {
+            console.log(ajaxOptions, xhr.responseText, "error"); 
+        }
+    })
+}
 function addSalary(idsubCategory,qty, price, idCategory, nbm, month, year) {
     $.ajax({
         type: 'POST',

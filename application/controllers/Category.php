@@ -39,4 +39,12 @@ class Category extends CI_Controller
         $data = $this->Category->getMasterSalary($id);
         echo json_encode($data);
     }
+
+    public function cek_tempalate(){
+        $idpeg = $this->input->get('idpeg');
+        $idCategory = $this->input->get('idcategory');
+        $idSubCategory = $this->input->get('idsubcategory');
+        $data = $this->Category->cekTemplating($idpeg, $idCategory, $idSubCategory);
+        echo json_encode($data);
+    }
 }
