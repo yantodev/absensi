@@ -48,9 +48,11 @@
                 </a>
             </div>
             <div class="m-2">
-                <button onclick="salary(<?= $user['no_reg']?>)" class="btn btn-primary">
-                    <i class="fas fa-credit-card"> Struk Gaji</i>
-                </button>
+                <a href="<?= base_url('guru/salary'); ?>">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-credit-card"> Struk Gaji</i>
+                    </button>
+                </a>
             </div>
         </div>
     </div>

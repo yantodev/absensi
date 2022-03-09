@@ -57,11 +57,47 @@ class Salary extends CI_Controller{
         $data['year'] = $year;
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['category'] = $this->db->get_where('tbl_salary_category',['is_deleted'=>0])->result_array();
-        $this->load->view('salary/wrapper/header', $data);
-        $this->load->view('salary/wrapper/sidebar', $data);
-        $this->load->view('salary/wrapper/topbar', $data);
-        $this->load->view('salary/add-salary', $data);
-        $this->load->view('wrapper/footer');
+
+        $this->form_validation->set_rules('id[]', 'ID', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('salary/wrapper/header', $data);
+            $this->load->view('salary/wrapper/sidebar', $data);
+            $this->load->view('salary/wrapper/topbar', $data);
+            $this->load->view('salary/add-salary', $data);
+            $this->load->view('wrapper/footer');
+        } else {
+            $id = $this->input->get('id[]');
+            $qty = $this->input->get('qty[]');
+            $price = $this->input->get('price[]');
+            $result = array();
+            foreach($id as $key => $val){
+                $result[] = array(
+                    'id' => $id[$key],
+                   'qty' => $qty[$key],
+                   'price' => $price[$key]
+                );
+            }
+            $this->db->insert_batch('tbl_list_salary', $result);
+            $this->session->set_flashdata(
+                'message',
+                'Data Berhasil ditambahkan!!!'
+            );
+            redirect('salary/add_salary/'.$userId."/".$month."/".$year);
+        }
+    }
+    public function update_salary(){
+        $id = $this->input->post('id');
+        $data = array(
+            'qty' => $this->input->post('qty'),
+            'price' => $this->input->post('price')
+        );
+        $this->db->where('id', $id);
+        $this->Salary->update_salary($id, $data);
+    }
+    public function delete_salary(){
+        $id = $this->input->post('id');
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_list_salary');
     }
 
     public function tambah_salary(){
@@ -71,7 +107,6 @@ class Salary extends CI_Controller{
         $data['data'] = $this->Admin_model->getGukar($id);
         $data['all_bulan'] = allbulan();
 
-        // $this->form_validation->set_rules('status', 'Status', 'required');
         $this->form_validation->set_rules('nbm[]', 'NBM', 'required');
         if ($this->form_validation->run() == false) {
             $this->load->view('salary/wrapper/header', $data);
@@ -139,6 +174,17 @@ class Salary extends CI_Controller{
         $this->session->set_flashdata('message','Data Berhasil diupdate!!!');
             redirect('salary/category');
     }
+
+    public function edit_sub_category(){
+        $id = $this->input->post('id');
+        $data = array(
+            'name' => $this->input->post('name')
+        );
+        $this->db->where('id', $id);
+        $this->Salary->updateSubCategory($id, $data);
+        $this->session->set_flashdata('message','Data Berhasil diupdate!!!');
+            redirect('salary/sub_category');
+    }
     
     public function sub_category(){
         $data['title'] = 'Category';
@@ -189,5 +235,17 @@ class Salary extends CI_Controller{
             $this->session->set_flashdata('message','Data Berhasil ditambahkan!!!');
             redirect('salary/master_salary');
         }
+    }
+
+    public function edit_master_salary(){
+        $id = $this->input->post('id');
+        $data = array(
+            'qty' => $this->input->post('qty'),
+            'price' => $this->input->post('price')
+        );
+        $this->db->where('id', $id);
+        $this->Salary->updateMasterSalary($id, $data);
+        $this->session->set_flashdata('message','Data Berhasil diupdate!!!');
+            redirect('salary/master_salary');
     }
 }

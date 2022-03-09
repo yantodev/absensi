@@ -21,9 +21,6 @@
                     <td><?= $no++; ?></td>
                     <td><?= $d['name']; ?></td>
                     <td>
-                        <!-- <button type="button" class="btn btn-info" onclick="updateCategory(<?= $d['id'];?>)">
-                            <i class="fa fa-edit fa-fw" alt="edit" title="Edit"></i>Edit
-                        </button> -->
                         <a href="#update" data-toggle="modal" data-id="<?= $d['id'];?>" data-name="<?= $d['name'];?>">
                             <i data-toggle=" modal" data-target="#update" class="fa fa-edit fa-fw" alt="detail"
                                 title="Edit"></i>

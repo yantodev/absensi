@@ -23,16 +23,13 @@ class Guru extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->db->get_where('tbl_gukar',['email' => $this->session->userdata('email')])->row_array();
         $this->load->view('guru/wrapper/header', $data);
-        // $this->load->view('guru/wrapper/sidebar', $data);
         $this->load->view('guru/wrapper/topbar', $data);
         $this->load->view('guru/index', $data);
         $this->load->view('wrapper/footer');
     }
     public function profile()
     {
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'My Profile';
         $this->load->view('guru/wrapper/header', $data);
         $this->load->view('guru/wrapper/sidebar', $data);
@@ -623,17 +620,11 @@ class Guru extends CI_Controller
     public function cetak_pdf_jurnal()
     {
         $data['title'] = 'Cetak PDF Jurnal';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $tgl = $this->input->post('tgl');
         $nbm = $this->input->post('nbm');
-        $data['data'] = $this->db
-            ->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])
-            ->row_array();
-        $data['data2'] = $this->db
-            ->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])
-            ->result_array();
+        $data['data'] = $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->row_array();
+        $data['data2'] = $this->db->get_where('tbl_jurnal', ['tgl' => $tgl, 'nbm' => $nbm])->result_array();
         $this->load->view('guru/wrapper/header', $data);
         $this->load->view('guru/wrapper/sidebar', $data);
         $this->load->view('guru/wrapper/topbar', $data);
@@ -667,5 +658,42 @@ class Guru extends CI_Controller
         $this->load->view('guru/wrapper/topbar', $data);
         $this->load->view('guru/event', $data);
         $this->load->view('wrapper/footer');
+    }
+
+       public function salary()
+       {
+        $data['title'] = 'Daftar Gaji';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['all_bulan'] = allbulan();
+        $data['category'] = $this->db->get_where('tbl_salary_category',['is_deleted'=>0])->result_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/salary', $data);
+        $this->load->view('wrapper/footer');
+    }
+
+       public function cetak_salary()
+       {
+        $data['title'] = 'Daftar Gaji';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['all_bulan'] = allbulan();
+        $data['category'] = $this->db->get_where('tbl_salary_category',['is_deleted'=>0])->result_array();
+        $this->load->view('guru/wrapper/header', $data);
+        $this->load->view('guru/wrapper/sidebar', $data);
+        $this->load->view('guru/wrapper/topbar', $data);
+        $this->load->view('guru/cetak-salary', $data);
+        $this->load->view('wrapper/footer');
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => array(105, 200),
+            'orientation' => 'P',
+            'setAutoTopMargin' => false,
+        ]);
+
+        $html = $this->load->view('guru/cetak-salary', [], true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Salary-ku.pdf', \Mpdf\Output\Destination::INLINE);
     }
 }

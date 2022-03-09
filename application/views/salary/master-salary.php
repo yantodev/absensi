@@ -37,13 +37,10 @@
                     <td><?= $d['qty']; ?></td>
                     <td><?= convRupiah($d['price']); ?></td>
                     <td>
-                        <!-- <button type="button" class="btn btn-info" onclick="updateCategory(<?= $d['id'];?>)">
-                            <i class="fa fa-edit fa-fw" alt="edit" title="Edit"></i>Edit
-                        </button> -->
-                        <!-- <a href="#update" data-toggle="modal" data-id="<?= $d['id'];?>" data-name="<?= $d['name'];?>">
-                            <i data-toggle=" modal" data-target="#update" class="fa fa-edit fa-fw" alt="detail"
-                                title="Edit"></i>
-                        </a> -->
+                        <a href="#updatemaster" data-toggle="modal" data-id="<?= $d['id'];?>"
+                            data-qty="<?= $d['qty'];?>" data-price="<?= $d['price'];?>">
+                            <i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i>
+                        </a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -104,25 +101,29 @@
     </div>
 </div>
 <!-- edit modal -->
-<div id="update" class="modal fade" role="dialog">
+<div id="updatemaster" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Category</h4>
+                <h4 class="modal-title">Edit Master Salary</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" action="<?= base_url('salary/edit_category') ?>" method="post"
+                <form class="form-horizontal" action="<?= base_url('salary/edit_master_salary') ?>" method="post"
                     enctype="multipart/form-data" role="form">
-                    <div class="form-group row">
-                        <label class="col-3 form-label">Name Catagory</label>
-                        <div class="col">
+                    <div class="form-group">
+                        <label class="col-3 form-label">QTY</label>
+                        <div>
                             <input type="text" class="form-control" name="id" id="id" hidden>
-                            <input type="text" class="form-control" name="name" id="name">
+                            <input type="number" class="form-control" name="qty" id="qty">
+                        </div>
+                        <label class="col-3 form-label">Price</label>
+                        <div>
+                            <input type="number" class="form-control" name="price" id="price">
                         </div>
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-info">Tambah</button>
+                <button type="submit" class="btn btn-info">Update</button>
             </div>
             </form>
         </div>
@@ -133,12 +134,13 @@
 <script type="text/javascript">
 $(document).ready(function() {
     // Untuk sunting
-    $('#update').on('show.bs.modal', function(event) {
+    $('#updatemaster').on('show.bs.modal', function(event) {
         var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
         var modal = $(this)
         // Isi nilai pada field
         modal.find('#id').attr("value", div.data('id'));
-        modal.find('#name').attr("value", div.data('name'));
+        modal.find('#qty').attr("value", div.data('qty'));
+        modal.find('#price').attr("value", div.data('price'));
     });
 });
 </script>

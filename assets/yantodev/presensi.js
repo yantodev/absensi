@@ -148,12 +148,12 @@ function presensiPulang(noReg) {
                     text: "Anda belum melakukan presensi masuk!!",
                     footer: "Infomasi mlebih lanjut bisa menghubungi guru piket"
                 })
-            }else if (response[0].time_out != "00:00:00") {
+            } else if (response[0].time_out != "00:00:00") {
                 Swal.fire({
                     icon: "warning",
                     title: "Presensi Pulang Gagal!!!",
                     text: "Anda Sudah melakukan presensi",
-                    footer: "Infomasi mlebih lanjut bisa menghubungi guru piket"
+                    footer: "Infomasi lebih lanjut bisa menghubungi guru piket"
                 })
             } else {
                 savePresensiPulang(noReg)

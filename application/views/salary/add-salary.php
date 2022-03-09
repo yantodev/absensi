@@ -22,14 +22,16 @@
                     <?= $category['id'];?>,
                     <?= $nbm;?>,
                     <?= $month;?>,
-                    <?= $year;?>)">Add Data</button>
+                    <?= $year;?>)"><i data-toggle=" modal" data-target="#update" class="fa fa-edit fa-fw" alt="detail"
+                        title="Edit"></i> Add Data</button>
             </div>
             <table class="table table-bordered">
                 <tr>
                     <th>NAME</th>
-                    <th>PRICE</th>
                     <th>QTY</th>
+                    <th>PRICE</th>
                     <th>TOTAL</th>
+                    <th>ACTION</th>
                 </tr>
                 <?php foreach($data as $d): ?>
                 <?php
@@ -42,17 +44,23 @@
                     ?>
                 <tr>
                     <td><?= $sub['name']; ?></td>
-                    <td>
-                        <?php
-                        $master = $this->db->get_where('tbl_master_salary',[
-                            'is_deleted'=>0,
-                            'id_salary_sub_category'=>$d['id_salary_sub_category']
-                        ])->row_array(); 
-                        echo convRupiah($master['price'])
-                        ?>
+                    <td width="5px">
+                        <?= $d['qty'] ?>
                     </td>
-                    <td><?= $master['qty']; ?></td>
-                    <td><?= convRupiah($master['price'] * $master['qty']); ?></td>
+                    <td>
+                        <?= convRupiah($d['price']) ?>
+                    </td>
+                    <td><?= convRupiah($d['price'] * $d['qty']); ?></td>
+                    <td width="5px" align="center">
+                        <badge style="cursor:pointer" class="badge badge-success"
+                            onClick='updateSalary("<?= $sub['name']; ?>",<?= $d['id'];?>,<?= $d['qty'];?>,<?= $d['price'];?>)'>
+                            <i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i>
+                        </badge>
+                        <badge style="cursor:pointer" class="badge badge-danger"
+                            onClick='deleteSalary(<?= $d['id'];?>)'>
+                            <i class="fa fa-trash fa-fw" alt="detail" title="Edit"></i>
+                        </badge>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </table>
