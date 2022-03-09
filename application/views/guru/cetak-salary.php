@@ -6,8 +6,8 @@
     margin-right: 0.5cm;
 }
 </style>
-<p style="text-align: center;margin:0px;padding:0px">Struk Gaji Pegawai</p>
-<p style="text-align: center;margin:0px;padding:0px">SMK Muhammadiyah Karangmojo</p>
+<h4 style="text-align: center;margin:0px;padding:0px">Struk Gaji Pegawai</h4>
+<h4 style="text-align: center;margin-top:0px;padding:0px">SMK Muhammadiyah Karangmojo</h4>
 
 <div class="card-body">
     <div class="col">
