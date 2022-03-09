@@ -60,7 +60,7 @@
                             'is_deleted'=>0,
                             'id_salary_sub_category'=>$d['id_salary_sub_category']
                         ])->row_array(); 
-                        echo convRupiah($master['price'])
+                        echo convRupiah($d['price'])
                         ?>
                         </td>
                         <td><?= $d['qty']; ?></td>
