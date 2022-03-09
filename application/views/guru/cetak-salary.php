@@ -1,8 +1,17 @@
 <img src="<?= base_url('assets/img/kop.png'); ?>">
-<h3 style="text-align: center;margin:0px;padding:0px">SLIP GAJI PEGAWAI</h3>
-<h3 style="text-align: center;margin-top:0px;padding:0px">SMK Muhammadiyah Karangmojo</h3>
+<table width="100%">
+    <tr>
+        <th>
+            <h3 style="text-align: center;margin:0px;padding:0px">SLIP GAJI PEGAWAI</h3>
+            <h3 style="text-align: center;margin-top:0px;padding:0px">SMK Muhammadiyah Karangmojo</h3>
+        </th>
+        <th>
 
-<div class="card-body">
+        </th>
+    </tr>
+</table>
+
+<div class="card-body" style="margin-top:10px">
     <div class="col">
         <div class="kotak"></div>
         <table width="100%">
@@ -188,16 +197,24 @@
     </table>
     <div class="kotak"></div>
 </div>
-<div style="margin-top:10px">
-    <table>
+<div style="margin-top:15px">
+    <table width="100%">
         <thead>
             <tr>
-                <th>Diterima Oleh,</th>
+                <th width="200px" valign="top">Penerima,</th>
+                <th rowspan="2" align="center" valign="center">
+                    <barcode code="<?= base_url(); ?>" size="1.2" type="QR" error="M" class="barcode" />
+                </th>
+                <th align="center" valign="center">
+                    05 <?=allbulan($this->input->get('bulan'))." ".$this->input->get('tahun')?><br>
+                    Bendahara,
+                </th>
             </tr>
             <tr>
-                <th height="150px">
+                <th height="80px" valign="bottom">
                     <?=$user['name'];?>
                 </th>
+                <th valign="bottom">Bampang Sumpono, S.E</th>
             </tr>
         </thead>
     </table>
