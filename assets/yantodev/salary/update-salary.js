@@ -22,7 +22,6 @@ function updateSalary(title,id, qty, price) {
             const id = Swal.getPopup().querySelector('#id').value
             const qty = Swal.getPopup().querySelector('#qty').value
             const price = Swal.getPopup().querySelector('#price').value
-            console.log(id)
             $.ajax({
                 type: 'POST',
                 url: url + `/salary/update_salary`,

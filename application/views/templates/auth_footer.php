@@ -7,6 +7,7 @@
     <script src="<?= base_url(); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <script src="<?= base_url(); ?>assets/yantodev/covid.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/flashdata.js"></script>
     </body>
 
     </html>

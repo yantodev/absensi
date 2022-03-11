@@ -3,15 +3,17 @@
  * mailto: ekocahyanto007@gmail.com
  * link : http://yantodev.github.io/
  */
-   
 function getCovidData() {
-    fetch('https://data.covid19.go.id/public/api/prov.json', {
-        method : 'GET',
-        mode: 'no-cors'
+    console.log("covid")
+    const url = "https://data.covid19.go.id/public/api/prov.json";
+    const result = [];
+    fetch(url,
+        { mode: 'no-cors', }
+    )
+    .then (response => {
+        result.push(response);
+        console.log(response)
     })
-    .then((res) => res)
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error))
 }
 // async function getCovidData(url = '') {
 //   // Default options are marked with *

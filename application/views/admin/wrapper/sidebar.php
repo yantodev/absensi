@@ -87,6 +87,11 @@
                     <span>Aktivitas Terahhir</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('admin/user_role'); ?>">
+                    <i class="fas fa-users"></i>
+                    <span>User Role</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span></a>

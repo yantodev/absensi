@@ -953,4 +953,16 @@ class Admin extends CI_Controller
             redirect('admin/jam_kerja?status_id=' . $status);
         }
     }
+
+    public function user_role(){
+        $data['title'] = 'User Role';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('user',['status_id'=>0,'is_active'=>1])->result_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/user-role', $data);
+        $this->load->view('wrapper/footer');
+    }
+
 }

@@ -51,7 +51,7 @@
                     <?php $i = 1; ?>
                     <?php foreach ($data as $d): ?>
                     <tr>
-                        <td><?= $i ?></td>
+                        <td><?= $i++ ?></td>
                         <td><?= $d['nbm'] ?></td>
                         <td><?= $d['nama'] ?></td>
                         <td>

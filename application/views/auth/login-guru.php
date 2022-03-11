@@ -10,7 +10,9 @@
                         SMK MUHAMMADIYAH KARANGMOJO</b>
                 </h3>
             </div>
-            <?= $this->session->flashdata('message'); ?>
+            <div class="flash-data" data-flashauth="<?= $this->session->flashdata('message');?>"></div>
+            <?php if($this->session->flashdata('message')) :?>
+            <?php endif; ?>
             <form method="POST" action="<?= base_url('auth/guru'); ?>">
                 <div class="form-group">
                     <label class="label" for="username">Username</label>
@@ -29,9 +31,28 @@
                     </button>
                 </div>
             </form>
-            <!-- <div class="text-center">
-                                        <a class="small" href="<?= base_url('auth/registration'); ?>">Create an Account!</a>
-                                    </div> -->
+            <div>
+                <a href="<?= base_url('auth'); ?>">
+                    <button class="button-auth">
+                        <i class="fa fa-users fa-fw" alt="admin" title="admin"></i> Admin
+                    </button>
+                </a>
+                <a href="<?= base_url('auth/ks'); ?>">
+                    <button class="button-auth" onclick=(<?= base_url('auth/ks'); ?>)>
+                        <i class="fa fa-user fa-fw" alt="kepala sekolah" title="kepala sekolah"></i> Kepala Sekolah
+                    </button>
+                </a>
+                <a href="<?= base_url('auth/salary'); ?>">
+                    <button class="button-auth">
+                        <i class="fa fa-credit-card fa-fw" alt="Bendahara" title="Bendahara"></i> Bendahara
+                    </button>
+                </a>
+                <a href="<?= base_url('auth/piket'); ?>">
+                    <button class="button-auth">
+                        <i class="fa fa-calendar-check"></i> Guru Piket
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -34,7 +34,7 @@ class Salary extends CI_Controller{
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $id = $this->input->get('status_id');
         $data['data'] = $this->Admin_model->getGukar($id);
-         $data['all_bulan'] = allbulan();
+        $data['all_bulan'] = allbulan();
 
         $this->form_validation->set_rules('status', 'Status', 'required');
         if ($this->form_validation->run() == false) {
@@ -250,10 +250,11 @@ class Salary extends CI_Controller{
     }
 
     public function template_salary(){
-         $data['title'] = 'Template Salary';
+        $data['title'] = 'Template Salary';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $id = $this->input->get('status_id');
-         $data['data'] = $this->Admin_model->getGukar($id);
+        $data['all_bulan'] = allbulan();
+        $data['data'] = $this->Admin_model->getGukar($id);
         $this->load->view('salary/wrapper/header', $data);
         $this->load->view('salary/wrapper/sidebar', $data);
         $this->load->view('salary/wrapper/topbar', $data);

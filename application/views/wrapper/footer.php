@@ -52,6 +52,7 @@
     <script src="<?= base_url(); ?>assets/yantodev/salary/add-salary.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/salary/update-salary.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/salary/delete-salary.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/user/user-access.js"></script>
 
     <script>
 $('.custom-file-input').on('change', function() {
@@ -80,7 +81,7 @@ $('.custom-file-input').on('change', function() {
 //     
     </script>
 
-    <script type="text/javascript" src="<?= base_url(); ?>assets/ckeditor/ckeditor.js"></script>
+    <!-- <script type="text/javascript" src="<?= base_url(); ?>assets/ckeditor/ckeditor.js"></script>
     <script>
 var ckeditor = CKEDITOR.replace('jurnal', {
     height: '100px'
@@ -101,7 +102,7 @@ var ckeditor = CKEDITOR.replace('waktu', {
 });
 CKEDITOR.disableautoInline = true;
 CKEDITOR.Inline('editable');
-    </script>
+    </script> -->
 
     </body>
 

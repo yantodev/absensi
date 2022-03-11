@@ -45,27 +45,21 @@ class Auth extends CI_Controller
                         redirect('administrator');
                     } else if ($user['status_id'] == 2) {
                         redirect('admin');
-                    } else if($user['status_id'] == 4){
-                        redirect('salary');
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                        Maaf, Anda tidak memiliki akses ini!!</div>');
+                        $this->session->set_flashdata('message', 'Maaf, Anda tidak memiliki akses ini!!');
                         redirect('auth');
                     }
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Wrong password!!</div>');
+                    $this->session->set_flashdata('message', 'Wrong password!!');
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            This email has not been actived!</div>');
+                $this->session->set_flashdata('message', 'This email has not been actived!');
                 redirect('auth');
             }
         } else {
             //user tidak ada
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Email is not registered!!!</div>');
+             $this->session->set_flashdata('message', 'Email is not registered!!!');
             redirect('auth');
         }
     }
@@ -106,24 +100,20 @@ class Auth extends CI_Controller
                     if ($user['status_id'] == 6) {
                         redirect('bk');
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                        Maaf, Anda tidak memiliki akses ini!!</div>');
+                        $this->session->set_flashdata('message', 'Maaf, Anda tidak memiliki akses ini!!');
                         redirect('auth/bk');
                     }
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Wrong password!!</div>');
+                    $this->session->set_flashdata('message', 'Wrong password!!');
                     redirect('auth/bk');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            This email has not been actived!</div>');
+                $this->session->set_flashdata('message', 'This email has not been actived!');
                 redirect('auth/bk');
             }
         } else {
             //user tidak ada
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Email is not registered!!!</div>');
+            $this->session->set_flashdata('message', 'Email is not registered!!!');
             redirect('auth/bk');
         }
     }
@@ -165,29 +155,25 @@ class Auth extends CI_Controller
                     } else if($user['role_id'] == 3 || $user['role_id'] == 4){
 
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                        Maaf, Anda tidak memiliki akses ini!!</div>');
+                        $this->session->set_flashdata('message', 'Maaf, Anda tidak memiliki akses ini!!');
                         redirect('auth/guru');
                     }
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Wrong password!!</div>');
+                    $this->session->set_flashdata('message', 'Wrong password!!');
                     redirect('auth/guru');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            This email has not been actived!</div>');
+                $this->session->set_flashdata('message', 'This email has not been actived!');
                 redirect('auth/guru');
             }
         } else {
             //user tidak ada
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Email is not registered!!!</div>');
+             $this->session->set_flashdata('message', 'Email is not registered!!!');
             redirect('auth/guru');
         }
     }
-    public function ks()
-    {
+    
+    public function ks(){
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
@@ -197,15 +183,13 @@ class Auth extends CI_Controller
             $this->load->view('auth/login-ks');
             $this->load->view('templates/auth_footer');
         } else {
-            //validation berhasil
             $this->_loginks();
         }
     }
-    private function _loginks()
-    {
+    
+    private function _loginks(){
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
         if ($user) {
@@ -218,28 +202,124 @@ class Auth extends CI_Controller
                         'status_id' => $user['status_id']
                     ];
                     $this->session->set_userdata($data);
-                    if ($user['status_id'] == 3) {
+                    if ($user['is_ks'] == 1) {
                         redirect('ks');
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                        Maaf, Anda tidak memiliki akses ini!!</div>');
+                        $this->session->set_flashdata('message', 'Maaf, Anda tidak memiliki akses ini!!');
                         redirect('auth/ks');
                     }
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Wrong password!!</div>');
+                    $this->session->set_flashdata('message', 'Wrong password!!');
                     redirect('auth/ks');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            This email has not been actived!</div>');
+                $this->session->set_flashdata('message', 'This email has not been actived!');
                 redirect('auth/ks');
             }
         } else {
             //user tidak ada
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Email is not registered!!!</div>');
+            $this->session->set_flashdata('message', 'Email is not registered!!!');
             redirect('auth/ks');
+        }
+    }
+
+    public function salary(){
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'User Login Salary';
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/login-salary');
+            $this->load->view('templates/auth_footer');
+        } else {
+            $this->_loginsalary();
+        }
+    }
+
+    private function _loginsalary(){
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+        if ($user) {
+            // user ada
+            if ($user['is_active'] == 1) {
+                //cek password
+                if (password_verify($password, $user['password'])) {
+                    $data = [
+                        'email' => $user['email'],
+                        'status_id' => $user['status_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    if ($user['is_bendahara'] == 1) {
+                        redirect('salary');
+                    } else {
+                        $this->session->set_flashdata('message', 'Maaf, Anda tidak memiliki akses ini!!');
+                        redirect('auth/salary');
+                    }
+                } else {
+                    $this->session->set_flashdata('message', 'Wrong password!!');
+                    redirect('auth/salary');
+                }
+            } else {
+                $this->session->set_flashdata('message', 'This email has not been actived!');
+                redirect('auth/salary');
+            }
+        } else {
+            //user tidak ada
+            $this->session->set_flashdata('message', 'Email is not registered!!!');
+            redirect('auth/salary');
+        }
+    }
+
+    public function piket(){
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'User Login piket';
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/login-piket');
+            $this->load->view('templates/auth_footer');
+        } else {
+            $this->_loginpiket();
+        }
+    }
+
+    private function _loginpiket(){
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+        if ($user) {
+            // user ada
+            if ($user['is_active'] == 1) {
+                //cek password
+                if (password_verify($password, $user['password'])) {
+                    $data = [
+                        'email' => $user['email'],
+                        'status_id' => $user['status_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    if ($user['is_piket'] == 1) {
+                        redirect('piket');
+                    } else {
+                        $this->session->set_flashdata('message', 'Maaf, Anda tidak memiliki akses ini!!');
+                        redirect('auth/piket');
+                    }
+                } else {
+                    $this->session->set_flashdata('message', 'Wrong password!!');
+                    redirect('auth/piket');
+                }
+            } else {
+                $this->session->set_flashdata('message', 'This email has not been actived!');
+                redirect('auth/piket');
+            }
+        } else {
+            //user tidak ada
+            $this->session->set_flashdata('message', 'Email is not registered!!!');
+            redirect('auth/piket');
         }
     }
 
@@ -288,7 +368,7 @@ class Auth extends CI_Controller
             $this->db->insert('user', $data);
             $this->db->insert('master', $master);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Congratulation! your account has been created. Please Login!</div>');
+            Congratulation! your account has been created. Please Login!');
             redirect('auth');
         }
     }
@@ -297,8 +377,7 @@ class Auth extends CI_Controller
     {
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('role_id');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        You have been logged out!!!</div>');
+        $this->session->set_flashdata('message', 'You have been logged out!!!');
         redirect();
     }
 

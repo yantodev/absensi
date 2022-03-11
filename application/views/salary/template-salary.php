@@ -1,17 +1,39 @@
 <h3><?= $title; ?></h3>
 
-<form action="<?= base_url('guru/salary') ?> " method="get">
-    <select class="mb-1" name="bulan" id="bulan">
-        <option value="" disabled selected>-- Pilih Bulan --</option>
-        <?php foreach ($all_bulan as $bn => $bt): ?>
-        <option value="<?= $bn ?>" <?= $bn == $bulan ? 'selected' : '' ?>><?= $bt ?></option>
-        <?php endforeach; ?>
-    </select>
-    <select class="mb-1" name="tahun" id="tahun">
-        <option value="" disabled selected>-- Pilih Tahun --</option>
-        <?php for ($i = date('Y'); $i >= date('Y') - 5; $i--): ?>
-        <option value="<?= $i ?>" <?= $i == $tahun ? 'selected' : '' ?>><?= $i ?></option>
-        <?php endfor; ?>">
+<form action="<?= base_url('salary/template_salary') ?> " method="get">
+    <select class="form-control col-2 mb-1" name="status_id" id="status_id">
+        <option value="">-- Pilih status --</option>
+        <option value="1">Guru</option>
+        <option value="2">Karyawan</option>
     </select>
     <button type="submit" class="btn btn-facebook mb-2">VIEW</button>
 </form>
+<div>
+    <table class="table table-bordered" width="100" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>NBM</th>
+                <th>NAMA</th>
+                <th width="150px">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($data as $d): ?>
+            <tr>
+                <td><?= $i++ ?></td>
+                <td><?= $d['nbm'] ?></td>
+                <td><?= $d['nama'] ?></td>
+                <td>
+                    <a href="<?= base_url('salary/add_template/').$d['nbm']; ?>">
+                        <button class="btn btn-success">
+                            <i class="fa fa-credit-card fa-fw" alt="detail" title="Detail"></i> Template
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
