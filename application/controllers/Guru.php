@@ -648,7 +648,7 @@ class Guru extends CI_Controller
         $mpdf->Output('Jurnal-ku.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
-       public function event($date)
+    public function event($date)
     {
         $data['title'] = 'Daftar Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -660,8 +660,8 @@ class Guru extends CI_Controller
         $this->load->view('wrapper/footer');
     }
 
-       public function salary()
-       {
+    public function salary()
+    {
         $data['title'] = 'Daftar Gaji';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['all_bulan'] = allbulan();
@@ -673,8 +673,8 @@ class Guru extends CI_Controller
         $this->load->view('wrapper/footer');
     }
 
-       public function cetak_salary()
-       {
+    public function cetak_salary()
+    {
         $data['title'] = 'Daftar Gaji';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['all_bulan'] = allbulan();
@@ -687,7 +687,7 @@ class Guru extends CI_Controller
 
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
-            'format' => 'A4',
+            'format' => array(215, 330),
             'orientation' => 'P',
             'setAutoTopMargin' => false,
             'default_font' => 'mono'
