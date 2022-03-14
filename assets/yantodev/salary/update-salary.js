@@ -4,7 +4,6 @@
  * link : http://yantodev.github.io/
  */
 function updateSalary(title,id, qty, price) {
-    console.log('updateSalary', id, qty, price)
     Swal.fire({
         title: `Update ${title}`,
         html: `
@@ -36,16 +35,21 @@ function updateSalary(title,id, qty, price) {
                     e.overrideMimeType("application/json;charset=UTF-8");
                     }
                 },
+                success: function () {
+                    
+                }
             })
         },
         allowOutsideClick: () => !Swal.isLoading()
-    }).then(() => {
-                Swal.fire({
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
                 icon: "success",
                 title: "Data berhasil ditambahkan!!!",
-                })
-        setTimeout(function () {
+            })
+            setTimeout(function () {
                 window.location.reload(1)
             }, 1000);
+        }
     })
 }

@@ -348,8 +348,10 @@ class Admin_model extends CI_Model
     function getGukar($status)
     {
         $this->db->order_by('nama', 'ASC');
-        return $this->db
-            ->get_where('tbl_gukar', ['status' => $status, 'is_deleted' => 0])
-            ->result_array();
+        return $this->db->get_where('tbl_gukar', ['status' => $status, 'is_deleted' => 0])->result_array();
+    }
+
+    function getDetailGukarById($nbm){
+        return $this->db->get_where('tbl_gukar',['nbm' => $nbm])->row_array();
     }
 }

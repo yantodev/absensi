@@ -46,9 +46,7 @@ class Admin extends CI_Controller
 
     public function profile()
     {
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db ->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'My Profile';
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -59,25 +57,11 @@ class Admin extends CI_Controller
     public function changepassword()
     {
         $data['title'] = 'Change Password';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->form_validation->set_rules(
-            'current_password',
-            'Password lama',
-            'required|trim'
-        );
-        $this->form_validation->set_rules(
-            'password1',
-            'Password baru',
-            'required|trim|min_length[8]|matches[password2]'
-        );
-        $this->form_validation->set_rules(
-            'password2',
-            'Ulangi password',
-            'required|trim|min_length[8]|matches[password1]'
-        );
+        $this->form_validation->set_rules('current_password','Password lama','required|trim');
+        $this->form_validation->set_rules('password1','Password baru','required|trim|min_length[8]|matches[password2]');
+        $this->form_validation->set_rules('password2','Ulangi password','required|trim|min_length[8]|matches[password1]');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('admin/wrapper/header', $data);
@@ -162,7 +146,7 @@ class Admin extends CI_Controller
             $this->Admin_model->edit_absen();
             $this->session->set_flashdata(
                 'message',
-                '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>'
+                'Data Berhasil diupdate!!!'
             );
             redirect('admin/edit_hr/' . $id);
         }
@@ -316,7 +300,7 @@ class Admin extends CI_Controller
         $this->db->insert('jam_kerja', $data);
         $this->session->set_flashdata(
             'message',
-            '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>'
+            'Data Berhasil diupdate!!!'
         );
         redirect('admin/jam_kerja');
     }

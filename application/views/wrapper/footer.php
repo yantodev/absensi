@@ -42,6 +42,7 @@
 
     <!-- Page level custom scripts -->
     <script src="<?= base_url(); ?>assets/js/demo/datatables-demo.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/config.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/presensi.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/maintenance.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/admin.js"></script>
@@ -53,6 +54,7 @@
     <script src="<?= base_url(); ?>assets/yantodev/salary/update-salary.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/salary/delete-salary.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/user/user-access.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/piket/insert-data.js"></script>
 
     <script>
 $('.custom-file-input').on('change', function() {

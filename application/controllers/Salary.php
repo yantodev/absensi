@@ -19,7 +19,7 @@ class Salary extends CI_Controller{
         $this->load->model('Salary_model', 'Salary');
     }
 
-      public function index(){
+    public function index(){
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->Admin_model->getDH();
@@ -29,7 +29,8 @@ class Salary extends CI_Controller{
         $this->load->view('salary/index', $data);
         $this->load->view('wrapper/footer');
     }
-      public function salary(){
+    
+    public function salary(){
         $data['title'] = 'Salary';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $id = $this->input->get('status_id');

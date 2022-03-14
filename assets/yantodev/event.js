@@ -3,9 +3,6 @@
  * mailto: ekocahyanto007@gmail.com
  * link : http://yantodev.github.io/
  */
-var url1 = window.location.origin;
-var url = url1 + "/absensi";
-
 function notifyEvent(nbm) {
     $.ajax({
         type:'GET',
