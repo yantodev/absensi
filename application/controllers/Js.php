@@ -70,8 +70,9 @@ class Js extends CI_Controller
         echo json_encode($data);
     }
 
-    public function getEvent($dateNow){
-        $data = $this->Js_model->getEvent($dateNow);
+    public function getEvent(){
+        $date = $this->input->get('tgl');
+        $data = $this->Js_model->getEvent($date);
         echo json_encode($data);
     }
 

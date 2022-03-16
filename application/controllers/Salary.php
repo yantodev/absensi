@@ -95,6 +95,14 @@ class Salary extends CI_Controller{
         $this->db->where('id', $id);
         $this->Salary->update_salary($id, $data);
     }
+    public function update_salary_qty(){
+        $id = $this->input->post('id');
+        $data = array(
+            'qty' => $this->input->post('qty'),
+        );
+        $this->db->where('id', $id);
+        $this->Salary->update_salary($id, $data);
+    }
     public function delete_salary(){
         $id = $this->input->post('id');
         $this->db->where('id', $id);

@@ -3,13 +3,6 @@
 <?php if($this->session->flashdata('message')) :?>
 <?php endif; ?>
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <small>
-            Keterangan <br />
-            ✅ : Mengajar <br />
-            ❌ : Tidak Mengajar
-        </small>
-    </div>
     <div class="card-body">
         <form action="<?= base_url('piket/rekap_piket_hr') ?> " method="get">
             <input type="hidden" name="status_id" id="status_id" value="1">
@@ -47,198 +40,106 @@
                         <td><?= $no++; ?></td>
                         <td><?= $d['nama']; ?></td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 1,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(1, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=1 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 2,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(2, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=2 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 3,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(3, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=3 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 4,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(4, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=4 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 5,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(5, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=5 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 6,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
-                        </td>
-                        <td><?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 7,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?></td>
-                        <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 8,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(6, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=6 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 9,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(7, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=7 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 10,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
-                        </td>
-                        <td><?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 11,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?></td>
-                        <td>
-                            <?php 
-                        $jam1 = $this->db->get_where('tbl_rekap_kbm',[
-                            'id_peg'=>$d['nbm'],
-                            'date'=> $this->input->get('date'),
-                            'jam'=> 12,
-                        ])->row_array();
-                        if($jam1['status'] == 1){
-                            echo "✅";
-                        } else if($jam1['status'] == 2){
-                            echo "❌";
-                        } else {
-                            echo "";
-                        }
-                        ?>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(8, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=8 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
                         </td>
                         <td>
-                            <badge style="cursor:pointer" class="badge badge-primary"
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(9, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=9 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(10, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=10 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(11, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=11 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-kbm" type="checkbox"
+                                    <?= check_kbm(12, $d['nbm'], $this->input->get('date')); ?>
+                                    data-nbm="<?= $d['nbm'];?>" data-jam=12 data-date="<?= $this->input->get('date');?>"
+                                    data-created_by="<?= $user['name'];?>">
+                            </div>
+                        </td>
+                        <td>
+                            <!-- <badge style="cursor:pointer" class="badge badge-primary"
                                 onClick="addkbm('<?= $d['nama']; ?>' , <?= $d['nbm']; ?>, '<?= $this->input->get('date'); ?>', '<?= $user['name']; ?>')">
                                 <i class="fa fa-edit fa-fw" alt="add" title="add"></i>
-                            </badge>
+                            </badge> -->
                             <a href="<?= base_url('piket/detail_kbm/'.$d['nbm']."/". $this->input->get('date'));?>">
                                 <badge style="cursor:pointer" class="badge badge-info">
                                     <i class="fa fa-eye fa-fw" alt="detail" title="detail"></i>

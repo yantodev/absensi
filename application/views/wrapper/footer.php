@@ -46,13 +46,14 @@
     <script src="<?= base_url(); ?>assets/yantodev/presensi.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/maintenance.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/admin.js"></script>
-    <script src="<?= base_url(); ?>assets/yantodev/event.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/event/get-event.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/employee.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/flashdata.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/salary/category.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/salary/add-salary.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/salary/update-salary.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/salary/delete-salary.js"></script>
+    <script src="<?= base_url(); ?>assets/yantodev/salary/update-kbm.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/user/user-access.js"></script>
     <script src="<?= base_url(); ?>assets/yantodev/piket/insert-data.js"></script>
 
@@ -63,24 +64,37 @@ $('.custom-file-input').on('change', function() {
 });
 
 
-// $('.form-check-input').on('click', function() {
-//     const menuId = $(this).data('menu');
-//     const roleId = $(this).data('role');
+$('.form-check-kbm').on('click', function() {
+    const nbm = $(this).data('nbm');
+    const jam = $(this).data('jam');
+    const date = $(this).data('date');
+    const created_by = $(this).data('created_by');
+    var dates = new Date(date);
 
-//     $.ajax({
-//         url: "<?= base_url('administrator/changeaccess'); ?>",
-//         type: 'post',
-//         data: {
-//             menuId: menuId,
-//             roleId: roleId
-//         },
-//         success: function() {
-//             document.location.href = "<?= base_url('administrator/roleaccess/'); ?>" + roleId;
-//         }
-//     })
+    $.ajax({
+        url: "<?= base_url('piket/changeaccess'); ?>",
+        type: 'post',
+        data: {
+            nbm: nbm,
+            jam: jam,
+            date: date,
+            month: dates.getMonth() + 1,
+            year: dates.getFullYear(),
+            created_by: created_by
+        },
+        success: function() {
+            setTimeout(function() {
+                window.location.reload(1)
+            }, 1000);
+            document.location.href = "<?= base_url('piket/rekap_piket_hr?status_id='); ?>" + 1 +
+                "&date=" + date;
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    })
 
-// });
-//     
+});
     </script>
 
     <!-- <script type="text/javascript" src="<?= base_url(); ?>assets/ckeditor/ckeditor.js"></script>

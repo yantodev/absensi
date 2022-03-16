@@ -154,3 +154,16 @@ function penyebut($nilai) {
 		}     		
 		return $hasil;
 	}
+
+    function check_kbm($jam, $nbm, $date){
+    $ci = get_instance();
+
+    $ci->db->where('jam', $jam);
+    $ci->db->where('id_peg', $nbm);
+    $ci->db->where('date', $date);
+    $result = $ci->db->get('tbl_rekap_kbm');
+
+    if ($result->num_rows() > 0) {
+        return "checked='checked'";
+    }
+}

@@ -6,7 +6,7 @@
 function notifyEvent(nbm) {
     $.ajax({
         type:'GET',
-        url: 'js/getDetailsGukar',
+        url: url+'/js/getDetailsGukar',
         data: {
             nbm: nbm,
         },
@@ -18,35 +18,19 @@ function notifyEvent(nbm) {
         },
         success: function (response) {
             var nama = response[0].nama;
-            $.ajax({
-                type: 'GET',
-                url: `js/getEvent/${todayIn}`,
-                type: 'json',
-                beforeSend: function (e) {
-                    if (e && e.overrideMimeType) {
-                        e.overrideMimeType("application/json;charset=UTF-8");
-                    }
-                },
-                success: function (resDate) {
-                    if (resDate.length >= 1) {
-                        document.getElementById("notif-event").innerHTML = `Hai! ${nama} hari ini ada ${resDate.length} kegiatan yang harus kamu hadiri <a href='guru/event/${todayIn}'>Klik Disni</a>`;
-                    }
-                },
-                error: function (xhr, ajaxOptions) {
-                console.log(ajaxOptions, xhr.responseText, "error"); 
-            }
-        })
+            getEvents(nama);
         },
         error: function (xhr, ajaxOptions) {
             console.log(ajaxOptions, xhr.responseText, "error"); 
             }
         });
 }
+
 function cekEvent(eventId, userId) {
     $.ajax({
         type: "GET",
         url: url +`/js/cekEvent/${eventId}`,
-        type: 'json',
+        dataType: 'json',
         beforeSend: function (e) {
             if (e && e.overrideMimeType) {
                 e.overrideMimeType("application/json;charset=UTF-8");
@@ -74,7 +58,7 @@ function eventPresensi(eventId, userId) {
     $.ajax({
         type: 'GET',
         url: url +`/js/getDetailDHEvent/${userId}/${eventId}/${todayIn}`,
-        type: 'json',
+        dataType: 'json',
         beforeSend: function (e) {
             if (e && e.overrideMimeType) {
                 e.overrideMimeType("application/json;charset=UTF-8");
@@ -113,4 +97,28 @@ function eventPresensi(eventId, userId) {
         console.log(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
     }
     })
+}
+
+function getEvents(name){
+    $.ajax({
+                type: 'GET',
+                url: url+`/js/getEvent`,
+                data:{
+                    tgl: todayIn
+                },
+                dataType: 'json',
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (resDate) {
+                    if (resDate.length >= 1) {
+                        document.getElementById("notif-event").innerHTML = `Hai! ${name} hari ini ada ${resDate.length} kegiatan yang harus kamu hadiri <a href='guru/event/${todayIn}'>Klik Disni</a>`;
+                    }
+                },
+                error: function (xhr, ajaxOptions) {
+                console.log(ajaxOptions, xhr.responseText, "error"); 
+            }
+        })
 }

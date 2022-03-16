@@ -80,4 +80,32 @@ class Piket extends CI_Controller{
         $this->load->view('piket/detail-kbm', $data);
         $this->load->view('wrapper/footer');
     }
+
+    public function changeaccess()
+    {
+        $jam = $this->input->post('jam');
+        $nbm = $this->input->post('nbm');
+        $date = $this->input->post('date');
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+        $created_by = $this->input->post('created_by');
+
+        $data = [
+            'id_peg' => $nbm,
+            'jam' => $jam,
+            'date' => $date,
+            'month' => $month,
+            'year' => $year,
+            'created_by' => $created_by,
+        ];
+
+        $result = $this->db->get_where('tbl_rekap_kbm', $data);
+
+        if ($result->num_rows() < 1) {
+            $this->db->insert('tbl_rekap_kbm', $data);
+        } else {
+            $this->db->delete('tbl_rekap_kbm', $data);
+        }
+        $this->session->set_flashdata('message', 'Data Changed!!!');
+    }
 }

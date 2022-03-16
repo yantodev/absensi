@@ -36,7 +36,6 @@ function updateSalary(title,id, qty, price) {
                     }
                 },
                 success: function () {
-                    
                 }
             })
         },
