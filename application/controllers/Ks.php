@@ -25,9 +25,7 @@ class Ks extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->view('ks/wrapper/header', $data);
         $this->load->view('ks/wrapper/sidebar', $data);
         $this->load->view('ks/wrapper/topbar', $data);
@@ -37,9 +35,7 @@ class Ks extends CI_Controller
 
     public function profile()
     {
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'My Profile';
         $this->load->view('ks/wrapper/header', $data);
         $this->load->view('ks/wrapper/sidebar', $data);
@@ -51,9 +47,7 @@ class Ks extends CI_Controller
     public function changepassword()
     {
         $data['title'] = 'Change Password';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->form_validation->set_rules(
             'current_password',
@@ -177,7 +171,7 @@ class Ks extends CI_Controller
         $data['level'] = $this->db->get_where('tbl_status', ['id' => $id])->row_array();
         // $data['data'] = $this->Admin_model->absen_bln($id);
         $data['all_bulan'] = allbulan();
-        $data['data'] = $this->db->get_where('tbl_gukar', ['status' => $id])->result_array();
+        $data['data'] = $this->db->get_where('tbl_gukar', ['status' => $id,'is_deleted' => 0])->result_array();
         $this->load->view('ks/wrapper/header', $data);
         $this->load->view('ks/wrapper/sidebar', $data);
         $this->load->view('ks/wrapper/topbar', $data);

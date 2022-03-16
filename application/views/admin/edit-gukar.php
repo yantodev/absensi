@@ -24,13 +24,25 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Jabatan</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" id="jabatan" name="jabatan" value="<?= $data['jabatan']; ?>">
+                        <input class="form-control" type="text" id="jabatan" name="jabatan"
+                            value="<?= $data['jabatan']; ?>">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">No. HP</label>
                     <div class="col-sm-8">
                         <input class="form-control" type="text" id="hp" name="hp" value="<?= $data['hp']; ?>">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Status Pegawai</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="id_keterangan" id="id_keterangan">
+                            <option value="">--Pilih Status--</option>
+                            <?php foreach($keterangan as $k): ?>
+                            <option value="<?= $k['id']; ?>"><?= $k['name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <input type="hidden" name="id" id="id" value="<?= $data['id']; ?>">

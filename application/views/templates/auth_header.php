@@ -23,4 +23,6 @@
 
 </head>
 
+<!-- <body onload="getCovidData()"> -->
+
 <body>

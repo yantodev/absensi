@@ -121,6 +121,7 @@ class Admin_model extends CI_Model
             'email' => htmlspecialchars($this->input->post('email', true)),
             'jabatan' => htmlspecialchars($this->input->post('jabatan', true)),
             'hp' => htmlspecialchars($this->input->post('hp', true)),
+            'id_keterangan' => htmlspecialchars($this->input->post('id_keterangan', true)),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('tbl_gukar', $data);
@@ -219,12 +220,8 @@ class Admin_model extends CI_Model
         $data = [
             'tgl' => htmlspecialchars($this->input->post('tgl', true)),
             'time' => htmlspecialchars($this->input->post('time', true)),
-            'kegiatan' => htmlspecialchars(
-                $this->input->post('kegiatan', true)
-            ),
-            'keterangan' => htmlspecialchars(
-                $this->input->post('keterangan', true)
-            ),
+            'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
+            'keterangan' => $this->input->post('keterangan', true),
             'owner' => htmlspecialchars($this->input->post('owner', true)),
             'status_id' => $this->input->post('status_id', true),
         ];
@@ -351,8 +348,10 @@ class Admin_model extends CI_Model
     function getGukar($status)
     {
         $this->db->order_by('nama', 'ASC');
-        return $this->db
-            ->get_where('tbl_gukar', ['status' => $status, 'is_deleted' => 0])
-            ->result_array();
+        return $this->db->get_where('tbl_gukar', ['status' => $status, 'is_deleted' => 0])->result_array();
+    }
+
+    function getDetailGukarById($nbm){
+        return $this->db->get_where('tbl_gukar',['nbm' => $nbm])->row_array();
     }
 }

@@ -75,3 +75,21 @@ body{
     color: #0387FF;
     outline: 0;
 }
+.btn-auth{
+    margin: 5px;
+}
+.button-auth {
+    background-color: rgba(111, 140, 221, 0.795);
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #0387FF;
+}
+.button-auth:hover{
+    background-color: #0387FF;
+}
+a {
+    text-decoration: none;
+}

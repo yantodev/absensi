@@ -1,11 +1,11 @@
 <style>
-    @page {
-        margin-top: 0.5cm;
-        margin-bottom: 0.5cm;
-        margin-left: 1.0cm;
-        margin-right: 1.0cm;
-        /* background-image: url('assets/img/pi-2020.png'); */
-    }
+@page {
+    margin-top: 0.5cm;
+    margin-bottom: 0.5cm;
+    margin-left: 1.0cm;
+    margin-right: 1.0cm;
+    /* background-image: url('assets/img/pi-2020.png'); */
+}
 </style>
 <img src="<?= base_url('assets/img/kop.png'); ?>" alt="">
 <h3 align="center">
@@ -21,31 +21,29 @@
             <th>NAMA</th>
             <th>JABATAN</th>
             <th>STATUS</th>
-            <th>TTD</th>
         </tr>
     </thead>
     <tbody>
         <?php $i = 1; ?>
         <?php foreach ($data2 as $d) : ?>
-            <tr>
-                <td align="center"><?= $i; ?></td>
-                <td><?= $d['no_id']; ?></td>
-                <td>
-                    <?php
+        <tr>
+            <td align="center"><?= $i; ?></td>
+            <td><?= $d['no_id']; ?></td>
+            <td>
+                <?php
                     $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['no_id']])->row_array();
                     echo $data['nama'];
                     ?>
-                </td>
-                <td>
-                    <?php
+            </td>
+            <td>
+                <?php
                     $data = $this->db->get_where('tbl_gukar', ['nbm' => $d['no_id']])->row_array();
                     echo $data['jabatan'];
                     ?>
-                </td>
-                <td align="center"><?= $d['status']; ?></td>
-                <td align="center"><img src="<?= base_url() . $d['ttd']; ?>" width="50px" height="50px"></td>
-            </tr>
-            <?php $i++; ?>
+            </td>
+            <td align="center"><?= $d['status']; ?></td>
+        </tr>
+        <?php $i++; ?>
         <?php endforeach; ?>
     </tbody>
 </table>

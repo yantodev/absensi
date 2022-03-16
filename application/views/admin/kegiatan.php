@@ -14,47 +14,60 @@
             Tambah Kegiatan
         </button>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th width="180px">Tanggal</th>
-                        <th>Waktu</th>
-                        <th>Kegiatan</th>
-                        <th>Keterangan</th>
-                        <th>Peserta</th>
-                        <th>Upload</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($data as $d) : ?>
-                        <tr>
-                            <td><?= $i; ?></td>
-                            <td><?= tanggal($d['tgl']); ?></td>
-                            <td><?= $d['time']; ?></td>
-                            <td><?= $d['kegiatan']; ?></td>
-                            <td><?= $d['keterangan']; ?></td>
-                            <td>
-                                <?php
-                                $count = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $d['id']])->result_array();
-                                echo count($count);
-                                ?>
-                            </td>
-                            <td>
-                                <a href="<?= base_url('admin/foto_kegiatan?id=') . $d['id']; ?>"><i class="fa fa-image fa-fw" alt="detail" title="Upload Dokumentasi"></i></a>
-                                <a href="<?= base_url('admin/file_kegiatan?id=') . $d['id']; ?>"><i class="fa fa-file fa-fw" alt="detail" title="Upload File"></i></a>
-                            </td>
-                            <td>
-                                <a href="<?= base_url('admin/edit_kegiatan/') . $d['id']; ?>"><i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i></a>
-                                <a href="<?= base_url('admin/detail_kegiatan/') . $d['id']; ?>"><i class="fa fa-eye fa-fw" alt="detail" title="Detail"></i></a>
-                                <a href="<?= base_url(); ?>admin/hapus_kegiatan/<?= $d['id']; ?>"><i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus" onclick="return confirm('Yakin ingin menghapus?');"></i></a>
-                            </td>
-                        </tr>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
-                </tbody>
+            <input <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th width="180px">Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Kegiatan</th>
+                    <th>Keterangan</th>
+                    <th>Peserta</th>
+                    <th>Upload</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i = 1; ?>
+                <?php foreach ($data as $d) : ?>
+                <tr>
+                    <td><?= $i; ?></td>
+                    <td><?= tanggal($d['tgl']); ?></td>
+                    <td><?= $d['time']; ?></td>
+                    <td><?= $d['kegiatan']; ?></td>
+                    <td><?= $d['keterangan']; ?></td>
+                    <td>
+                        <?php
+                            $count = $this->db->get_where('tbl_dh_kegiatan', ['id_kegiatan' => $d['id']])->result_array();
+                            echo count($count);
+                        ?>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('admin/foto_kegiatan?id=') . $d['id']; ?>">
+                            <i class="fa fa-image fa-fw" alt="detail" title="Upload Dokumentasi"></i></a>
+                        <a href="<?= base_url('admin/file_kegiatan?id=') . $d['id']; ?>">
+                            <i class="fa fa-file fa-fw" alt="detail" title="Upload File"></i></a>
+                    </td>
+                    <td>
+                        <input type="text" value="yantodev" id="pilih" hidden />
+                        <span onclick="copyURL(<?= $d['id']?>)">
+                            <i class="fa fa-copy fa-fw" alt="detail" title="Copy URL"></i>
+                        </span>
+                        <a href="<?= base_url('admin/edit_kegiatan/') . $d['id']; ?>">
+                            <i class="fa fa-edit fa-fw" alt="detail" title="Edit"></i>
+                        </a>
+                        <a href="<?= base_url('admin/detail_kegiatan/') . $d['id']; ?>">
+                            <i class="fa fa-eye fa-fw" alt="detail" title="Detail"></i>
+                        </a>
+                        <a href="<?= base_url(); ?>admin/hapus_kegiatan/<?= $d['id']; ?>">
+                            <i class="fa fa-trash fa-fw" alt="verifikasi" title="Hapus"
+                                onclick="return confirm('Yakin ingin menghapus?');"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php $i++; ?>
+                <?php endforeach; ?>
+            </tbody>
             </table>
         </div>
     </div>
@@ -106,9 +119,9 @@
 </div>
 
 <script type="text/javascript">
-    function copy_text() {
-        document.getElementById("pilih").select();
-        document.execCommand("copy");
-        alert("Text berhasil dicopy");
-    }
+function copy_text() {
+    document.getElementById("pilih").select();
+    document.execCommand("copy");
+    alert("Text berhasil dicopy");
+}
 </script>

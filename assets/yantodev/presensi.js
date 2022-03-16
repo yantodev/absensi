@@ -3,43 +3,23 @@
  * mailto: ekocahyanto007@gmail.com
  * link : http://yantodev.github.io/
  */
-
 let today = new Date();
 var todayIn = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 var year = today.getFullYear();
+var timeNow = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+// var dateNow = today.getFullYear() + '-' + getMonth((today.getMonth() + 1)) + '-' + today.getDate();
+
+// function getMonth(month) {
+//     if (month == 2) {
+//         return "02";
+//     }
+// }
 function tampilkanwaktu() { 
-        var waktu = new Date(); 
-        var sh = waktu.getHours() + "";
-        var sm = waktu.getMinutes() + ""; 
-        var ss = waktu.getSeconds() + "";
-        document.getElementById("clock").innerHTML = (sh.length == 1 ? "0" + sh : sh) + ":" + (sm.length == 1 ? "0" + sm : sm) + ":" + (ss.length == 1 ? "0" + ss : ss);
-}
-      
-function maintenance(nbm) {
-    $.ajax({
-        type:'GET',
-        url: 'js/getDetailsGukar',
-        data: {
-            nbm: nbm,
-        },
-        dataType: 'json',
-                beforeSend: function(e) {
-                    if (e && e.overrideMimeType) {
-                        e.overrideMimeType("application/json;charset=UTF-8");
-                    }
-                },
-        success: function (response) {
-            Swal.fire({
-            icon: 'info',
-            title: `Hai!!!  ${response[0].nama}`,
-            text: 'Untuk sat ini menu ini belum tersedia...',
-            footer: 'Infomasi mlebih lanjut bisa menghubungi developer!'
-    })
-        },
-        error: function (xhr, ajaxOptions) {
-            swal.fire(ajaxOptions, xhr.responseText, "error"); 
-            }
-        });
+    var waktu = new Date(); 
+    var sh = waktu.getHours() + "";
+    var sm = waktu.getMinutes() + ""; 
+    var ss = waktu.getSeconds() + "";
+    document.getElementById("clock").innerHTML = (sh.length == 1 ? "0" + sh : sh) + ":" + (sm.length == 1 ? "0" + sm : sm) + ":" + (ss.length == 1 ? "0" + ss : ss);
 }
 
 function showDataPresensi(noReg) {
@@ -51,11 +31,11 @@ function showDataPresensi(noReg) {
             dateIn: todayIn
         },
         dataType: 'json',
-                beforeSend: function(e) {
-                    if (e && e.overrideMimeType) {
-                        e.overrideMimeType("application/json;charset=UTF-8");
-                    }
-                },
+        beforeSend: function(e) {
+            if (e && e.overrideMimeType) {
+                e.overrideMimeType("application/json;charset=UTF-8");
+            }
+        },
         success: function (response) {
             if (response.length > 0) {
                 document.getElementById("data-presensi-masuk").innerHTML = response[0].time_in
@@ -69,10 +49,10 @@ function showDataPresensi(noReg) {
             swal.fire(ajaxOptions, xhr.responseText, "error"); 
             }
         });
-    
 }
 
 function presensiMasuk(noReg) {
+    console.log(noReg);
     $.ajax({
         type:'GET',
         url: 'js/presensiMasuk',
@@ -92,7 +72,7 @@ function presensiMasuk(noReg) {
                     icon: "warning",
                     title: "Presensi Masuk Gagal!!!",
                     text: "Anda Sudah melakukan presensi",
-                    footer: "Infomasi mlebih lanjut bisa menghubungi guru piket"
+                    footer: "Infomasi lebih lanjut bisa menghubungi guru piket"
                 })
             } else {
                 $.ajax({
@@ -102,38 +82,42 @@ function presensiMasuk(noReg) {
                         nbm: noReg,
                     },
                     dataType: 'json',
-                            beforeSend: function(e) {
+                    beforeSend: function (e) {
                                 if (e && e.overrideMimeType) {
                                     e.overrideMimeType("application/json;charset=UTF-8");
                                 }
                             },
                     success: function (response) {
-                       savePresensiMasuk(response[0].nbm, response[0].nama, response[0].status)
+                        console.log(response);
+                        if(response[0] == undefined) { console.log("user id " + noReg + " tidak ditemukan")}
+                        savePresensiMasuk(response[0].nbm, response[0].nama, response[0].status)
+                        $.ajax({
+                            type: "GET",
+                            url: 'js/getMotivation',
+                            data: { id: today.getDate() },
+                            dataType: 'json',
+                            beforeSend: function (e) {
+                                if (e && e.overrideMimeType) {
+                                    e.overrideMimeType("application/json;charset=UTF-8");
+                                }
+                            },
+                            success: function (response) {
+                                setTimeout(function () {
+                                    window.location.reload(1)
+                                }, 10000);
+                                    Swal.fire({
+                                    icon: "success",
+                                    title: "Presensi Masuk Berhasil!!!",
+                                    text: response[0].motivasi,
+                                    footer: "<p>Jaga Diri dan Keluarga dari Virus Corona Dengan GERMAS.<br/>Info lebih lanjut <a href='https://www.kemenkopmk.go.id/jaga-diri-dan-keluarga-dari-virus-corona-dengan-germas'>Klik Disini</a></p>"
+                                })
+                            }
+                        })
                     },
                     error: function (xhr, ajaxOptions) {
                         swal.fire(ajaxOptions, xhr.responseText, "error"); 
                         }
                     });
-                
-                $.ajax({
-                    type: "GET",
-                    url: 'js/getMotivation',
-                    data: { id: today.getDate() },
-                    dataType: 'json',
-                    beforeSend: function (e) {
-                        if (e && e.overrideMimeType) {
-                            e.overrideMimeType("application/json;charset=UTF-8");
-                        }
-                    },
-                    success: function (response) {
-                            Swal.fire({
-                            icon: "success",
-                            title: "Presensi Masuk Berhasil!!!",
-                            text: response[0].motivasi,
-                            footer: "<p>Jaga Diri dan Keluarga dari Virus Corona Dengan GERMAS.<br/>Info lebih lanjut <a href='https://www.kemenkopmk.go.id/jaga-diri-dan-keluarga-dari-virus-corona-dengan-germas'>Klik Disini</a></p>"
-                        })
-                    }
-                })
             }    
         },
         error: function (xhr, ajaxOptions) {
@@ -164,12 +148,12 @@ function presensiPulang(noReg) {
                     text: "Anda belum melakukan presensi masuk!!",
                     footer: "Infomasi mlebih lanjut bisa menghubungi guru piket"
                 })
-            }else if (response[0].time_out != "00:00:00") {
+            } else if (response[0].time_out != "00:00:00") {
                 Swal.fire({
                     icon: "warning",
                     title: "Presensi Pulang Gagal!!!",
                     text: "Anda Sudah melakukan presensi",
-                    footer: "Infomasi mlebih lanjut bisa menghubungi guru piket"
+                    footer: "Infomasi lebih lanjut bisa menghubungi guru piket"
                 })
             } else {
                 savePresensiPulang(noReg)
@@ -210,13 +194,13 @@ function savePresensiMasuk(nbm, nama, status) {
         type:'POST',
         url: 'js/insert_DH',
         data: {
-            nbm: nbm,
-            nama: nama,
-            bulan: (today.getMonth() + 1),
-            date: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
-            time: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            role_id: status,
-             year : year
+            'nbm': nbm,
+            'nama': nama,
+            'bulan': (today.getMonth() + 1),
+            'date': today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+            'time': today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+            'role_id': status,
+             'year' : year
         },
         error: function(xhr, ajaxOptions, thrownError) { 
             swal.fire(ajaxOptions, xhr.responseText ,"error"); 

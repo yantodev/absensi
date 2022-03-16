@@ -11,7 +11,9 @@
                     SMK MUHAMMADIYAH KARANGMOJO</b>
                 </h3>
             </div>
-            <?= $this->session->flashdata('message'); ?>
+            <div class="flash-data" data-flashauth="<?= $this->session->flashdata('message');?>"></div>
+            <?php if($this->session->flashdata('message')) :?>
+            <?php endif; ?>
             <form method="POST" action="<?= base_url('auth/bk'); ?>">
                 <div class="form-group">
                     <label class="label" for="username">Username</label>

@@ -1,5 +1,5 @@
 <?= $this->session->flashdata('message'); ?>
-<h2>Welcome!</h2>
+<h3 style="color: black" id="notif-event"></h3>
 
 <div class="card mb-3"
     style="background-image:url(<?=base_url("assets/frontend/assets/img/bg-new.jpeg");?>);color:black">
@@ -19,7 +19,7 @@
         </div>
         <div style="text-align: center;" id="button-presensi">
             <button class="btn btn-success" style="margin:15px;padding:10px 18px"
-                onclick="presensiMasuk(<?= $user['no_reg']?>);">MASUK</button>
+                onclick="presensiMasuk(<?= $user['no_reg'];?>);">MASUK</button>
             <button class="btn btn-danger" style="margin:15px;padding:10px 18px"
                 onclick="presensiPulang(<?= $user['no_reg']?>);">PULANG</button>
             <button class="btn btn-info" style="margin:15px;padding:10px 18px"
@@ -41,10 +41,19 @@
                 </table>
             </div>
         </div>
-        <div style="text-align: center; display:flex;justify-content: center">
-            <a href="<?= base_url('guru/absensi') ?>" class="btn btn-primary">
-                <i class="fa fa-book"> Presensi Saya</i>
-            </a>
+        <div style="text-align: center; display:flex;justify-content: center;">
+            <div class="m-2">
+                <a href="<?= base_url('guru/absensi') ?>" class="btn btn-primary">
+                    <i class="fa fa-book"> Presensi Saya</i>
+                </a>
+            </div>
+            <div class="m-2">
+                <a href="<?= base_url('guru/salary'); ?>">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-credit-card"> Struk Gaji</i>
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

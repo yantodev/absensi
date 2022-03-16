@@ -1,11 +1,11 @@
 <style>
-    @page {
-        margin-top: 0.5cm;
-        margin-bottom: 0.5cm;
-        margin-left: 1.0cm;
-        margin-right: 1.0cm;
-        /* background-image: url('assets/img/pi-2020.png'); */
-    }
+@page {
+    margin-top: 0.5cm;
+    margin-bottom: 0.5cm;
+    margin-left: 1.0cm;
+    margin-right: 1.0cm;
+    /* background-image: url('assets/img/pi-2020.png'); */
+}
 </style>
 <img src="<?= base_url('assets/img/kop.png'); ?>">
 <h3 style="text-align: center;">Rekap Jurnal</h3>
@@ -44,13 +44,13 @@
     <tbody>
         <?php $i = 1; ?>
         <?php foreach ($data2 as $d) : ?>
-            <tr>
-                <td valign="top" align="center"><?= $i; ?></td>
-                <td valign="top"><?= $d['time']; ?></td>
-                <td valign="top"><?= $d['kegiatan']; ?></td>
-                <td><img src="<?= base_url('image/jurnal/' . $d['foto']); ?>" width="100px" height="100px"></td>
-            </tr>
-            <?php $i++; ?>
+        <tr>
+            <td valign="top" align="center"><?= $i; ?></td>
+            <td valign="top"><?= $d['time']; ?></td>
+            <td valign="top"><?= $d['kegiatan']; ?></td>
+            <td><img src="<?= base_url('image/jurnal/' . $d['foto']); ?>" width="100px" height="100px"></td>
+        </tr>
+        <?php $i++; ?>
         <?php endforeach; ?>
     </tbody>
 </table>

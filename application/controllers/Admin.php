@@ -24,9 +24,7 @@ class Admin extends CI_Controller
     public function aktivitas()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->Admin_model->aktivitas();
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -37,9 +35,7 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->Admin_model->getDH();
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -50,9 +46,7 @@ class Admin extends CI_Controller
 
     public function profile()
     {
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db ->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'My Profile';
         $this->load->view('admin/wrapper/header', $data);
         $this->load->view('admin/wrapper/sidebar', $data);
@@ -63,25 +57,11 @@ class Admin extends CI_Controller
     public function changepassword()
     {
         $data['title'] = 'Change Password';
-        $data['user'] = $this->db
-            ->get_where('user', ['email' => $this->session->userdata('email')])
-            ->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->form_validation->set_rules(
-            'current_password',
-            'Password lama',
-            'required|trim'
-        );
-        $this->form_validation->set_rules(
-            'password1',
-            'Password baru',
-            'required|trim|min_length[8]|matches[password2]'
-        );
-        $this->form_validation->set_rules(
-            'password2',
-            'Ulangi password',
-            'required|trim|min_length[8]|matches[password1]'
-        );
+        $this->form_validation->set_rules('current_password','Password lama','required|trim');
+        $this->form_validation->set_rules('password1','Password baru','required|trim|min_length[8]|matches[password2]');
+        $this->form_validation->set_rules('password2','Ulangi password','required|trim|min_length[8]|matches[password1]');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('admin/wrapper/header', $data);
@@ -166,7 +146,7 @@ class Admin extends CI_Controller
             $this->Admin_model->edit_absen();
             $this->session->set_flashdata(
                 'message',
-                '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>'
+                'Data Berhasil diupdate!!!'
             );
             redirect('admin/edit_hr/' . $id);
         }
@@ -280,6 +260,8 @@ class Admin extends CI_Controller
         $data['title'] = 'Edit Guru dan Karyawan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['data'] = $this->db->get_where('tbl_gukar', ['id' => $id])->row_array();
+        $status = $this->db->get_where('tbl_gukar', ['id' => $id])->row_array();
+        $data['keterangan'] = $this->db->get_where('tbl_keterangan',['id_ref_status' => $status['status']])->result_array();
 
         $this->form_validation->set_rules('id', 'ID', 'required');
         if ($this->form_validation->run() == false) {
@@ -295,7 +277,7 @@ class Admin extends CI_Controller
         }
     }
 
-      public function hapus_gukar()
+    public function hapus_gukar()
     {
         $id = $this->input->get('id');
         $status = $this->input->get('status');
@@ -318,7 +300,7 @@ class Admin extends CI_Controller
         $this->db->insert('jam_kerja', $data);
         $this->session->set_flashdata(
             'message',
-            '<div class="alert alert-success" role="alert">Data Berhasil diupdate!!!</div>'
+            'Data Berhasil diupdate!!!'
         );
         redirect('admin/jam_kerja');
     }
@@ -955,4 +937,16 @@ class Admin extends CI_Controller
             redirect('admin/jam_kerja?status_id=' . $status);
         }
     }
+
+    public function user_role(){
+        $data['title'] = 'User Role';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['data'] = $this->db->get_where('user',['status_id'=>0,'is_active'=>1])->result_array();
+        $this->load->view('admin/wrapper/header', $data);
+        $this->load->view('admin/wrapper/sidebar', $data);
+        $this->load->view('admin/wrapper/topbar', $data);
+        $this->load->view('admin/user-role', $data);
+        $this->load->view('wrapper/footer');
+    }
+
 }
